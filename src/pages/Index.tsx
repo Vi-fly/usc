@@ -1,14 +1,13 @@
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import GallerySection from "@/components/GallerySection";
-import ExperienceSection from "@/components/ExperienceSection";
-import StoriesSection from "@/components/StoriesSection";
-import MissionSection from "@/components/MissionSection";
-import CommitmentSection from "@/components/CommitmentSection";
-import VisitSection from "@/components/VisitSection";
-import ExploreSection from "@/components/ExploreSection";
 import ContactSection from "@/components/ContactSection";
+import ExperienceSection from "@/components/ExperienceSection";
+import ExploreSection from "@/components/ExploreSection";
 import Footer from "@/components/Footer";
+import GallerySection from "@/components/GallerySection";
+import HeroSection from "@/components/HeroSection";
+import Navbar from "@/components/Navbar";
+import StoriesSection from "@/components/StoriesSection";
+import VideoSection from "@/components/VideoSection";
+import VisitSection from "@/components/VisitSection";
 
 const Index = () => {
   return (
@@ -16,11 +15,10 @@ const Index = () => {
       <Navbar />
       <main>
         <HeroSection />
+        <VideoSection />
         <GallerySection />
         <ExperienceSection />
         <StoriesSection />
-        <MissionSection />
-        <CommitmentSection />
         <VisitSection />
         <ExploreSection />
         <ContactSection />

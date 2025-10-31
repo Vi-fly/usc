@@ -1,22 +1,60 @@
-import ImageGallery from "@/components/ui/image-gallery";
-import { Button } from "@/components/ui/button";
-import { Camera } from "lucide-react";
+import article1 from "@/assets/article-1.jpg";
+import article2 from "@/assets/article-2.jpg";
+import article3 from "@/assets/article-3.jpg";
+import heroSurvival from "@/assets/hero-survival.jpg";
+import mission from "@/assets/mission.jpg";
 import story1 from "@/assets/story-1.jpg";
 import story2 from "@/assets/story-2.jpg";
 import story3 from "@/assets/story-3.jpg";
 import story4 from "@/assets/story-4.jpg";
 import storyMain from "@/assets/story-main.jpg";
-import heroSurvival from "@/assets/hero-survival.jpg";
+import visit from "@/assets/visit.jpg";
+import { Button } from "@/components/ui/button";
+import ImageGallery from "@/components/ui/image-gallery";
+import { Camera } from "lucide-react";
+import { useEffect, useState } from "react";
+
+const allGalleryImages = [
+  story1,
+  story2,
+  story3,
+  story4,
+  storyMain,
+  heroSurvival,
+  article1,
+  article2,
+  article3,
+  visit,
+  mission,
+];
 
 const GallerySection = () => {
-  const galleryImages = [
-    story1,
-    story2,
-    story3,
-    story4,
-    storyMain,
-    heroSurvival,
-  ];
+  const [galleryImages, setGalleryImages] = useState(allGalleryImages);
+
+  useEffect(() => {
+    const updateImages = () => {
+      const width = window.innerWidth;
+      
+      if (width < 640) {
+        // Mobile: show 4 images (2x2 grid)
+        setGalleryImages(allGalleryImages.slice(0, 4));
+      } else if (width < 1024) {
+        // Tablet: show 6 images
+        setGalleryImages(allGalleryImages.slice(0, 6));
+      } else if (width < 1280) {
+        // Small desktop: show 8 images
+        setGalleryImages(allGalleryImages.slice(0, 8));
+      } else {
+        // Large desktop: show all images
+        setGalleryImages(allGalleryImages);
+      }
+    };
+
+    updateImages();
+    window.addEventListener("resize", updateImages);
+    
+    return () => window.removeEventListener("resize", updateImages);
+  }, []);
 
   return (
     <section className="w-full flex flex-col items-center justify-start py-16 bg-background">
@@ -28,7 +66,7 @@ const GallerySection = () => {
         </p>
       </div>
 
-      <div className="w-full max-w-6xl mt-12 px-4">
+      <div className="w-full mt-12 px-2 sm:px-4">
         <ImageGallery images={galleryImages} />
       </div>
 

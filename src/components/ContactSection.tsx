@@ -1,207 +1,218 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone, Send } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useToast } from "@/hooks/use-toast";
-
-const contactSchema = z.object({
-  name: z.string().trim().min(2, { message: "Name must be at least 2 characters" }).max(100, { message: "Name must be less than 100 characters" }),
-  email: z.string().trim().email({ message: "Please enter a valid email address" }).max(255, { message: "Email must be less than 255 characters" }),
-  phone: z.string().trim().optional(),
-  message: z.string().trim().min(10, { message: "Message must be at least 10 characters" }).max(1000, { message: "Message must be less than 1000 characters" })
-});
-
-type ContactFormData = z.infer<typeof contactSchema>;
+import { Calendar, Clock, Facebook, Instagram, Mail, MapPin, MessageCircle, Phone, Sparkles, Twitter } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const ContactSection = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
-  
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema)
-  });
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "Message sent successfully!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    
-    reset();
-    setIsSubmitting(false);
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <section className="relative py-32 overflow-hidden">
-      {/* Animated Background Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/20 to-primary/5">
-        {/* Floating circles animation */}
-        <div className="absolute top-20 left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute top-40 right-20 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: "2s", animationDuration: "4s" }} />
-        <div className="absolute bottom-20 left-1/3 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s", animationDuration: "5s" }} />
+    <section ref={sectionRef} id="contact" className="relative py-32 overflow-hidden">
+      {/* Enhanced Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/30 to-primary/10">
+        {/* Multiple floating orbs with different speeds */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/15 rounded-full blur-3xl animate-float" />
+        <div className="absolute top-40 right-20 w-96 h-96 bg-accent/15 rounded-full blur-3xl animate-float" style={{ animationDelay: "2s", animationDuration: "6s" }} />
+        <div className="absolute bottom-20 left-1/3 w-[500px] h-[500px] bg-primary/8 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s", animationDuration: "8s" }} />
+        <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: "3s", animationDuration: "7s" }} />
         
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-20">
+        {/* Enhanced grid pattern */}
+        <div className="absolute inset-0 opacity-25">
           <div className="absolute inset-0" style={{
             backgroundImage: `linear-gradient(hsl(var(--border)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px',
-            maskImage: 'radial-gradient(ellipse at center, black 20%, transparent 80%)',
-            WebkitMaskImage: 'radial-gradient(ellipse at center, black 20%, transparent 80%)'
+            backgroundSize: '50px 50px',
+            maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 70%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 70%)'
           }} />
+        </div>
+
+        {/* Decorative sparkles */}
+        <div className="absolute top-32 left-1/4 opacity-30">
+          <Sparkles className="w-6 h-6 text-primary animate-pulse" />
+        </div>
+        <div className="absolute bottom-40 right-1/3 opacity-30" style={{ animationDelay: "1s" }}>
+          <Sparkles className="w-5 h-5 text-accent animate-pulse" />
         </div>
       </div>
 
       <div className="container px-6 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16 animate-fade-in-up max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <Mail className="text-primary" size={18} />
-            <span className="text-sm font-semibold text-primary">Get In Touch</span>
+        {/* Enhanced Header */}
+        <div className={`text-center mb-20 max-w-4xl mx-auto transition-all duration-1000 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}>
+          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary/10 border border-primary/20 mb-8 backdrop-blur-sm">
+            <Mail className="text-primary" size={20} />
+            <span className="text-sm font-semibold text-primary">Connect With Us</span>
+            <Sparkles className="text-primary" size={16} />
           </div>
-          <h2 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
-            Start Your <span className="text-primary">Journey</span> Today
+          <h2 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+            Ready to Begin Your <span className="text-primary">Adventure</span>?
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Have questions about our programs? Ready to book your wilderness adventure? We're here to help.
+          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+            Have questions about our programs? Ready to book your wilderness adventure? 
+            <br className="hidden md:block" />
+            Our team is here to guide you every step of the way.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Info */}
-          <div className="space-y-8 animate-fade-in-up">
-            <div className="backdrop-blur-xl bg-card/60 rounded-3xl p-8 border border-border/50 shadow-2xl">
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+        <div className="max-w-6xl mx-auto">
+          {/* Contact Info Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Contact Info Card */}
+            <div className={`lg:col-span-2 backdrop-blur-xl bg-card/80 rounded-3xl p-8 border border-border/50 shadow-2xl transition-all duration-1000 delay-200 ${
+              isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+            }`}>
+              <h3 className="text-2xl font-bold mb-8 flex items-center gap-2">
+                <MessageCircle className="text-primary" size={24} />
+                Get In Touch
+              </h3>
               
               <div className="space-y-6">
-                <div className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <MapPin className="text-primary" size={20} />
+                {/* Location */}
+                <a 
+                  href="https://maps.google.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-4 group p-4 rounded-2xl hover:bg-primary/5 transition-all"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+                    <MapPin className="text-primary" size={24} />
                   </div>
-                  <div>
-                    <p className="font-semibold mb-1">Location</p>
-                    <p className="text-sm text-muted-foreground">Mountain Wilderness Region<br />Northern Territory, USA</p>
+                  <div className="flex-1">
+                    <p className="font-semibold mb-1 text-card-foreground">Location</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">Mountain Wilderness Region<br />Northern Territory, USA</p>
                   </div>
-                </div>
+                </a>
 
-                <div className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <Phone className="text-primary" size={20} />
+                {/* Phone */}
+                <a 
+                  href="tel:+15551234567"
+                  className="flex items-start gap-4 group p-4 rounded-2xl hover:bg-primary/5 transition-all"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+                    <Phone className="text-primary" size={24} />
                   </div>
-                  <div>
-                    <p className="font-semibold mb-1">Phone</p>
-                    <p className="text-sm text-muted-foreground">+1 (555) 123-4567<br />Mon-Fri, 9am-6pm EST</p>
+                  <div className="flex-1">
+                    <p className="font-semibold mb-1 text-card-foreground">Phone</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">+1 (555) 123-4567</p>
                   </div>
-                </div>
+                </a>
 
-                <div className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <Mail className="text-primary" size={20} />
+                {/* Email */}
+                <a 
+                  href="mailto:info@survivalcamp.com"
+                  className="flex items-start gap-4 group p-4 rounded-2xl hover:bg-primary/5 transition-all"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+                    <Mail className="text-primary" size={24} />
                   </div>
-                  <div>
-                    <p className="font-semibold mb-1">Email</p>
-                    <p className="text-sm text-muted-foreground">info@survivalcamp.com<br />support@survivalcamp.com</p>
+                  <div className="flex-1">
+                    <p className="font-semibold mb-1 text-card-foreground">Email</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">info@survivalcamp.com</p>
+                  </div>
+                </a>
+
+                {/* Office Hours */}
+                <div className="flex items-start gap-4 p-4 rounded-2xl bg-accent/5 border border-accent/20">
+                  <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+                    <Clock className="text-accent" size={24} />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold mb-1 text-card-foreground">Office Hours</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">Mon-Fri: 9am-6pm EST<br />Sat: 10am-4pm EST</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Response Time Card */}
-            <div className="backdrop-blur-xl bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20">
-              <p className="text-sm font-semibold text-primary mb-2">⚡ Quick Response</p>
-              <p className="text-sm text-muted-foreground">We typically respond within 24 hours on business days</p>
+            {/* Right Column - Quick Actions & Social Media */}
+            <div className="lg:col-span-1 flex flex-col space-y-6">
+              {/* Quick Action Buttons */}
+              <div className={`backdrop-blur-xl bg-card/80 rounded-3xl p-6 border border-border/50 shadow-xl transition-all duration-1000 delay-300 ${
+                isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+              }`}>
+                <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">Quick Actions</h4>
+                <div className="space-y-3">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start group hover:bg-primary hover:text-primary-foreground"
+                    onClick={() => window.open("tel:+15551234567")}
+                  >
+                    <Phone className="mr-2 group-hover:scale-110 transition-transform" size={18} />
+                    Call Now
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start group hover:bg-primary hover:text-primary-foreground"
+                    onClick={() => window.open("mailto:info@survivalcamp.com")}
+                  >
+                    <Mail className="mr-2 group-hover:scale-110 transition-transform" size={18} />
+                    Send Email
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start group hover:bg-primary hover:text-primary-foreground"
+                    onClick={() => window.open("#", "_blank")}
+                  >
+                    <Calendar className="mr-2 group-hover:scale-110 transition-transform" size={18} />
+                    Book Session
+                  </Button>
+                </div>
+              </div>
+
+              {/* Social Media */}
+              <div className={`backdrop-blur-xl bg-card/80 rounded-3xl p-6 border border-border/50 shadow-xl transition-all duration-1000 delay-400 ${
+                isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+              }`}>
+                <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">Follow Us</h4>
+                <div className="flex gap-3">
+                  <a
+                    href="#"
+                    className="w-12 h-12 rounded-xl bg-primary/10 hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-all group"
+                    aria-label="Facebook"
+                  >
+                    <Facebook className="group-hover:scale-110 transition-transform" size={20} />
+                  </a>
+                  <a
+                    href="#"
+                    className="w-12 h-12 rounded-xl bg-primary/10 hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-all group"
+                    aria-label="Instagram"
+                  >
+                    <Instagram className="group-hover:scale-110 transition-transform" size={20} />
+                  </a>
+                  <a
+                    href="#"
+                    className="w-12 h-12 rounded-xl bg-primary/10 hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-all group"
+                    aria-label="Twitter"
+                  >
+                    <Twitter className="group-hover:scale-110 transition-transform" size={20} />
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-            <form onSubmit={handleSubmit(onSubmit)} className="backdrop-blur-xl bg-card/60 rounded-3xl p-8 border border-border/50 shadow-2xl space-y-6">
-              <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-semibold">
-                  Name <span className="text-destructive">*</span>
-                </label>
-                <Input
-                  id="name"
-                  placeholder="Your full name"
-                  {...register("name")}
-                  className="bg-background/50 border-border/50 focus:border-primary"
-                />
-                {errors.name && (
-                  <p className="text-sm text-destructive">{errors.name.message}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-semibold">
-                  Email <span className="text-destructive">*</span>
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="your.email@example.com"
-                  {...register("email")}
-                  className="bg-background/50 border-border/50 focus:border-primary"
-                />
-                {errors.email && (
-                  <p className="text-sm text-destructive">{errors.email.message}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="phone" className="text-sm font-semibold">
-                  Phone <span className="text-muted-foreground text-xs">(optional)</span>
-                </label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  placeholder="+1 (555) 000-0000"
-                  {...register("phone")}
-                  className="bg-background/50 border-border/50 focus:border-primary"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-semibold">
-                  Message <span className="text-destructive">*</span>
-                </label>
-                <Textarea
-                  id="message"
-                  placeholder="Tell us about your interest in our survival programs..."
-                  rows={5}
-                  {...register("message")}
-                  className="bg-background/50 border-border/50 focus:border-primary resize-none"
-                />
-                {errors.message && (
-                  <p className="text-sm text-destructive">{errors.message.message}</p>
-                )}
-              </div>
-
-              <Button
-                type="submit"
-                size="lg"
-                disabled={isSubmitting}
-                className="w-full rounded-full shadow-lg hover:shadow-xl transition-all group"
-              >
-                {isSubmitting ? (
-                  <>
-                    <span className="animate-pulse">Sending...</span>
-                  </>
-                ) : (
-                  <>
-                    Send Message
-                    <Send className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
-                  </>
-                )}
-              </Button>
-            </form>
           </div>
         </div>
       </div>

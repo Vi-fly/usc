@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Compass, ArrowDown } from "lucide-react";
 import missionImage from "@/assets/mission.jpg";
+import { Button } from "@/components/ui/button";
+import { ArrowDown, Compass } from "lucide-react";
 
 const MissionSection = () => {
   return (

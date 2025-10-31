@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Target, Users, Award, Shield, Heart, Sparkles, Compass } from "lucide-react";
-import Navbar from "@/components/Navbar";
+import CommitmentSection from "@/components/CommitmentSection";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Award, Compass, Heart, Shield, Sparkles, Target, Users } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const About = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -234,6 +235,13 @@ const About = () => {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Our Commitment Section */}
+      <section className="py-24 relative z-10">
+        <div ref={addToRefs} className="opacity-0">
+          <CommitmentSection />
         </div>
       </section>
 
