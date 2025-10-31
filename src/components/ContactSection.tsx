@@ -118,7 +118,7 @@ const ContactSection = () => {
                   <div className="flex-1">
                     <p className="font-semibold mb-1 text-card-foreground">Phone</p>
                     <p className="text-sm text-muted-foreground leading-relaxed">+1 (555) 123-4567</p>
-                  </div>
+                </div>
                 </a>
 
                 {/* Email */}
@@ -180,8 +180,8 @@ const ContactSection = () => {
                     <Calendar className="mr-2 group-hover:scale-110 transition-transform" size={18} />
                     Book Session
                   </Button>
-                </div>
-              </div>
+            </div>
+          </div>
 
               {/* Social Media */}
               <div className={`backdrop-blur-xl bg-card/80 rounded-3xl p-6 border border-border/50 shadow-xl transition-all duration-1000 delay-400 ${
@@ -210,9 +210,9 @@ const ContactSection = () => {
                   >
                     <Twitter className="group-hover:scale-110 transition-transform" size={20} />
                   </a>
-                </div>
               </div>
-            </div>
+              </div>
+              </div>
           </div>
         </div>
       </div>
