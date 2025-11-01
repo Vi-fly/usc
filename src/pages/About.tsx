@@ -1,8 +1,10 @@
+import missionImage from "@/assets/mission.jpg";
 import CommitmentSection from "@/components/CommitmentSection";
 import Footer from "@/components/Footer";
+import GallerySection from "@/components/GallerySection";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Award, Compass, Heart, Shield, Sparkles, Target, Users } from "lucide-react";
+import { ArrowDown, ArrowRight, Award, Compass, Heart, Shield, Sparkles, Users } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const About = () => {
@@ -177,51 +179,58 @@ const About = () => {
               </p>
               
               <p className="text-lg text-muted-foreground leading-relaxed">
-                We believe that spending time in nature isn't just about survival—it's about discovering your strengths, building confidence, and creating lasting memories. Every program we offer is designed to challenge, inspire, and transform our participants.
+                We believe that spending time in nature isn't just about survival—it's about discovering your strengths, building confidence, and creating lasting memories. Every experience we offer is designed to challenge, inspire, and transform our participants.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Our Mission & Values */}
-      <section className="py-24 bg-gradient-to-b from-background to-accent/5 relative z-10 overflow-hidden">
+      {/* Our Mission & Vision - Nuanu Style */}
+      <section className="py-24 bg-background relative z-10 overflow-hidden">
         <div className="container mx-auto px-6">
-          <div ref={addToRefs} className="max-w-5xl mx-auto opacity-0">
-            <div className="flex items-center gap-4 mb-12 justify-center">
-              <div className="h-px w-16 bg-primary" />
-              <span className="text-sm font-medium text-primary uppercase tracking-wider">What Drives Us</span>
-              <div className="h-px w-16 bg-primary" />
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-card rounded-3xl p-8 shadow-lg border border-border hover:shadow-xl transition-shadow">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-primary/10 rounded-2xl">
-                    <Target className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-2xl font-bold">Our Mission</h3>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  To provide transformative outdoor experiences that build confidence, foster resilience, and deepen connections with nature through expert-led wilderness education and survival training.
-                </p>
+          <div ref={addToRefs} className="max-w-6xl mx-auto opacity-0">
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
+              {/* Left Panel - Image */}
+              <div className="relative rounded-3xl overflow-hidden aspect-[4/5] md:aspect-square">
+                <img
+                  src={missionImage}
+                  alt="Ultimate Survival Campsite"
+                  className="w-full h-full object-cover"
+                />
               </div>
 
-              <div className="bg-card rounded-3xl p-8 shadow-lg border border-border hover:shadow-xl transition-shadow">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-accent/20 rounded-2xl">
-                    <Heart className="w-8 h-8 text-accent" />
-                  </div>
-                  <h3 className="text-2xl font-bold">Our Vision</h3>
+              {/* Right Panel - Text Content */}
+              <div className="space-y-6">
+                {/* Heading with decorative icon */}
+                <div className="flex items-center gap-3">
+                  <Sparkles className="w-6 h-6 text-primary" />
+                  <h2 className="text-3xl md:text-4xl font-bold">Our Mission and Vision</h2>
                 </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  To create a world where everyone has the skills, confidence, and respect for nature needed to thrive in the great outdoors, fostering a community of mindful adventurers.
-                </p>
+
+                {/* Mission & Vision Text */}
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    At Ultimate Survival Campsite, we believe in the power of nature, discipline, and community to transform the way people live and grow. Our mission is to create a self-sustaining ecosystem where people can pause, breathe, and rebuild their inner strength - physically, mentally, and emotionally.
+                  </p>
+                  <p>
+                    We envision a world where people live in rhythm with the earth - grounded in simplicity, guided by resilience, and connected through shared experiences. Through nature-based learning, mindful living, and the wisdom of disciplined living, we strive to help every person rediscover balance, not as an escape from life, but as a way of living it fully.
+                  </p>
+                </div>
+
+                {/* CTA Button */}
+                <Button
+                  size="lg"
+                  className="rounded-full bg-foreground text-background hover:bg-foreground/90 border-0 group mt-4"
+                >
+                  Discover our initiatives
+                  <ArrowDown className="ml-2 group-hover:translate-y-1 transition-transform" size={18} />
+                </Button>
               </div>
             </div>
 
             {/* Core Values */}
-            <div className="grid md:grid-cols-4 gap-6 mt-12">
+            <div className="grid md:grid-cols-4 gap-6 mt-16">
               {[
                 { icon: Shield, label: "Safety First", color: "text-primary" },
                 { icon: Users, label: "Community", color: "text-accent" },
@@ -245,6 +254,13 @@ const About = () => {
         </div>
       </section>
 
+      {/* Our Latest Adventures Section */}
+      <section className="py-24 relative z-10">
+        <div ref={addToRefs} className="opacity-0">
+          <GallerySection />
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="py-24 relative z-10 overflow-hidden">        
         <div className="container mx-auto px-6 relative z-10">
@@ -259,7 +275,7 @@ const About = () => {
                   { number: "10+", label: "Years Experience", emoji: "🎯" },
                   { number: "5000+", label: "Happy Campers", emoji: "😊" },
                   { number: "50+", label: "Expert Instructors", emoji: "👨‍🏫" },
-                  { number: "100+", label: "Programs Offered", emoji: "⛺" }
+                  { number: "100+", label: "Experiences Offered", emoji: "⛺" }
                 ].map((stat, idx) => (
                   <div key={idx} className="text-center">
                     <div className="text-4xl mb-3">{stat.emoji}</div>
@@ -296,8 +312,8 @@ const About = () => {
                   emoji: "🛡️"
                 },
                 {
-                  title: "Comprehensive Programs",
-                  description: "From beginner-friendly introductions to advanced wilderness skills, we offer programs for all ages and experience levels throughout the year.",
+                  title: "Comprehensive Experiences",
+                  description: "From beginner-friendly introductions to advanced wilderness skills, we offer experiences for all ages and experience levels throughout the year.",
                   emoji: "📚"
                 },
                 {
@@ -335,11 +351,11 @@ const About = () => {
             </h2>
             
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Whether you're a complete beginner or an experienced outdoors enthusiast, we have the perfect program waiting for you.
+              Whether you're a complete beginner or an experienced outdoors enthusiast, we have the perfect experience waiting for you.
             </p>
             
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg group">
-              Explore Our Programs
+              Explore Our Experiences
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
 

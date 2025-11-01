@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Twitter, Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -13,8 +13,8 @@ const Footer = () => {
 
             {/* Navigation Links */}
             <nav className="flex flex-wrap items-center justify-center gap-6 text-sm text-background/70">
-              <a href="#programs" className="hover:text-background transition-colors">
-                Programs
+              <a href="#experiences" className="hover:text-background transition-colors">
+                Experiences
               </a>
               <a href="#skills" className="hover:text-background transition-colors">
                 Skills

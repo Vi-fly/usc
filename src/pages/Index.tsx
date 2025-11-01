@@ -2,8 +2,8 @@ import ContactSection from "@/components/ContactSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ExploreSection from "@/components/ExploreSection";
 import Footer from "@/components/Footer";
-import GallerySection from "@/components/GallerySection";
 import HeroSection from "@/components/HeroSection";
+import MissionVisionSection from "@/components/MissionVisionSection";
 import Navbar from "@/components/Navbar";
 import StoriesSection from "@/components/StoriesSection";
 import VideoSection from "@/components/VideoSection";
@@ -16,9 +16,9 @@ const Index = () => {
       <main>
         <HeroSection />
         <VideoSection />
-        <GallerySection />
-        <ExperienceSection />
         <StoriesSection />
+        <MissionVisionSection />
+        <ExperienceSection />
         <VisitSection />
         <ExploreSection />
         <ContactSection />

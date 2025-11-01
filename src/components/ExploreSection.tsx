@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Calendar } from "lucide-react";
 import article1 from "@/assets/article-1.jpg";
 import article2 from "@/assets/article-2.jpg";
 import article3 from "@/assets/article-3.jpg";
+import { Button } from "@/components/ui/button";
+import { ArrowUpRight, Calendar } from "lucide-react";
 
 const ExploreSection = () => {
   const articles = [
@@ -38,14 +38,14 @@ const ExploreSection = () => {
               size="lg"
               className="bg-foreground text-background hover:bg-foreground/90 rounded-full px-8 group"
             >
-              See all programs
+              See all experiences
               <ArrowUpRight className="ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Button>
           </div>
 
           <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Discover upcoming training programs, immersive wilderness experiences, and special
+              Discover upcoming training experiences, immersive wilderness experiences, and special
               events designed to challenge and transform you.
             </p>
           </div>

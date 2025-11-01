@@ -72,7 +72,7 @@ const ContactSection = () => {
             Ready to Begin Your <span className="text-primary">Adventure</span>?
           </h2>
           <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
-            Have questions about our programs? Ready to book your wilderness adventure? 
+            Have questions about our experiences? Ready to book your wilderness adventure? 
             <br className="hidden md:block" />
             Our team is here to guide you every step of the way.
           </p>

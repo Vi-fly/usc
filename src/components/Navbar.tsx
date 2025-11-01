@@ -1,10 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+
+// Helper function to scroll to top
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "instant" as ScrollBehavior,
+  });
+};
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,11 +25,16 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Scroll to top when route changes
+  useEffect(() => {
+    scrollToTop();
+  }, [location.pathname]);
+
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Programs", href: "#programs" },
-    { name: "Skills", href: "#skills" },
-    { name: "Training", href: "#training" },
+    { name: "Experiences", href: "/experiences" },
+    { name: "Stay", href: "/stay" },
+    { name: "Gallery", href: "/gallery" },
     { name: "Events", href: "#events" },
     { name: "About", href: "/about" },
   ];
@@ -38,7 +54,7 @@ const Navbar = () => {
       >
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex items-center space-x-2 group">
+          <Link to="/" onClick={scrollToTop} className="flex items-center space-x-2 group">
             <div className={`text-2xl font-bold tracking-tight transition-colors ${
               isScrolled 
                 ? "text-foreground group-hover:text-primary" 
@@ -46,23 +62,39 @@ const Navbar = () => {
             }`}>
               Ultimate Survival Camp
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`text-sm font-medium transition-colors relative group ${
-                  isScrolled 
-                    ? "text-foreground/80 hover:text-primary" 
-                    : "text-white/90 hover:text-primary"
-                }`}
-              >
-                {link.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-              </a>
+              link.href.startsWith('/') ? (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  onClick={scrollToTop}
+                  className={`text-sm font-medium transition-colors relative group ${
+                    isScrolled 
+                      ? "text-foreground/80 hover:text-primary" 
+                      : "text-white/90 hover:text-primary"
+                  }`}
+                >
+                  {link.name}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={`text-sm font-medium transition-colors relative group ${
+                    isScrolled 
+                      ? "text-foreground/80 hover:text-primary" 
+                      : "text-white/90 hover:text-primary"
+                  }`}
+                >
+                  {link.name}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+                </a>
+              )
             ))}
           </div>
 
@@ -98,16 +130,32 @@ const Navbar = () => {
           }`}>
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className={`hover:text-primary transition-colors py-2 ${
-                    isScrolled ? "text-foreground" : "text-white"
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
+                link.href.startsWith('/') ? (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className={`hover:text-primary transition-colors py-2 ${
+                      isScrolled ? "text-foreground" : "text-white"
+                    }`}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      scrollToTop();
+                    }}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className={`hover:text-primary transition-colors py-2 ${
+                      isScrolled ? "text-foreground" : "text-white"
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
               <Button 
                 variant="outline" 
