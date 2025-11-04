@@ -1,18 +1,36 @@
-import heroImage from "@/assets/hero-survival.jpg";
+import bgVideo from "@/assets/bg_vdeo.mp4";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 
 const HeroSection = () => {
+  // Using local video file for reliable autoplay and loop
+  const videoUrl = bgVideo;
+
   return (
     <section id="home" className="pt-3 px-3 pb-12">
       <div className="relative min-h-[90vh] flex items-center justify-center overflow-hidden rounded-3xl">
-        {/* Background Image with Overlay */}
+        {/* Background Video with Overlay */}
         <div className="absolute inset-0 z-0 rounded-3xl overflow-hidden">
-          <img
-            src={heroImage}
-            alt="Survival Camp"
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-full object-cover"
-          />
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              width: "100%",
+              height: "100%",
+              transform: "translate(-50%, -50%) scale(1.1)",
+              minWidth: "100%",
+              minHeight: "100%",
+            }}
+          >
+            <source src={videoUrl} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
           <div className="absolute inset-0 bg-gradient-to-br from-forest-dark/90 via-earth-dark/85 to-forest-medium/80" />
         </div>
 

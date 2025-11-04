@@ -1,3 +1,4 @@
+import introVideo from "@/assets/intro.MP4";
 import { useEffect, useRef, useState } from "react";
 
 const VideoSection = () => {
@@ -50,6 +51,7 @@ const VideoSection = () => {
       }
     };
   }, []);
+
 
   // Calculate parallax effect
   const getParallaxOffset = () => {
@@ -104,9 +106,10 @@ const VideoSection = () => {
             loop
             playsInline
             controls
+            preload="auto"
           >
             <source
-              src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+              src={introVideo}
               type="video/mp4"
             />
             Your browser does not support the video tag.
