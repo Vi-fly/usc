@@ -1,4 +1,4 @@
-import anujImage from "@/assets/Anuj.PNG";
+import anujImage from "@/assets/Anuj.PNG?url";
 import karmaImage from "@/assets/Karma.jpeg";
 import priyanshuImage from "@/assets/Priyanshu.JPG";
 import vishalImage from "@/assets/Vishal.JPG";

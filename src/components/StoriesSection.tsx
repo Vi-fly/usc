@@ -20,7 +20,7 @@ const StoriesSection = () => {
               </h2>
               <Link to="/gallery">
                 <Button
-                  size="md"
+                  size="lg"
                   className="rounded-full bg-foreground text-background hover:bg-foreground/90 border-0 group px-5 py-2"
                 >
                   <Camera className="mr-2 group-hover:scale-110 transition-transform" size={16} />
