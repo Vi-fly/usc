@@ -1,4 +1,4 @@
-import introVideo from "@/assets/intro.MP4";
+import introVideo from "@/assets/intro.MP4?url";
 import { useEffect, useRef, useState } from "react";
 
 const VideoSection = () => {
