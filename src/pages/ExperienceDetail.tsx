@@ -1,3 +1,4 @@
+import CustomExperienceForm from "@/components/CustomExperienceForm";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
@@ -110,21 +111,19 @@ const ExperienceDetail = () => {
       {/* Content Section */}
       <section className="py-24 relative z-10">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-12">
-            {/* Main Content */}
-            <div className="md:col-span-2 space-y-12">
-              {experience.fullDescription && (
-                <div ref={addToRefs} className="opacity-0">
-                  <h2 className="text-3xl font-bold mb-6">About This Experience</h2>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    {experience.fullDescription}
-                  </p>
-                </div>
-              )}
-
+          {experience.isCustom ? (
+            // Custom Experience Form
+            <div className="max-w-4xl mx-auto">
+              <div ref={addToRefs} className="opacity-0 mb-8">
+                <h2 className="text-3xl font-bold mb-4">About This Experience</h2>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                  {experience.fullDescription}
+                </p>
+              </div>
+              
               {experience.highlights && experience.highlights.length > 0 && (
-                <div ref={addToRefs} className="opacity-0">
-                  <h2 className="text-3xl font-bold mb-6">Highlights</h2>
+                <div ref={addToRefs} className="opacity-0 mb-12">
+                  <h2 className="text-3xl font-bold mb-6">What You Can Customize</h2>
                   <div className="grid md:grid-cols-2 gap-4">
                     {experience.highlights.map((highlight, idx) => (
                       <div key={idx} className="flex items-start gap-3">
@@ -135,69 +134,102 @@ const ExperienceDetail = () => {
                   </div>
                 </div>
               )}
+
+              <div ref={addToRefs} className="opacity-0">
+                <CustomExperienceForm />
+              </div>
             </div>
-
-            {/* Sidebar */}
-            <div className="md:col-span-1">
-              <div className="sticky top-24 space-y-6">
-                <div className="bg-card rounded-2xl p-6 border border-border shadow-lg">
-                  <h3 className="text-xl font-bold mb-6">Experience Details</h3>
-                  
-                  <div className="space-y-4">
-                    {experience.duration && (
-                      <div className="flex items-center gap-3">
-                        <Clock className="w-5 h-5 text-primary" />
-                        <div>
-                          <p className="text-sm text-muted-foreground">Duration</p>
-                          <p className="font-semibold">{experience.duration}</p>
-                        </div>
-                      </div>
-                    )}
-                    
-                    {experience.price && (
-                      <div className="flex items-center gap-3">
-                        <Calendar className="w-5 h-5 text-primary" />
-                        <div>
-                          <p className="text-sm text-muted-foreground">Price</p>
-                          <p className="font-semibold">{experience.price}</p>
-                        </div>
-                      </div>
-                    )}
-                    
-                    <div className="flex items-center gap-3">
-                      <Users className="w-5 h-5 text-primary" />
-                      <div>
-                        <p className="text-sm text-muted-foreground">Category</p>
-                        <p className="font-semibold">{experience.category}</p>
-                      </div>
-                    </div>
+          ) : (
+            // Regular Experience Details
+            <div className="grid md:grid-cols-3 gap-12">
+              {/* Main Content */}
+              <div className="md:col-span-2 space-y-12">
+                {experience.fullDescription && (
+                  <div ref={addToRefs} className="opacity-0">
+                    <h2 className="text-3xl font-bold mb-6">About This Experience</h2>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      {experience.fullDescription}
+                    </p>
                   </div>
+                )}
 
-                  <Button
-                    size="lg"
-                    className="w-full mt-6 bg-primary hover:bg-primary/90 text-primary-foreground"
-                  >
-                    Book This Experience
-                    <ArrowRight className="ml-2" />
-                  </Button>
-                </div>
-
-                {experience.includes && experience.includes.length > 0 && (
-                  <div className="bg-card rounded-2xl p-6 border border-border shadow-lg">
-                    <h3 className="text-xl font-bold mb-4">What's Included</h3>
-                    <ul className="space-y-3">
-                      {experience.includes.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <CheckCircle className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                          <span className="text-sm text-muted-foreground">{item}</span>
-                        </li>
+                {experience.highlights && experience.highlights.length > 0 && (
+                  <div ref={addToRefs} className="opacity-0">
+                    <h2 className="text-3xl font-bold mb-6">Highlights</h2>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {experience.highlights.map((highlight, idx) => (
+                        <div key={idx} className="flex items-start gap-3">
+                          <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                          <span className="text-muted-foreground">{highlight}</span>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 )}
               </div>
+
+              {/* Sidebar */}
+              <div className="md:col-span-1">
+                <div className="sticky top-24 space-y-6">
+                  <div className="bg-card rounded-2xl p-6 border border-border shadow-lg">
+                    <h3 className="text-xl font-bold mb-6">Experience Details</h3>
+                    
+                    <div className="space-y-4">
+                      {experience.duration && (
+                        <div className="flex items-center gap-3">
+                          <Clock className="w-5 h-5 text-primary" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Duration</p>
+                            <p className="font-semibold">{experience.duration}</p>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {experience.price && (
+                        <div className="flex items-center gap-3">
+                          <Calendar className="w-5 h-5 text-primary" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Price</p>
+                            <p className="font-semibold">{experience.price}</p>
+                          </div>
+                        </div>
+                      )}
+                      
+                      <div className="flex items-center gap-3">
+                        <Users className="w-5 h-5 text-primary" />
+                        <div>
+                          <p className="text-sm text-muted-foreground">Category</p>
+                          <p className="font-semibold">{experience.category}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Button
+                      size="lg"
+                      className="w-full mt-6 bg-primary hover:bg-primary/90 text-primary-foreground"
+                    >
+                      Book This Experience
+                      <ArrowRight className="ml-2" />
+                    </Button>
+                  </div>
+
+                  {experience.includes && experience.includes.length > 0 && (
+                    <div className="bg-card rounded-2xl p-6 border border-border shadow-lg">
+                      <h3 className="text-xl font-bold mb-4">What's Included</h3>
+                      <ul className="space-y-3">
+                        {experience.includes.map((item, idx) => (
+                          <li key={idx} className="flex items-start gap-3">
+                            <CheckCircle className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                            <span className="text-sm text-muted-foreground">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

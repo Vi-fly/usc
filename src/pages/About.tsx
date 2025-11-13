@@ -141,7 +141,7 @@ const About = () => {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-            Ultimate Survival Camp
+            Ultimate Survival Campsite
             <span className="block text-primary mt-2">Where Adventure Meets Growth</span>
           </h1>
           
@@ -175,7 +175,7 @@ const About = () => {
             
             <div className="bg-card rounded-3xl p-8 md:p-12 shadow-lg border border-border">
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                Founded in 2015 by a group of outdoor enthusiasts and survival experts, Ultimate Survival Camp began with a simple mission: to reconnect people with nature and equip them with essential wilderness skills. What started as weekend workshops has grown into a comprehensive outdoor education center serving thousands of adventurers each year.
+                Founded in 2015 by a group of outdoor enthusiasts and survival experts, Ultimate Survival Campsite began with a simple mission: to reconnect people with nature and equip them with essential wilderness skills. What started as weekend workshops has grown into a comprehensive outdoor education center serving thousands of adventurers each year.
               </p>
               
               <p className="text-lg text-muted-foreground leading-relaxed">

@@ -60,7 +60,7 @@ const Navbar = () => {
                 ? "text-foreground group-hover:text-primary" 
                 : "text-white group-hover:text-primary"
             }`}>
-              Ultimate Survival Camp
+              Ultimate Survival Campsite
             </div>
           </Link>
 
@@ -108,7 +108,7 @@ const Navbar = () => {
                   : "!border-white !text-white bg-transparent hover:!bg-white hover:!text-background"
               }`}
             >
-              Book Camp
+              Book Campsite
             </Button>
           </div>
 
@@ -125,18 +125,14 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className={`md:hidden mt-6 pb-6 animate-fade-in ${
-            isScrolled ? "" : "bg-background/10 rounded-2xl p-4"
-          }`}>
+          <div className="md:hidden mt-6 pb-6 animate-fade-in bg-background rounded-2xl p-4 border border-border/50 shadow-lg">
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
                 link.href.startsWith('/') ? (
                   <Link
                     key={link.name}
                     to={link.href}
-                    className={`hover:text-primary transition-colors py-2 ${
-                      isScrolled ? "text-foreground" : "text-white"
-                    }`}
+                    className="hover:text-primary transition-colors py-2 text-foreground"
                     onClick={() => {
                       setIsMobileMenuOpen(false);
                       scrollToTop();
@@ -148,9 +144,7 @@ const Navbar = () => {
                   <a
                     key={link.name}
                     href={link.href}
-                    className={`hover:text-primary transition-colors py-2 ${
-                      isScrolled ? "text-foreground" : "text-white"
-                    }`}
+                    className="hover:text-primary transition-colors py-2 text-foreground"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.name}
@@ -159,13 +153,9 @@ const Navbar = () => {
               ))}
               <Button 
                 variant="outline" 
-                className={`border-2 mt-4 ${
-                  isScrolled 
-                    ? "border-foreground text-foreground bg-background" 
-                    : "!border-white !text-white bg-transparent hover:!bg-white hover:!text-background"
-                }`}
+                className="border-2 mt-4 border-foreground text-foreground bg-background hover:bg-foreground hover:text-background"
               >
-                Book Camp
+                Book Campsite
               </Button>
             </div>
           </div>

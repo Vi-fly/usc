@@ -30,7 +30,7 @@ const StoriesSection = () => {
             </div>
             <div className="flex items-start">
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed text-left md:text-right">
-                Explore the enchanting spaces of our survival camp, crafted to inspire your imagination. 
+                Explore the enchanting spaces of our survival campsite, crafted to inspire your imagination. 
                 From awe-inspiring wilderness experiences dream, create, and connect.
               </p>
             </div>

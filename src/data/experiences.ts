@@ -8,7 +8,7 @@ import story2 from "@/assets/story-2.jpg";
 import story3 from "@/assets/story-3.jpg";
 import story4 from "@/assets/story-4.jpg";
 import visit from "@/assets/visit.jpg";
-import { Building2, Calendar, GraduationCap, Heart, LucideIcon, Mountain, Sparkles, TreePine, Users, Waves } from "lucide-react";
+import { Building2, Calendar, GraduationCap, Heart, LucideIcon, Mountain, Sparkles, TreePine, Users, Waves, WifiOff, PenTool, Footprints, Baby } from "lucide-react";
 
 export interface Experience {
   id: string;
@@ -22,6 +22,7 @@ export interface Experience {
   price?: string;
   includes?: string[];
   highlights?: string[];
+  isCustom?: boolean; // For custom experience form
 }
 
 // Image array for distribution
@@ -36,204 +37,130 @@ const generateSlug = (title: string): string => {
 };
 
 export const experiences: Experience[] = [
+  // ========== ADVENTURE CATEGORY ==========
   {
-    id: "brave-hearts-kids-camp",
-    icon: GraduationCap,
-    title: "Brave Hearts Kids Camp (For School)",
-    category: "Education",
-    description: "An empowering camp designed specifically for school children to build confidence, teamwork, and outdoor skills.",
-    image: experienceImages[0],
-    fullDescription: "Brave Hearts Kids Camp is a comprehensive outdoor education program designed to empower school children through adventure and learning. Our carefully structured activities combine wilderness skills, team-building exercises, and environmental education to create a transformative experience for young minds.",
-    duration: "3-5 Days",
-    price: "Starting from ₹3,500",
+    id: "water-sports-karma",
+    icon: Waves,
+    title: "Water Sports with Karma",
+    category: "Adventure",
+    description: "Thrilling water sports adventures including rafting, kayaking, and more on the pristine waters with Karma.",
+    image: experienceImages[8],
+    fullDescription: "Experience the ultimate water sports adventure with Karma. Navigate through exciting rapids, enjoy kayaking sessions, and participate in various water-based activities. Our certified guides ensure safety while you enjoy the thrill of water sports in beautiful natural settings.",
+    duration: "2-3 Days",
+    price: "Starting from ₹6,500",
     includes: [
-      "Accommodation in safe, supervised camp setting",
-      "All meals (nutritious and balanced)",
-      "Certified instructors and safety equipment",
-      "Educational activities and workshops",
-      "Transportation from designated pickup points"
-    ],
-    highlights: [
-      "Age-appropriate outdoor activities",
-      "Leadership and confidence building",
-      "Nature exploration and environmental awareness",
-      "Safe and supervised environment",
-      "Skills certification upon completion"
-    ]
-  },
-  {
-    id: "self-discovery-retreat",
-    icon: Sparkles,
-    title: "Self-Discovery Retreat (Higher secondary + College)",
-    category: "Retreat",
-    description: "A transformative experience for students to explore their potential, build resilience, and discover their inner strength.",
-    image: experienceImages[1],
-    fullDescription: "The Self-Discovery Retreat is designed for students transitioning to higher education. Through meditation, reflective exercises, and outdoor challenges, participants gain clarity about their goals, build emotional resilience, and develop essential life skills for personal and academic success.",
-    duration: "5-7 Days",
-    price: "Starting from ₹8,500",
-    includes: [
-      "Lodging in comfortable retreat setting",
-      "All meals (vegetarian and non-vegetarian options)",
-      "Workshops on goal setting and personal development",
-      "Meditation and mindfulness sessions",
-      "One-on-one counseling sessions"
-    ],
-    highlights: [
-      "Personal growth workshops",
-      "Leadership development",
-      "Stress management techniques",
-      "Career guidance sessions",
-      "Lifetime network of like-minded peers"
-    ]
-  },
-  {
-    id: "creators-reset-retreat",
-    icon: Heart,
-    title: "Creator's Reset Retreat",
-    category: "Retreat",
-    description: "A creative space for artists and creators to recharge, find inspiration, and reconnect with their creative spirit in nature.",
-    image: experienceImages[2],
-    fullDescription: "Specifically curated for artists, writers, designers, and creative professionals, this retreat offers a sanctuary away from daily distractions. Immerse yourself in nature, engage in creative workshops, and rediscover your artistic voice through guided sessions and unstructured creative time.",
-    duration: "4-6 Days",
-    price: "Starting from ₹12,000",
-    includes: [
-      "Artist-friendly accommodations with workspace",
-      "Organic farm-to-table meals",
-      "Creative workshops and skill sessions",
-      "Individual and group critique sessions",
-      "Materials and supplies for creative projects"
-    ],
-    highlights: [
-      "Dedicated creative workspaces",
-      "Inspirational natural surroundings",
-      "Networking with fellow creators",
-      "Portfolio development guidance",
-      "Yoga and meditation for creative wellness"
-    ]
-  },
-  {
-    id: "farm-detox-retreat",
-    icon: TreePine,
-    title: "Farm Detox Retreat",
-    category: "Wellness",
-    description: "Experience sustainable farming practices while detoxifying your body and mind through farm-to-table living.",
-    image: experienceImages[3],
-    fullDescription: "Reconnect with the earth through hands-on farming experience. Learn permaculture principles, participate in organic farming, and enjoy fresh, chemical-free meals prepared from what you harvest. This retreat combines physical activity, healthy eating, and mindfulness practices for complete wellness.",
-    duration: "7-10 Days",
-    price: "Starting from ₹15,000",
-    includes: [
-      "Farm stay accommodations",
-      "100% organic, farm-to-table meals",
-      "Daily farming activities and workshops",
-      "Yoga and meditation sessions",
-      "Nature walks and farm tours"
-    ],
-    highlights: [
-      "Learn sustainable farming techniques",
-      "Hands-on permaculture training",
-      "Chemical-free, organic produce",
-      "Physical detox through natural activities",
-      "Mindful eating practices"
-    ]
-  },
-  {
-    id: "military-survival-training",
-    icon: Mountain,
-    title: "Military Survival Training Camp",
-    category: "Training",
-    description: "Intensive survival training program designed for those seeking advanced wilderness skills and mental toughness.",
-    image: experienceImages[4],
-    fullDescription: "Develop elite-level survival skills through rigorous training designed by former military personnel. Learn advanced navigation, emergency shelter construction, fire-making in adverse conditions, water sourcing and purification, and mental resilience techniques used by special forces.",
-    duration: "10-14 Days",
-    price: "Starting from ₹25,000",
-    includes: [
-      "Tactical training equipment",
-      "Meals and rations",
-      "Certified military instructors",
-      "Comprehensive survival manual",
-      "Certification upon completion"
-    ],
-    highlights: [
-      "Military-grade survival techniques",
-      "Stress inoculation training",
-      "Advanced navigation and orienteering",
-      "Emergency medical procedures",
-      "Leadership and team coordination"
-    ]
-  },
-  {
-    id: "sustainable-farming-workshop",
-    icon: TreePine,
-    title: "Sustainable Farming Workshop / Permaculture",
-    category: "Workshop",
-    description: "Learn sustainable farming techniques and permaculture principles to create self-sustaining ecosystems.",
-    image: experienceImages[5],
-    fullDescription: "A comprehensive workshop on sustainable agriculture and permaculture design. Learn to create self-sustaining food systems, understand soil health, water management, and integrate permaculture principles into your own farming or gardening practices.",
-    duration: "5-7 Days",
-    price: "Starting from ₹10,000",
-    includes: [
-      "Accommodation and meals",
-      "Workshop materials and tools",
-      "Take-home permaculture design manual",
-      "Hands-on practice sessions",
-      "Certificate of completion"
-    ],
-    highlights: [
-      "Permaculture design principles",
-      "Soil regeneration techniques",
-      "Water harvesting and management",
-      "Companion planting strategies",
-      "Creating food forests"
-    ]
-  },
-  {
-    id: "spiritual-himalayan-retreat",
-    icon: Mountain,
-    title: "Spiritual Himalayan Retreat",
-    category: "Retreat",
-    description: "A serene journey into the Himalayas for spiritual growth, meditation, and inner peace.",
-    image: experienceImages[6],
-    fullDescription: "Embark on a spiritual journey in the serene Himalayan mountains. This retreat combines meditation, yoga, spiritual teachings, and nature immersion to help you find inner peace and reconnect with your true self in the majestic beauty of the Himalayas.",
-    duration: "7-10 Days",
-    price: "Starting from ₹18,000",
-    includes: [
-      "Mountain lodge accommodations",
-      "Vegetarian meals",
-      "Daily meditation and yoga sessions",
-      "Spiritual guidance and teachings",
-      "Guided mountain walks"
-    ],
-    highlights: [
-      "Authentic spiritual practices",
-      "Breathtaking Himalayan scenery",
-      "Experienced spiritual guides",
-      "Silent meditation sessions",
-      "Personal transformation journey"
-    ]
-  },
-  {
-    id: "temple-tour-camp-stay",
-    icon: Calendar,
-    title: "Temple Tour + Camp Stay Package (Jwalamukhi, Baglamukhi, Chamunda Devi)",
-    category: "Experience",
-    description: "Combine spiritual exploration with outdoor adventure through visits to sacred temples and camping experiences.",
-    image: experienceImages[7],
-    fullDescription: "A unique combination of spiritual exploration and outdoor adventure. Visit ancient temples including Jwalamukhi, Baglamukhi, and Chamunda Devi, followed by camping experiences that allow you to connect with nature while exploring the rich spiritual heritage of the region.",
-    duration: "4-6 Days",
-    price: "Starting from ₹9,500",
-    includes: [
-      "Temple visits and guided tours",
-      "Camping accommodations",
+      "All water sports equipment and safety gear",
+      "Certified water sports instructors",
+      "Accommodation",
       "All meals",
-      "Transportation between locations",
-      "Cultural immersion activities"
+      "Adventure photography"
     ],
     highlights: [
-      "Visit three sacred temples",
-      "Camping under the stars",
-      "Cultural and spiritual learning",
-      "Beautiful temple architecture",
-      "Community bonding experiences"
+      "White-water rafting",
+      "Kayaking sessions",
+      "Professional safety standards",
+      "Beautiful river scenery",
+      "Experienced guides"
+    ]
+  },
+  {
+    id: "day-hike-kakar-ludi",
+    icon: Footprints,
+    title: "Day Hike - Kakar Ludi",
+    category: "Adventure",
+    description: "Scenic day hike to Kakar Ludi, offering breathtaking views and a perfect introduction to mountain trekking.",
+    image: experienceImages[0],
+    fullDescription: "Embark on a beautiful day hike to Kakar Ludi, a scenic destination perfect for beginners and experienced hikers alike. Enjoy stunning mountain vistas, diverse flora and fauna, and the satisfaction of reaching a beautiful summit. This day hike is ideal for those looking to experience the mountains without committing to a multi-day trek.",
+    duration: "1 Day",
+    price: "Starting from ₹2,500",
+    includes: [
+      "Experienced trekking guide",
+      "Basic trekking equipment",
+      "Lunch and refreshments",
+      "Transportation to trailhead",
+      "First aid support"
+    ],
+    highlights: [
+      "Breathtaking mountain views",
+      "Moderate difficulty level",
+      "Rich biodiversity",
+      "Perfect for beginners",
+      "Photography opportunities"
+    ]
+  },
+  {
+    id: "day-hike-kala-bhuu",
+    icon: Footprints,
+    title: "Day Hike - Kala Bhuu",
+    category: "Adventure",
+    description: "Challenging day hike to Kala Bhuu, featuring diverse terrain and spectacular panoramic views.",
+    image: experienceImages[1],
+    fullDescription: "Challenge yourself with a day hike to Kala Bhuu, known for its diverse terrain and spectacular views. This moderately challenging hike takes you through forests, meadows, and rocky sections, offering a complete mountain experience in a single day.",
+    duration: "1 Day",
+    price: "Starting from ₹2,800",
+    includes: [
+      "Experienced trekking guide",
+      "Trekking poles and basic equipment",
+      "Lunch and refreshments",
+      "Transportation to trailhead",
+      "First aid and safety support"
+    ],
+    highlights: [
+      "Diverse terrain and landscapes",
+      "Moderate to challenging difficulty",
+      "Panoramic mountain views",
+      "Rich natural environment",
+      "Great for fitness enthusiasts"
+    ]
+  },
+  {
+    id: "day-hike-raj-mahal",
+    icon: Footprints,
+    title: "Day Hike - Raj Mahal",
+    category: "Adventure",
+    description: "Explore the historic Raj Mahal trail, combining natural beauty with cultural significance.",
+    image: experienceImages[2],
+    fullDescription: "Discover the historic Raj Mahal trail, where natural beauty meets cultural heritage. This day hike offers a unique combination of scenic mountain views and insights into local history, making it a perfect choice for those interested in both nature and culture.",
+    duration: "1 Day",
+    price: "Starting from ₹2,500",
+    includes: [
+      "Experienced guide with local knowledge",
+      "Trekking equipment",
+      "Lunch and refreshments",
+      "Transportation",
+      "Cultural insights and stories"
+    ],
+    highlights: [
+      "Historic significance",
+      "Beautiful natural scenery",
+      "Cultural learning experience",
+      "Moderate difficulty",
+      "Photography opportunities"
+    ]
+  },
+  {
+    id: "day-hike-beas-riverside",
+    icon: Footprints,
+    title: "Day Hike - Beas Riverside",
+    category: "Adventure",
+    description: "Peaceful riverside hike along the Beas River, perfect for nature lovers and photography enthusiasts.",
+    image: experienceImages[3],
+    fullDescription: "Enjoy a peaceful and scenic hike along the beautiful Beas River. This gentle day hike is perfect for nature lovers, families, and photography enthusiasts. Follow the river's course through lush landscapes, spot local wildlife, and enjoy the soothing sounds of flowing water.",
+    duration: "1 Day",
+    price: "Starting from ₹2,200",
+    includes: [
+      "Experienced nature guide",
+      "Basic equipment",
+      "Lunch and refreshments",
+      "Transportation",
+      "Nature interpretation"
+    ],
+    highlights: [
+      "Riverside scenery",
+      "Wildlife spotting opportunities",
+      "Easy to moderate difficulty",
+      "Family-friendly",
+      "Photography paradise"
     ]
   },
   {
@@ -261,55 +188,234 @@ export const experiences: Experience[] = [
       "Local cultural experiences"
     ]
   },
+  
+  // ========== SURVIVAL CATEGORY ==========
   {
-    id: "corporate-wellness-program",
-    icon: Building2,
-    title: "Corporate Wellness Program",
-    category: "Corporate",
-    description: "Customizable wellness programs designed to rejuvenate teams, reduce stress, and boost productivity.",
-    image: experienceImages[9],
-    fullDescription: "Designed for corporate teams, this wellness program combines outdoor activities, team-building exercises, stress management workshops, and wellness practices. Help your team recharge, improve collaboration, and return to work with renewed energy and stronger bonds.",
-    duration: "Customizable (2-5 Days)",
-    price: "Custom pricing based on group size",
+    id: "military-survival-training",
+    icon: Mountain,
+    title: "Military Survival Training Camp",
+    category: "Survival",
+    description: "Intensive survival training program led by ex-Army Officers, designed for those seeking advanced wilderness skills and mental toughness.",
+    image: experienceImages[4],
+    fullDescription: "Develop elite-level survival skills through rigorous training designed and led by former military personnel. Learn advanced navigation, emergency shelter construction, fire-making in adverse conditions, water sourcing and purification, and mental resilience techniques used by special forces. This comprehensive program prepares you for any survival situation.",
+    duration: "10-14 Days",
+    price: "Starting from ₹25,000",
     includes: [
-      "Accommodation and all meals",
-      "Team-building activities",
-      "Wellness workshops",
-      "Recreational facilities",
-      "Customized itinerary"
+      "Tactical training equipment",
+      "Meals and rations",
+      "Certified ex-military instructors",
+      "Comprehensive survival manual",
+      "Certification upon completion"
     ],
     highlights: [
-      "Stress reduction techniques",
-      "Team collaboration exercises",
-      "Work-life balance workshops",
-      "Outdoor recreational activities",
-      "Customizable program structure"
+      "Led by ex-Army Officers",
+      "Military-grade survival techniques",
+      "Stress inoculation training",
+      "Advanced navigation and orienteering",
+      "Emergency medical procedures",
+      "Leadership and team coordination"
+    ]
+  },
+  
+  // ========== HOMESTEADING CATEGORY ==========
+  {
+    id: "sustainable-farming-workshop",
+    icon: TreePine,
+    title: "Permaculture & Sustainable Farming Workshops",
+    category: "Homesteading",
+    description: "Learn sustainable farming techniques and permaculture principles to create self-sustaining ecosystems.",
+    image: experienceImages[5],
+    fullDescription: "A comprehensive workshop on sustainable agriculture and permaculture design. Learn to create self-sustaining food systems, understand soil health, water management, and integrate permaculture principles into your own farming or gardening practices. Perfect for those interested in sustainable living and food security.",
+    duration: "5-7 Days",
+    price: "Starting from ₹10,000",
+    includes: [
+      "Accommodation and meals",
+      "Workshop materials and tools",
+      "Take-home permaculture design manual",
+      "Hands-on practice sessions",
+      "Certificate of completion"
+    ],
+    highlights: [
+      "Permaculture design principles",
+      "Soil regeneration techniques",
+      "Water harvesting and management",
+      "Companion planting strategies",
+      "Creating food forests",
+      "Sustainable living practices"
+    ]
+  },
+  
+  // ========== WELLNESS CATEGORY ==========
+  {
+    id: "curated-wellness-retreat",
+    icon: Heart,
+    title: "Curated Wellness Retreat",
+    category: "Wellness",
+    description: "A comprehensive wellness experience featuring yoga, hot baths, sauna, ice baths, and therapeutic massage.",
+    image: experienceImages[2],
+    fullDescription: "Indulge in a complete wellness experience designed to rejuvenate your body, mind, and spirit. Our curated retreat includes daily yoga sessions, therapeutic hot baths, traditional sauna experiences, invigorating ice baths, and professional massage therapy. This holistic approach to wellness helps you relax, recover, and restore your natural balance.",
+    duration: "4-7 Days",
+    price: "Starting from ₹12,000",
+    includes: [
+      "Comfortable wellness accommodations",
+      "All meals (healthy, organic options)",
+      "Daily yoga and meditation sessions",
+      "Hot bath and sauna access",
+      "Ice bath therapy sessions",
+      "Professional massage therapy",
+      "Wellness consultation"
+    ],
+    highlights: [
+      "Daily yoga and meditation",
+      "Therapeutic hot baths",
+      "Traditional sauna experience",
+      "Ice bath therapy",
+      "Professional massage sessions",
+      "Holistic wellness approach",
+      "Organic, healthy meals"
     ]
   },
   {
-    id: "corporate-activities-program",
-    icon: Users,
-    title: "Corporate Activities Program",
-    category: "Corporate",
-    description: "Team-building activities and corporate retreats tailored to strengthen team bonds and communication.",
-    image: experienceImages[10],
-    fullDescription: "A comprehensive corporate retreat program focusing on team building, leadership development, and improved communication. Through carefully designed activities, challenges, and workshops, teams will develop trust, improve collaboration, and enhance their working relationships.",
-    duration: "Customizable (3-5 Days)",
-    price: "Custom pricing based on group size",
+    id: "farm-detox-retreat",
+    icon: TreePine,
+    title: "Farm Detox Retreat",
+    category: "Wellness",
+    description: "Experience sustainable farming practices while detoxifying your body and mind through farm-to-table living.",
+    image: experienceImages[3],
+    fullDescription: "Reconnect with the earth through hands-on farming experience. Learn permaculture principles, participate in organic farming, and enjoy fresh, chemical-free meals prepared from what you harvest. This retreat combines physical activity, healthy eating, and mindfulness practices for complete wellness.",
+    duration: "7-10 Days",
+    price: "Starting from ₹15,000",
     includes: [
-      "Team-building activities and challenges",
-      "Leadership workshops",
-      "Accommodation and meals",
-      "Professional facilitators",
-      "Team assessment and feedback"
+      "Farm stay accommodations",
+      "100% organic, farm-to-table meals",
+      "Daily farming activities and workshops",
+      "Yoga and meditation sessions",
+      "Nature walks and farm tours"
     ],
     highlights: [
-      "Leadership development",
-      "Enhanced team communication",
-      "Trust-building exercises",
-      "Problem-solving challenges",
-      "Measurable team improvement"
+      "Learn sustainable farming techniques",
+      "Hands-on permaculture training",
+      "Chemical-free, organic produce",
+      "Physical detox through natural activities",
+      "Mindful eating practices"
     ]
+  },
+  
+  // ========== CHILDREN'S CAMPING CATEGORY ==========
+  {
+    id: "brave-hearts-kids-camp",
+    icon: Baby,
+    title: "Brave Heart Kids Camp",
+    category: "Children's Camping",
+    description: "An empowering camp designed for children ages 8-16 to build confidence, teamwork, and outdoor skills.",
+    image: experienceImages[0],
+    fullDescription: "Brave Heart Kids Camp is a comprehensive outdoor education program designed to empower children ages 8-16 through adventure and learning. Our carefully structured activities combine wilderness skills, team-building exercises, and environmental education to create a transformative experience for young minds. All activities are age-appropriate and supervised by certified instructors.",
+    duration: "3-5 Days",
+    price: "Starting from ₹3,500",
+    includes: [
+      "Accommodation in safe, supervised camp setting",
+      "All meals (nutritious and balanced)",
+      "Certified instructors and safety equipment",
+      "Educational activities and workshops",
+      "Transportation from designated pickup points",
+      "24/7 supervision and care"
+    ],
+    highlights: [
+      "Age-appropriate outdoor activities (Ages 8-16)",
+      "Leadership and confidence building",
+      "Nature exploration and environmental awareness",
+      "Safe and supervised environment",
+      "Skills certification upon completion",
+      "Team-building exercises"
+    ]
+  },
+  {
+    id: "self-discovery-retreat",
+    icon: Sparkles,
+    title: "Self-Discovery Retreat",
+    category: "Children's Camping",
+    description: "A transformative experience for young adults ages 14-22 to explore their potential, build resilience, and discover their inner strength.",
+    image: experienceImages[1],
+    fullDescription: "The Self-Discovery Retreat is designed for young adults ages 14-22 transitioning to higher education or early career stages. Through meditation, reflective exercises, and outdoor challenges, participants gain clarity about their goals, build emotional resilience, and develop essential life skills for personal and academic success.",
+    duration: "5-7 Days",
+    price: "Starting from ₹8,500",
+    includes: [
+      "Lodging in comfortable retreat setting",
+      "All meals (vegetarian and non-vegetarian options)",
+      "Workshops on goal setting and personal development",
+      "Meditation and mindfulness sessions",
+      "One-on-one counseling sessions",
+      "Outdoor adventure activities"
+    ],
+    highlights: [
+      "Designed for ages 14-22",
+      "Personal growth workshops",
+      "Leadership development",
+      "Stress management techniques",
+      "Career guidance sessions",
+      "Lifetime network of like-minded peers"
+    ]
+  },
+  
+  // ========== DIGITAL DETOX / HOMESTAY CATEGORY ==========
+  {
+    id: "digital-detox-homestay",
+    icon: WifiOff,
+    title: "Digital Detox / Homestay - Disconnect-to-Reconnect",
+    category: "Digital Detox / Homestay",
+    description: "Experience a complete digital detox in a homestay setting, reconnecting with yourself, nature, and meaningful human connections.",
+    image: experienceImages[6],
+    fullDescription: "Step away from the digital world and reconnect with what truly matters. Our Digital Detox Homestay experience offers a peaceful retreat where you can disconnect from technology and reconnect with yourself, nature, and meaningful human connections. Enjoy simple living, authentic local experiences, and the tranquility of being present in the moment.",
+    duration: "3-10 Days",
+    price: "Starting from ₹4,500",
+    includes: [
+      "Comfortable homestay accommodations",
+      "All home-cooked meals",
+      "No Wi-Fi or digital distractions",
+      "Nature walks and outdoor activities",
+      "Meditation and mindfulness sessions",
+      "Local cultural experiences",
+      "Reading materials and board games"
+    ],
+    highlights: [
+      "Complete digital detox",
+      "Authentic homestay experience",
+      "Reconnect with nature",
+      "Mindfulness and meditation",
+      "Local cultural immersion",
+      "Simple, peaceful living",
+      "Meaningful human connections"
+    ]
+  },
+  
+  // ========== CUSTOM EXPERIENCE ==========
+  {
+    id: "design-your-own-experience",
+    icon: PenTool,
+    title: "Curate Your Own Event",
+    category: "Custom Experience",
+    description: "Design a personalized experience tailored to your group's interests, needs, and preferences.",
+    image: experienceImages[9],
+    fullDescription: "Create a unique experience that's perfectly tailored to your group. Whether it's a corporate retreat, family gathering, educational program, or special celebration, we'll work with you to design an experience that meets your specific needs, interests, and goals.",
+    duration: "Customizable",
+    price: "Custom pricing based on requirements",
+    includes: [
+      "Customized itinerary planning",
+      "Flexible accommodation options",
+      "Tailored activities and workshops",
+      "Meal planning based on preferences",
+      "Dedicated coordinator",
+      "All necessary equipment and resources"
+    ],
+    highlights: [
+      "Fully customizable experience",
+      "Tailored to your group's needs",
+      "Flexible duration and activities",
+      "Personalized itinerary",
+      "Expert guidance and support",
+      "Unique and memorable experience"
+    ],
+    isCustom: true
   },
 ];
 

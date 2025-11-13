@@ -1,12 +1,14 @@
-import introVideo from "@/assets/intro.MP4";
 import { useEffect, useRef, useState } from "react";
 
 const VideoSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  
+  // YouTube video embed URL with autoplay enabled
+  const youtubeVideoId = "zrmZ2Hmc6Lg";
+  const youtubeEmbedUrl = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&loop=1&playlist=${youtubeVideoId}&controls=1&mute=1&playsinline=1&modestbranding=1&rel=0`;
 
   useEffect(() => {
     let ticking = false;
@@ -98,22 +100,16 @@ const VideoSection = () => {
             transform: `translateY(${parallaxOffset * 0.3}px) scale(${isVisible ? 1 : 0.95})`,
           }}
         >
-          <video
-            ref={videoRef}
-            className="w-full h-auto"
-            autoPlay
-            muted
-            loop
-            playsInline
-            controls
-            preload="auto"
-          >
-            <source
-              src={introVideo}
-              type="video/mp4"
+          {/* YouTube Video Embed */}
+          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}> {/* 16:9 aspect ratio */}
+            <iframe
+              src={youtubeEmbedUrl}
+              className="absolute top-0 left-0 w-full h-full rounded-3xl"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="Experience the Adventure Video"
             />
-            Your browser does not support the video tag.
-          </video>
+          </div>
           
           {/* Optional overlay gradient at the bottom for better text readability */}
           <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background/50 to-transparent pointer-events-none" />
@@ -146,7 +142,7 @@ const VideoSection = () => {
                 : "opacity-0 translate-y-4"
             }`}
           >
-            Watch our survival camp in action. See how participants overcome challenges,
+            Watch our survival campsite in action. See how participants overcome challenges,
             learn essential skills, and transform in the wilderness.
           </p>
         </div>

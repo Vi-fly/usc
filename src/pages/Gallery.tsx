@@ -228,7 +228,7 @@ const Gallery = () => {
                   Where Every Corner Tells <span className="text-primary">Stories</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-primary-foreground/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-                  Explore the enchanting spaces of our survival camp, crafted to inspire your imagination. 
+                  Explore the enchanting spaces of our survival campsite, crafted to inspire your imagination. 
                   From awe-inspiring wilderness experiences to unforgettable moments captured in time.
                 </p>
               </div>

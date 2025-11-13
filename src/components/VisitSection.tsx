@@ -9,7 +9,7 @@ const VisitSection = () => {
   const steps = [
     {
       number: "01",
-      title: "Find Our Camp",
+      title: "Find Our Campsite",
       icon: MapPin,
       image: visitImage,
       description: "Located in pristine wilderness areas",
@@ -57,7 +57,7 @@ const VisitSection = () => {
             How to <span className="text-primary">Visit Us</span>
           </h2>
           <p className="text-lg text-muted-foreground">
-            Your journey to wilderness mastery starts with a simple step—planning your visit to our camp
+            Your journey to wilderness mastery starts with a simple step—planning your visit to our campsite
           </p>
         </div>
 

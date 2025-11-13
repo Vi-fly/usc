@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Twitter } from "lucide-react";
+import { Instagram, MessageSquare, Youtube } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -8,7 +8,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Brand */}
             <div>
-              <h3 className="text-xl font-bold">Ultimate Survival Camp</h3>
+              <h3 className="text-xl font-bold">Ultimate Survival Campsite</h3>
             </div>
 
             {/* Navigation Links */}
@@ -33,31 +33,37 @@ const Footer = () => {
             {/* Social Icons */}
             <div className="flex items-center space-x-3">
               <a
-                href="#"
-                className="w-9 h-9 bg-background/10 hover:bg-background/20 rounded-full flex items-center justify-center transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook size={16} />
-              </a>
-              <a
-                href="#"
+                href="https://instagram.com/usc.dailylife"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 bg-background/10 hover:bg-background/20 rounded-full flex items-center justify-center transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram size={16} />
               </a>
               <a
-                href="#"
+                href="https://wa.me/918265892437"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 bg-background/10 hover:bg-background/20 rounded-full flex items-center justify-center transition-colors"
-                aria-label="Twitter"
+                aria-label="WhatsApp"
               >
-                <Twitter size={16} />
+                <MessageSquare size={16} />
+              </a>
+              <a
+                href="https://youtube.com/@ultimatesurvivalcampsite"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 bg-background/10 hover:bg-background/20 rounded-full flex items-center justify-center transition-colors"
+                aria-label="YouTube"
+              >
+                <Youtube size={16} />
               </a>
             </div>
           </div>
 
           <div className="mt-8 pt-6 border-t border-background/10 text-center text-background/50 text-xs">
-            <p>© 2025 Ultimate Survival Camp. All rights reserved.</p>
+            <p>© 2025 Ultimate Survival Campsite. All rights reserved.</p>
           </div>
         </div>
       </div>

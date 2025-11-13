@@ -1,15 +1,20 @@
-import article1 from "@/assets/article-1.jpg";
+import tent1 from "@/assets/images/tent_1.JPG";
+import tent2 from "@/assets/images/tent_2.JPG";
+import tent from "@/assets/images/tent.JPG";
+import cottage from "@/assets/images/cottage.JPG";
 import heroSurvival from "@/assets/hero-survival.jpg";
-import mission from "@/assets/mission.jpg";
-import story1 from "@/assets/story-1.jpg";
-import story2 from "@/assets/story-2.jpg";
-import story3 from "@/assets/story-3.jpg";
-import story4 from "@/assets/story-4.jpg";
-import visit from "@/assets/visit.jpg";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, CheckCircle, Home, Sparkles, Users } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { ArrowRight, Calendar, CheckCircle, Home, Sparkles, Users, Leaf, Mountain, TreePine, Waves } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 interface Accommodation {
@@ -18,84 +23,162 @@ interface Accommodation {
   type: string;
   description: string;
   image: string;
-  price: string;
-  capacity: string;
-  amenities: string[];
+  singlePrice: string;
+  twinPrice: string;
+  additionalPersonPrice: string | null;
+  facilities: string[];
   features: string[];
+  natureIcon: typeof Leaf;
+  natureElement: string; // For decorative elements
 }
 
 const accommodations: Accommodation[] = [
   {
-    id: "forest-cabin",
-    name: "Forest Harmony Cabin",
-    type: "Eco Cabin",
-    description: "Immerse yourself in nature with our eco-friendly cabins nestled in the forest. Wake up to birdsong and fall asleep under the stars.",
-    image: story1,
-    price: "₹2,500/night",
-    capacity: "2-4 guests",
-    amenities: ["Private bathroom", "Outdoor deck", "Kitchenette", "Campfire area"],
-    features: ["Sustainable design", "Forest views", "Nature immersion", "Eco-friendly"]
+    id: "luxury-tent",
+    name: "Luxury Tent",
+    type: "Premium Glamping",
+    description: "Experience the ultimate in outdoor luxury with our spacious, well-appointed luxury tents. Perfect for those who want comfort without compromising the authentic camping experience.",
+    image: tent1,
+    singlePrice: "₹8,000",
+    twinPrice: "₹11,000",
+    additionalPersonPrice: "₹3,500",
+    facilities: [
+      "Premium bedding and linens",
+      "Private attached bathroom",
+      "Hot water supply",
+      "Electricity and charging points",
+      "Comfortable seating area",
+      "Private deck/veranda",
+      "Room service available",
+      "Climate control options"
+    ],
+    features: ["Luxury comfort", "Private facilities", "Premium amenities", "Spacious design"],
+    natureIcon: TreePine,
+    natureElement: "forest"
   },
   {
-    id: "mountain-lodge",
-    name: "Mountain Peak Lodge",
-    type: "Luxury Lodge",
-    description: "Experience luxury in the wilderness. Our mountain lodges offer stunning views, premium amenities, and the perfect balance of comfort and adventure.",
-    image: story2,
-    price: "₹5,000/night",
-    capacity: "2-6 guests",
-    amenities: ["Premium bedding", "Private balcony", "Mountain views", "Gourmet kitchen"],
-    features: ["Luxury comfort", "Panoramic views", "Modern amenities", "Adventure ready"]
+    id: "alpine-tent",
+    name: "Alpine Tent",
+    type: "Mountain Comfort",
+    description: "Designed for mountain enthusiasts, our Alpine Tents offer a perfect blend of rugged durability and comfort. Ideal for those seeking adventure with essential comforts.",
+    image: tent2,
+    singlePrice: "₹5,000",
+    twinPrice: "₹8,000",
+    additionalPersonPrice: "₹3,500",
+    facilities: [
+      "Comfortable bedding",
+      "Shared bathroom facilities",
+      "Hot water access",
+      "Basic electricity",
+      "Storage space",
+      "Mountain views",
+      "Heating options",
+      "Common area access"
+    ],
+    features: ["Mountain views", "Adventure ready", "Comfortable", "Scenic location"],
+    natureIcon: Mountain,
+    natureElement: "mountain"
   },
   {
-    id: "riverside-tent",
-    name: "Riverside Glamping",
-    type: "Glamping",
-    description: "Luxury camping by the river. Our spacious tents offer comfort in the wild, with the soothing sounds of flowing water as your soundtrack.",
-    image: story3,
-    price: "₹3,500/night",
-    capacity: "2-4 guests",
-    amenities: ["River access", "Outdoor shower", "BBQ facilities", "Stargazing deck"],
-    features: ["Riverside location", "Glamping luxury", "Water activities", "Nature connection"]
+    id: "safari-tent",
+    name: "Safari Tent",
+    type: "Group Adventure",
+    description: "Perfect for groups and adventure seekers. Our Safari Tents provide a communal yet comfortable camping experience, ideal for families and groups traveling together.",
+    image: tent,
+    singlePrice: "₹3,500",
+    twinPrice: "Group Only",
+    additionalPersonPrice: "Group Only",
+    facilities: [
+      "Group accommodation setup",
+      "Shared bathroom facilities",
+      "Common dining area",
+      "Group activity space",
+      "Basic amenities",
+      "Campfire area",
+      "Group meal options",
+      "Adventure activities included"
+    ],
+    features: ["Group friendly", "Adventure focus", "Communal experience", "Budget friendly"],
+    natureIcon: TreePine,
+    natureElement: "community"
   },
   {
-    id: "treehouse",
-    name: "Treetop Sanctuary",
-    type: "Treehouse",
-    description: "Elevate your stay in our unique treehouses. Experience life among the treetops with modern comforts and breathtaking forest canopy views.",
-    image: story4,
-    price: "₹4,000/night",
-    capacity: "2-3 guests",
-    amenities: ["Elevated deck", "Tree-level views", "Natural ventilation", "Wildlife viewing"],
-    features: ["Unique experience", "Canopy views", "Eco-conscious", "Adventure seekers"]
+    id: "military-tent",
+    name: "Military Tent",
+    type: "Survival Experience",
+    description: "Authentic military-style accommodation for those seeking a true survival experience. Basic, functional, and perfect for adventure training and survival camps.",
+    image: tent,
+    singlePrice: "₹2,500",
+    twinPrice: "Group Only",
+    additionalPersonPrice: "Group Only",
+    facilities: [
+      "Basic bedding",
+      "Shared facilities",
+      "Survival training area",
+      "Group activities",
+      "Campfire cooking",
+      "Outdoor showers",
+      "Training equipment",
+      "Survival workshops"
+    ],
+    features: ["Authentic experience", "Survival training", "Group activities", "Adventure focus"],
+    natureIcon: Mountain,
+    natureElement: "wilderness"
   },
   {
-    id: "communal-lodge",
-    name: "Community Lodge",
-    type: "Shared Lodge",
-    description: "Perfect for groups and solo travelers seeking connection. Our communal lodges foster friendships and shared experiences in a cozy atmosphere.",
-    image: article1,
-    price: "₹1,500/night",
-    capacity: "4-12 guests",
-    amenities: ["Shared spaces", "Community kitchen", "Common areas", "Group activities"],
-    features: ["Social atmosphere", "Group friendly", "Budget friendly", "Community building"]
+    id: "colonel-hut",
+    name: "Colonel Hut",
+    type: "Premium Cabin",
+    description: "Our most premium accommodation option. The Colonel Hut offers luxury cabin living with all modern amenities, perfect for those who want the best of both worlds.",
+    image: cottage,
+    singlePrice: "₹8,000",
+    twinPrice: "₹12,000",
+    additionalPersonPrice: "₹4,500",
+    facilities: [
+      "Luxury bedding and furnishings",
+      "Private bathroom with hot water",
+      "Full electricity and Wi-Fi",
+      "Private kitchenette",
+      "Living area",
+      "Private balcony/patio",
+      "Room service",
+      "Premium amenities",
+      "Climate control",
+      "Entertainment options"
+    ],
+    features: ["Premium luxury", "Full facilities", "Private space", "Modern amenities"],
+    natureIcon: TreePine,
+    natureElement: "cabin"
   },
   {
-    id: "wilderness-retreat",
-    name: "Wilderness Retreat Villa",
-    type: "Villa",
-    description: "Spacious villas designed for families and groups. Complete privacy with modern facilities, surrounded by pristine wilderness.",
-    image: visit,
-    price: "₹6,500/night",
-    capacity: "6-10 guests",
-    amenities: ["Full kitchen", "Private garden", "Multiple bedrooms", "Dining area"],
-    features: ["Family friendly", "Complete privacy", "Full facilities", "Group accommodation"]
+    id: "pup-tent",
+    name: "Pup Tent",
+    type: "Minimalist Camping",
+    description: "For the minimalist camper who wants the authentic outdoor experience. Simple, compact, and perfect for solo travelers or couples seeking a true camping adventure.",
+    image: tent,
+    singlePrice: "₹2,500",
+    twinPrice: "₹4,000",
+    additionalPersonPrice: null,
+    facilities: [
+      "Basic bedding",
+      "Shared bathroom facilities",
+      "Common area access",
+      "Campfire area",
+      "Basic storage",
+      "Outdoor experience",
+      "Nature immersion",
+      "Minimal amenities"
+    ],
+    features: ["Authentic camping", "Minimalist", "Budget friendly", "Nature connection"],
+    natureIcon: Leaf,
+    natureElement: "minimal"
   }
 ];
 
 const Stay = () => {
   const [scrollY, setScrollY] = useState(0);
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [selectedAccommodation, setSelectedAccommodation] = useState<Accommodation | null>(null);
 
   useEffect(() => {
     let ticking = false;
@@ -126,8 +209,8 @@ const Stay = () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const el = entry.target as HTMLElement;
-          el.classList.remove("opacity-0");
-          el.classList.add("opacity-100", "animate-fade-in");
+          el.classList.remove("opacity-0", "translate-y-8");
+          el.classList.add("opacity-100", "translate-y-0");
           obs.unobserve(el);
         }
       });
@@ -146,6 +229,73 @@ const Stay = () => {
     }
   };
 
+  // Nature decorative elements - minimalist style
+  const NatureDecoration = ({ type, position }: { type: string; position: "left" | "right" }) => {
+    const baseClasses = `absolute ${position === "left" ? "left-0" : "right-0"} top-1/2 -translate-y-1/2 opacity-[0.03] pointer-events-none`;
+    
+    if (type === "forest") {
+      return (
+        <div className={baseClasses}>
+          <TreePine className="w-96 h-96 text-primary" />
+          <div className="absolute top-20 left-20">
+            <Leaf className="w-32 h-32 text-primary opacity-50" />
+          </div>
+        </div>
+      );
+    }
+    if (type === "mountain") {
+      return (
+        <div className={baseClasses}>
+          <Mountain className="w-96 h-96 text-primary" />
+          <div className="absolute bottom-20 right-20">
+            <Mountain className="w-48 h-48 text-primary opacity-30" />
+          </div>
+        </div>
+      );
+    }
+    if (type === "minimal") {
+      return (
+        <div className={baseClasses}>
+          <Leaf className="w-64 h-64 text-primary" />
+          <div className="absolute top-10 right-10">
+            <Leaf className="w-32 h-32 text-primary opacity-40 rotate-45" />
+          </div>
+        </div>
+      );
+    }
+    if (type === "community") {
+      return (
+        <div className={baseClasses}>
+          <TreePine className="w-80 h-80 text-primary" />
+          <div className="absolute bottom-10 left-10">
+            <Leaf className="w-40 h-40 text-primary opacity-30" />
+          </div>
+        </div>
+      );
+    }
+    if (type === "wilderness") {
+      return (
+        <div className={baseClasses}>
+          <Mountain className="w-96 h-96 text-primary" />
+          <div className="absolute top-10 right-10">
+            <TreePine className="w-56 h-56 text-primary opacity-20" />
+          </div>
+        </div>
+      );
+    }
+    if (type === "cabin") {
+      return (
+        <div className={baseClasses}>
+          <TreePine className="w-80 h-80 text-primary" />
+          <div className="absolute bottom-20 left-20">
+            <Leaf className="w-48 h-48 text-primary opacity-30" />
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -157,7 +307,7 @@ const Stay = () => {
           <div className="absolute inset-0 z-0 rounded-3xl overflow-hidden">
             <img
               src={heroSurvival}
-              alt="Stay at Ultimate Survival Camp"
+              alt="Stay at Ultimate Survival Campsite"
               className="w-full h-full object-cover transition-transform duration-300"
               style={{
                 transform: `translateY(${scrollY * 0.5}px) scale(1.1)`,
@@ -184,14 +334,13 @@ const Stay = () => {
               
               <div className="animate-fade-in-up mb-8">
                 <h1 className="text-5xl md:text-8xl font-bold text-primary-foreground mb-8 leading-tight">
-                  Destination to <span className="text-primary">Discover</span>
+                  Stay in <span className="text-primary">Nature</span>
                   <br />
-                  Journeys to <span className="text-primary">Remember</span>
+                  Live the <span className="text-primary">Adventure</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-primary-foreground/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-                  Elevate your holiday celebrations at Ultimate Survival Camp, where we transform renowned spaces into 
-                  <span className="font-semibold"> decadent celebrations</span>, setting the stage for your 
-                  <span className="font-semibold"> cherished memories</span>.
+                  From luxury glamping to authentic survival tents, choose the accommodation that matches your adventure style. 
+                  All rates exclude government taxes.
                 </p>
               </div>
 
@@ -199,258 +348,278 @@ const Stay = () => {
                 <Button
                   size="lg"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-10 py-7 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                  onClick={() => {
+                    document.getElementById("accommodations")?.scrollIntoView({ behavior: "smooth" });
+                  }}
                 >
-                  Book Your Stay
+                  Explore Accommodations
                   <ArrowRight className="ml-2" />
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-foreground text-lg px-10 py-7 rounded-full transition-all"
-                >
-                  Explore Options
-                </Button>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Harmony Section */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
-        
-        <div className="container px-6 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <div ref={addToRefs} className="opacity-0 text-center mb-20">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-                <Sparkles className="text-primary" size={18} />
-                <span className="text-sm font-semibold text-primary">Nature-Inspired Living</span>
+      {/* Individual Accommodation Sections */}
+      <section id="accommodations" className="relative z-10">
+        {accommodations.map((accommodation, idx) => {
+          const Icon = accommodation.natureIcon;
+          const isEven = idx % 2 === 0;
+          const delay = idx * 0.1;
+
+          return (
+            <div
+              key={accommodation.id}
+              ref={addToRefs}
+              className="opacity-0 translate-y-8 relative py-32 overflow-hidden transition-all duration-700"
+              style={{ animationDelay: `${delay}s` }}
+            >
+              {/* Subtle Background Pattern - Minimalist */}
+              <div className="absolute inset-0 opacity-[0.01]">
+                <div className="absolute inset-0" style={{
+                  backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
+                  backgroundSize: '80px 80px',
+                }} />
               </div>
-              <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                Find <span className="text-primary">harmony</span> in our
-                <br />
-                nature-inspired place
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Elevate your <span className="font-semibold text-foreground">journey experience</span> with our collection 
-                of accommodations that reflect the pure essence of <span className="font-semibold text-foreground">harmony living</span>.
-              </p>
-            </div>
 
-            {/* Image Showcase */}
-            <div className="grid md:grid-cols-2 gap-8 mb-20">
-              <div ref={addToRefs} className="opacity-0 relative group overflow-hidden rounded-3xl aspect-[4/5]">
-                <img
-                  src={mission}
-                  alt="Harmony Living"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <h3 className="text-2xl font-bold text-white mb-2">Nature Immersion</h3>
-                  <p className="text-white/90">Wake up to the sounds of nature</p>
-                </div>
-              </div>
-              <div ref={addToRefs} className="opacity-0 relative group overflow-hidden rounded-3xl aspect-[4/5]" style={{ animationDelay: "0.2s" }}>
-                <img
-                  src={story1}
-                  alt="Comfort in Wilderness"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <h3 className="text-2xl font-bold text-white mb-2">Comfort & Adventure</h3>
-                  <p className="text-white/90">Modern amenities meet wilderness</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+              {/* Organic Shape Decorations */}
+              <div className={`absolute ${isEven ? "left-0" : "right-0"} top-0 w-64 h-64 bg-primary/3 rounded-full blur-3xl`} />
+              <div className={`absolute ${isEven ? "right-0" : "left-0"} bottom-0 w-96 h-96 bg-accent/3 rounded-full blur-3xl`} />
 
-      {/* Accommodations Grid */}
-      <section className="py-24 relative z-10">
-        <div className="container mx-auto px-6">
-          <div ref={addToRefs} className="opacity-0 text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Choose Your <span className="text-primary">Perfect Stay</span>
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              From eco-cabins to luxury lodges, find the accommodation that matches your adventure style
-            </p>
-          </div>
+              {/* Nature Decorative Elements */}
+              <NatureDecoration type={accommodation.natureElement} position={isEven ? "left" : "right"} />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {accommodations.map((accommodation, idx) => (
-              <div
-                key={accommodation.id}
-                ref={addToRefs}
-                className="opacity-0 group relative overflow-hidden rounded-3xl border border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl bg-card"
-                style={{ animationDelay: `${idx * 0.1}s` }}
-              >
-                {/* Image */}
-                <div className="relative h-[300px] overflow-hidden">
-                  <img
-                    src={accommodation.image}
-                    alt={accommodation.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                  
-                  {/* Type Badge */}
-                  <div className="absolute top-4 left-4">
-                    <div className="bg-background/95 backdrop-blur-sm px-4 py-2 rounded-full">
-                      <span className="text-sm font-semibold text-foreground">{accommodation.type}</span>
-                    </div>
-                  </div>
-
-                  {/* Price */}
-                  <div className="absolute top-4 right-4">
-                    <div className="bg-primary/95 backdrop-blur-sm px-4 py-2 rounded-full">
-                      <span className="text-sm font-bold text-primary-foreground">{accommodation.price}</span>
-                    </div>
-                  </div>
-
-                  {/* Capacity */}
-                  <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-background/95 backdrop-blur-sm px-3 py-2 rounded-full">
-                    <Users className="w-4 h-4 text-primary" />
-                    <span className="text-sm font-medium text-foreground">{accommodation.capacity}</span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
-                    {accommodation.name}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    {accommodation.description}
-                  </p>
-
-                  {/* Features */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {accommodation.features.slice(0, 2).map((feature, featureIdx) => (
-                      <span
-                        key={featureIdx}
-                        className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium"
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Amenities */}
-                  <div className="space-y-2 mb-6">
-                    {accommodation.amenities.slice(0, 3).map((amenity, amenityIdx) => (
-                      <div key={amenityIdx} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle className="w-4 h-4 text-primary" />
-                        <span>{amenity}</span>
+              <div className="container mx-auto px-6 relative z-10">
+                <div className={`max-w-7xl mx-auto grid md:grid-cols-2 gap-12 lg:gap-16 items-center ${
+                  isEven ? "" : "md:flex-row-reverse"
+                }`}>
+                  {/* Image Side */}
+                  <div className={`${isEven ? "md:order-1" : "md:order-2"} relative`}>
+                    <div className="relative group">
+                      {/* Minimalist corner lines */}
+                      <div className="absolute -top-2 -left-2 w-16 h-16 border-t border-l border-primary/10" />
+                      <div className="absolute -bottom-2 -right-2 w-16 h-16 border-b border-r border-primary/10" />
+                      
+                      {/* Organic shape behind image */}
+                      <div className="absolute -inset-4 bg-primary/5 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
+                      
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/30">
+                        <img
+                          src={accommodation.image}
+                          alt={accommodation.name}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
                       </div>
-                    ))}
+
+                      {/* Floating nature icon - minimalist */}
+                      <div className="absolute top-8 right-8 w-14 h-14 rounded-full bg-background/80 backdrop-blur-md flex items-center justify-center border border-border/40 shadow-sm">
+                        <Icon className="w-7 h-7 text-primary" />
+                      </div>
+                    </div>
                   </div>
 
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground group">
-                    View Details
-                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
+                  {/* Content Side */}
+                  <div className={`${isEven ? "md:order-2" : "md:order-1"} space-y-8`}>
+                    {/* Type Badge - Minimalist */}
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-2">
+                      <Icon className="w-3.5 h-3.5 text-primary" />
+                      <span className="text-xs font-medium text-primary uppercase tracking-wider">{accommodation.type}</span>
+                    </div>
+
+                    {/* Title with subtle underline */}
+                    <div>
+                      <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-3">
+                        {accommodation.name}
+                      </h2>
+                      <div className="w-24 h-px bg-primary/20 mt-2" />
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
+                      {accommodation.description}
+                    </p>
+
+                    {/* Pricing - Minimalist Design */}
+                    <div className="space-y-3 py-6 border-y border-border/30">
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-sm text-muted-foreground font-medium min-w-[80px]">Single</span>
+                        <span className="text-3xl font-bold text-primary">{accommodation.singlePrice}</span>
+                      </div>
+                      {accommodation.twinPrice !== "Group Only" && (
+                        <div className="flex items-baseline gap-3">
+                          <span className="text-sm text-muted-foreground font-medium min-w-[80px]">Twin</span>
+                          <span className="text-3xl font-bold text-primary">{accommodation.twinPrice}</span>
+                        </div>
+                      )}
+                      {accommodation.additionalPersonPrice && (
+                        <div className="flex items-baseline gap-3">
+                          <span className="text-sm text-muted-foreground font-medium min-w-[80px]">Additional</span>
+                          <span className="text-3xl font-bold text-primary">{accommodation.additionalPersonPrice}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Features - Minimalist tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {accommodation.features.map((feature, featureIdx) => (
+                        <span
+                          key={featureIdx}
+                          className="px-3 py-1 bg-primary/5 text-primary rounded-full text-sm font-medium border border-primary/10"
+                        >
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Dialog Trigger Button */}
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button 
+                          className="bg-primary hover:bg-primary/90 text-primary-foreground group/btn mt-4"
+                          onClick={() => setSelectedAccommodation(accommodation)}
+                        >
+                          Check Pricing & Details
+                          <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                        <DialogHeader>
+                          <DialogTitle className="text-3xl font-bold">{accommodation.name}</DialogTitle>
+                          <DialogDescription className="text-base">
+                            {accommodation.description}
+                          </DialogDescription>
+                        </DialogHeader>
+                        
+                        <div className="space-y-6 mt-4">
+                          {/* Pricing Table */}
+                          <div className="bg-secondary/50 rounded-xl p-6 border border-border">
+                            <h4 className="text-xl font-bold mb-4">
+                              Pricing Details
+                            </h4>
+                            <div className="space-y-3">
+                              <div className="flex justify-between items-center py-2 border-b border-border/50">
+                                <span className="font-medium">Single Occupancy</span>
+                                <span className="text-lg font-bold text-primary">{accommodation.singlePrice}</span>
+                              </div>
+                              <div className="flex justify-between items-center py-2 border-b border-border/50">
+                                <span className="font-medium">Twin Occupancy</span>
+                                <span className="text-lg font-bold text-primary">{accommodation.twinPrice}</span>
+                              </div>
+                              {accommodation.additionalPersonPrice && (
+                                <div className="flex justify-between items-center py-2">
+                                  <span className="font-medium">Additional Person</span>
+                                  <span className="text-lg font-bold text-primary">{accommodation.additionalPersonPrice}</span>
+                                </div>
+                              )}
+                              <div className="mt-4 pt-4 border-t border-border">
+                                <p className="text-xs text-muted-foreground italic">
+                                  * All rates exclude government taxes
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Facilities List */}
+                          <div>
+                            <h4 className="text-xl font-bold mb-4 flex items-center gap-2">
+                              <CheckCircle className="w-5 h-5 text-primary" />
+                              Facilities & Amenities
+                            </h4>
+                            <div className="grid md:grid-cols-2 gap-3">
+                              {accommodation.facilities.map((facility, facilityIdx) => (
+                                <div key={facilityIdx} className="flex items-start gap-3">
+                                  <CheckCircle className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                                  <span className="text-sm text-muted-foreground">{facility}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Features */}
+                          <div>
+                            <h4 className="text-xl font-bold mb-4">Key Features</h4>
+                            <div className="flex flex-wrap gap-2">
+                              {accommodation.features.map((feature, featureIdx) => (
+                                <span
+                                  key={featureIdx}
+                                  className="px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20"
+                                >
+                                  {feature}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* CTA Button */}
+                          <Button 
+                            size="lg" 
+                            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
+                          >
+                            Book This Accommodation
+                            <ArrowRight className="ml-2" />
+                          </Button>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+
+              {/* Section Divider - Minimalist Nature Element */}
+              {idx < accommodations.length - 1 && (
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-center gap-2">
+                  <div className="w-12 h-px bg-border/30" />
+                  <Leaf className="w-4 h-4 text-primary/20" />
+                  <div className="w-12 h-px bg-border/30" />
+                </div>
+              )}
+            </div>
+          );
+        })}
       </section>
 
-      {/* Group Stay Section */}
-      <section className="py-32 relative overflow-hidden bg-secondary/30">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Image */}
-              <div ref={addToRefs} className="opacity-0 relative group overflow-hidden rounded-3xl">
-                <img
-                  src={story2}
-                  alt="Group Stay"
-                  className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-              </div>
-
-              {/* Content */}
-              <div ref={addToRefs} className="opacity-0" style={{ animationDelay: "0.2s" }}>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-                  <Users className="text-primary" size={18} />
-                  <span className="text-sm font-semibold text-primary">Group Accommodations</span>
-                </div>
-                
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                  Staying with a <span className="text-primary">Group</span>?
-                </h2>
-                
-                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                  Planning a group stay? Our accommodations are perfectly equipped to accommodate your needs, 
-                  whether it's a <span className="font-semibold text-foreground">family gathering</span>, a 
-                  <span className="font-semibold text-foreground"> corporate retreat</span>, or a 
-                  <span className="font-semibold text-foreground"> celebration with friends</span>.
-                </p>
-                
-                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                  With flexible options and personalized service, we ensure a seamless experience for groups of all sizes. 
-                  Let us take care of the details so you can focus on enjoying quality time together.
-                </p>
-
-                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-6 text-lg group">
-                  Plan Your Group Stay
-                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </div>
+      {/* Note Section */}
+      <section className="py-16 relative z-10">
+        <div className="container mx-auto px-6">
+          <div ref={addToRefs} className="opacity-0 translate-y-8 text-center transition-all duration-700">
+            <div className="inline-block bg-secondary/30 backdrop-blur-sm rounded-2xl px-8 py-4 border border-border/30 max-w-3xl">
+              <p className="text-sm text-muted-foreground">
+                <span className="font-semibold text-foreground">Note:</span> All rates exclude government taxes. 
+                Group-only accommodations require minimum booking requirements.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Booking CTA Section */}
-      <section className="py-32 relative overflow-hidden">
+      <section className="py-32 relative overflow-hidden bg-gradient-to-b from-background via-secondary/10 to-background">
         <div className="container mx-auto px-6 relative z-10">
-          <div ref={addToRefs} className="opacity-0 max-w-4xl mx-auto text-center">
-            <div className="bg-gradient-to-br from-primary/10 via-accent/10 to-primary/10 rounded-3xl p-12 md:p-16 border border-primary/20 backdrop-blur-sm">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 mb-8">
+          <div ref={addToRefs} className="opacity-0 translate-y-8 max-w-4xl mx-auto text-center transition-all duration-700">
+            <div className="bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 rounded-3xl p-12 md:p-16 border border-primary/10 backdrop-blur-sm">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
                 <Calendar className="text-primary" size={18} />
                 <span className="text-sm font-semibold text-primary">Reserve Your Stay</span>
               </div>
               
               <h2 className="text-4xl md:text-6xl font-bold mb-6">
-                Stay in <span className="text-primary">Ultimate Survival Camp</span>
+                Ready to <span className="text-primary">Experience</span> Nature?
               </h2>
               
               <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
-                Experience the perfect blend of adventure and comfort. Book your stay today and create 
-                memories that will last a lifetime.
+                Book your stay today and create memories that will last a lifetime. 
+                From luxury glamping to authentic survival experiences, we have the perfect accommodation for you.
               </p>
               
               <Button
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-10 py-7 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 group"
               >
-                Book Now
+                Book Your Stay Now
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-
-              {/* Quick Stats */}
-              <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-border/50">
-                <div>
-                  <div className="text-3xl font-bold text-primary mb-2">50+</div>
-                  <div className="text-sm text-muted-foreground">Rooms Available</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-primary mb-2">4.9</div>
-                  <div className="text-sm text-muted-foreground">Guest Rating</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-primary mb-2">24/7</div>
-                  <div className="text-sm text-muted-foreground">Support</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -462,4 +631,3 @@ const Stay = () => {
 };
 
 export default Stay;
-
