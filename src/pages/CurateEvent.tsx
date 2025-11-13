@@ -1,6 +1,6 @@
 import videosection from "@/assets/videosection.mp4";
-import story1 from "@/assets/story-1.jpg";
-import story2 from "@/assets/story-2.jpg";
+import story1 from "@/assets/story-1.webp";
+import story2 from "@/assets/story-2.webp";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";

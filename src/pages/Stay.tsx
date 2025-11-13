@@ -1,8 +1,8 @@
-import tent1 from "@/assets/images/tent_1.JPG";
-import tent2 from "@/assets/images/tent_2.JPG";
-import tent from "@/assets/images/tent.JPG";
-import cottage from "@/assets/images/cottage.JPG";
-import heroSurvival from "@/assets/hero-survival.jpg";
+import tent1 from "@/assets/images/tent_1.webp";
+import tent2 from "@/assets/images/tent_2.webp";
+import tent from "@/assets/images/tent.webp";
+import cottage from "@/assets/images/cottage.webp";
+import heroSurvival from "@/assets/hero-survival.webp";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";

@@ -1,4 +1,4 @@
-import missionImage from "@/assets/mission.jpg";
+import missionImage from "@/assets/mission.webp";
 import CommitmentSection from "@/components/CommitmentSection";
 import Footer from "@/components/Footer";
 import GallerySection from "@/components/GallerySection";

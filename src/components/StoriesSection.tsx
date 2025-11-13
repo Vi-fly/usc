@@ -1,9 +1,9 @@
-import storyMain from "@/assets/story-main.jpg";
+import storyMain from "@/assets/story-main.webp";
 // Images from assets/images/
-import cottage from "@/assets/images/cottage.JPG";
-import house from "@/assets/images/house.JPG";
-import pond from "@/assets/images/pond.JPG";
-import tent from "@/assets/images/tent.JPG";
+import cottage from "@/assets/images/cottage.webp";
+import house from "@/assets/images/house.webp";
+import pond from "@/assets/images/pond.webp";
+import tent from "@/assets/images/tent.webp";
 import { Button } from "@/components/ui/button";
 import { Camera, Grid3x3 } from "lucide-react";
 import { Link } from "react-router-dom";

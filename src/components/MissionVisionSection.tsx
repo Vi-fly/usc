@@ -1,4 +1,4 @@
-import missionImage from "@/assets/mission.jpg";
+import missionImage from "@/assets/mission.webp";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Compass } from "lucide-react";
 

@@ -1,6 +1,6 @@
-import article1 from "@/assets/article-1.jpg";
-import article2 from "@/assets/article-2.jpg";
-import article3 from "@/assets/article-3.jpg";
+import article1 from "@/assets/article-1.webp";
+import article2 from "@/assets/article-2.webp";
+import article3 from "@/assets/article-3.webp";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Calendar } from "lucide-react";
 

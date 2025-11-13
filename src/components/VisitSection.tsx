@@ -1,4 +1,4 @@
-import visitImage from "@/assets/visit.jpg";
+import visitImage from "@/assets/visit.webp";
 import { Button } from "@/components/ui/button";
 import { Bus, Car, Compass, MapPin, Plane, Ticket, Train } from "lucide-react";
 import { useState } from "react";

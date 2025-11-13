@@ -1,7 +1,7 @@
-import story1 from "@/assets/story-1.jpg";
-import story2 from "@/assets/story-2.jpg";
-import story3 from "@/assets/story-3.jpg";
-import story4 from "@/assets/story-4.jpg";
+import story1 from "@/assets/story-1.webp";
+import story2 from "@/assets/story-2.webp";
+import story3 from "@/assets/story-3.webp";
+import story4 from "@/assets/story-4.webp";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Compass, Flame, Mountain, TreePine } from "lucide-react";
 import { Link } from "react-router-dom";

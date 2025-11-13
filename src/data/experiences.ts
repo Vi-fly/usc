@@ -1,13 +1,13 @@
-import article1 from "@/assets/article-1.jpg";
-import article2 from "@/assets/article-2.jpg";
-import article3 from "@/assets/article-3.jpg";
-import heroSurvival from "@/assets/hero-survival.jpg";
-import mission from "@/assets/mission.jpg";
-import story1 from "@/assets/story-1.jpg";
-import story2 from "@/assets/story-2.jpg";
-import story3 from "@/assets/story-3.jpg";
-import story4 from "@/assets/story-4.jpg";
-import visit from "@/assets/visit.jpg";
+import article1 from "@/assets/article-1.webp";
+import article2 from "@/assets/article-2.webp";
+import article3 from "@/assets/article-3.webp";
+import heroSurvival from "@/assets/hero-survival.webp";
+import mission from "@/assets/mission.webp";
+import story1 from "@/assets/story-1.webp";
+import story2 from "@/assets/story-2.webp";
+import story3 from "@/assets/story-3.webp";
+import story4 from "@/assets/story-4.webp";
+import visit from "@/assets/visit.webp";
 import { Building2, Calendar, GraduationCap, Heart, LucideIcon, Mountain, Sparkles, TreePine, Users, Waves, WifiOff, PenTool, Footprints, Baby } from "lucide-react";
 
 export interface Experience {

@@ -1,4 +1,4 @@
-import heroSurvival from "@/assets/hero-survival.jpg";
+import heroSurvival from "@/assets/hero-survival.webp";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";

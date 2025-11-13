@@ -1,7 +1,7 @@
-import anujImage from "@/assets/Anuj.PNG?url";
-import karmaImage from "@/assets/Karma.jpeg";
-import priyanshuImage from "@/assets/Priyanshu.JPG";
-import vishalImage from "@/assets/Vishal.JPG";
+import anujImage from "@/assets/Anuj.webp";
+import karmaImage from "@/assets/Karma.webp";
+import priyanshuImage from "@/assets/Priyanshu.webp";
+import vishalImage from "@/assets/Vishal.webp";
 import { Award, Users } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
