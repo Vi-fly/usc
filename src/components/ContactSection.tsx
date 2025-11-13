@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Bus, Calendar, Clock, Compass, Instagram, Mail, MapPin, MessageCircle, MessageSquare, Phone, Sparkles, Youtube } from "lucide-react";
+import { Calendar, Clock, Instagram, Mail, MapPin, MessageCircle, MessageSquare, Phone, Sparkles, Youtube } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const ContactSection = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeTab, setActiveTab] = useState<"nearby" | "traveling">("nearby");
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -19,13 +18,14 @@ const ContactSection = () => {
       { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -220,104 +220,6 @@ const ContactSection = () => {
               </div>
               </div>
               </div>
-          </div>
-
-          {/* How to Visit Us Section */}
-          <div className={`mt-16 max-w-4xl mx-auto transition-all duration-1000 delay-500 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}>
-            <div className="backdrop-blur-xl bg-card/80 rounded-3xl p-6 md:p-8 border border-border/50 shadow-2xl">
-              {/* Tabs */}
-              <div className="flex gap-2 mb-8 p-1 bg-secondary/30 rounded-full">
-                <button
-                  onClick={() => setActiveTab("nearby")}
-                  className={`flex-1 py-3 px-4 rounded-full font-semibold text-sm transition-all ${
-                    activeTab === "nearby"
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  Nearby
-                </button>
-                <button
-                  onClick={() => setActiveTab("traveling")}
-                  className={`flex-1 py-3 px-4 rounded-full font-semibold text-sm transition-all ${
-                    activeTab === "traveling"
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  Traveling
-                </button>
-              </div>
-
-              {/* Content */}
-              <div>
-                <h3 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-                  Located in Mountain Regions
-                </h3>
-                <p className="text-muted-foreground leading-relaxed mb-8">
-                  Our camps are situated in carefully selected wilderness areas that offer diverse terrain for comprehensive survival training. Each location provides unique challenges and learning opportunities in pristine natural environments.
-                </p>
-
-                {activeTab === "nearby" ? (
-                  <div className="space-y-4 mb-8">
-                    {/* Step 1: Reach Kangra */}
-                    <div className="flex items-start gap-4 p-4 rounded-xl bg-secondary/50 border border-border/30 hover:shadow-md transition-all">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <MapPin className="text-primary" size={24} />
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-semibold mb-1 text-foreground">Reach Kangra</p>
-                        <p className="text-sm text-muted-foreground">By any mode of transport (bus, train, or flight)</p>
-                      </div>
-                    </div>
-
-                    {/* Step 2: Take bus to Jwalaji */}
-                    <div className="flex items-start gap-4 p-4 rounded-xl bg-secondary/50 border border-border/30 hover:shadow-md transition-all">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <Bus className="text-primary" size={24} />
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-semibold mb-1 text-foreground">Take bus to Jwalaji / Jwalamukhi</p>
-                        <p className="text-sm text-muted-foreground">Available from Kangra bus stand</p>
-                      </div>
-                    </div>
-
-                    {/* Step 3: Take auto to campsite */}
-                    <div className="flex items-start gap-4 p-4 rounded-xl bg-secondary/50 border border-border/30 hover:shadow-md transition-all">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <Compass className="text-primary" size={24} />
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-semibold mb-1 text-foreground">Take auto to campsite</p>
-                        <p className="text-sm text-muted-foreground">From Jwalaji / Jwalamukhi to the campsite</p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-4 mb-8">
-                    <div className="p-4 rounded-xl bg-secondary/50 border border-border/30">
-                      <p className="font-semibold mb-2 text-foreground">From Delhi</p>
-                      <p className="text-sm text-muted-foreground mb-3">Distance: ~440 km | Travel Time: 8-9 hours by car/volvo bus</p>
-                      <p className="text-sm text-muted-foreground">Route: Delhi → NHI → Karnal → Ambala → Anandpur Sahib → Kiratpur Sahib → Nangal → Una Amb → Ghallour → Jajwar → Campsite</p>
-                    </div>
-                    <div className="p-4 rounded-xl bg-secondary/50 border border-border/30">
-                      <p className="font-semibold mb-2 text-foreground">From Other Cities</p>
-                      <p className="text-sm text-muted-foreground">Take a flight to Delhi or Chandigarh, then continue by train/road/flight to Kangra</p>
-                    </div>
-                  </div>
-                )}
-
-                <Button 
-                  size="lg" 
-                  className="w-full md:w-auto rounded-full px-8 shadow-lg"
-                  onClick={() => window.open("https://maps.google.com", "_blank")}
-                >
-                  Get Directions
-                </Button>
-              </div>
-            </div>
           </div>
 
           {/* Enhanced Email Section */}

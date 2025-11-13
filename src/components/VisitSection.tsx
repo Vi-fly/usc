@@ -61,29 +61,29 @@ const VisitSection = () => {
           </p>
         </div>
 
-        <div className="bg-card/80 backdrop-blur-sm rounded-[2rem] p-8 md:p-16 border border-border/50 shadow-2xl animate-scale-in">
+        <div className="bg-card/80 backdrop-blur-sm rounded-[2rem] p-4 sm:p-6 md:p-16 border border-border/50 shadow-2xl animate-scale-in">
           {/* Toggle Buttons */}
-          <div className="flex justify-center mb-16">
-            <div className="inline-flex bg-secondary/80 rounded-full p-2 border border-border/30 shadow-lg">
+          <div className="flex justify-center mb-8 md:mb-16">
+            <div className="inline-flex w-full sm:w-auto bg-secondary/80 rounded-full p-1 sm:p-2 border border-border/30 shadow-lg">
               <button
                 onClick={() => setActiveLocation("local")}
-                className={`px-10 py-4 rounded-full font-semibold transition-all duration-300 ${
+                className={`flex-1 sm:flex-none sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 ${
                   activeLocation === "local"
                     ? "bg-primary text-primary-foreground shadow-lg scale-105"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                I'm Nearby
+                Nearby
               </button>
               <button
                 onClick={() => setActiveLocation("remote")}
-                className={`px-10 py-4 rounded-full font-semibold transition-all duration-300 ${
+                className={`flex-1 sm:flex-none sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 ${
                   activeLocation === "remote"
                     ? "bg-primary text-primary-foreground shadow-lg scale-105"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                I'm Traveling
+                Traveling
               </button>
             </div>
           </div>
@@ -96,10 +96,10 @@ const VisitSection = () => {
               activeLocation === "remote" ? "max-w-6xl mx-auto w-full" : ""
             }`}>
               <div>
-                <h3 className="text-3xl font-bold mb-4">
+                <h3 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
                   {activeLocation === "local" ? "Located in Mountain Regions" : "Traveling from Delhi & Other Cities"}
                 </h3>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4 sm:mb-6">
                   {activeLocation === "local"
                     ? "Our camps are situated in carefully selected wilderness areas that offer diverse terrain for comprehensive survival training. Each location provides unique challenges and learning opportunities in pristine natural environments."
                     : "Multiple convenient travel options available. Choose the mode that works best for you - road, rail, or air."}
@@ -107,26 +107,32 @@ const VisitSection = () => {
               </div>
 
               {activeLocation === "local" ? (
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-secondary/50 border border-border/30">
-                    <MapPin className="text-primary mt-1 flex-shrink-0" size={24} />
-                    <div>
-                      <p className="font-semibold mb-1">Reach Kangra</p>
-                      <p className="text-sm text-muted-foreground">By any mode of transport (bus, train, or flight)</p>
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-secondary/50 border border-border/30 hover:shadow-md transition-all">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <MapPin className="text-primary" size={20} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold mb-1 text-sm sm:text-base">Reach Kangra</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">By any mode of transport (bus, train, or flight)</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-secondary/50 border border-border/30">
-                    <Bus className="text-primary mt-1 flex-shrink-0" size={24} />
-                    <div>
-                      <p className="font-semibold mb-1">Take bus to Jwalaji / Jwalamukhi</p>
-                      <p className="text-sm text-muted-foreground">Available from Kangra bus stand</p>
+                  <div className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-secondary/50 border border-border/30 hover:shadow-md transition-all">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Bus className="text-primary" size={20} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold mb-1 text-sm sm:text-base">Take bus to Jwalaji / Jwalamukhi</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">Available from Kangra bus stand</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-secondary/50 border border-border/30">
-                    <Compass className="text-primary mt-1 flex-shrink-0" size={24} />
-                    <div>
-                      <p className="font-semibold mb-1">Take auto to campsite</p>
-                      <p className="text-sm text-muted-foreground">From Jwalaji / Jwalamukhi to the campsite</p>
+                  <div className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-secondary/50 border border-border/30 hover:shadow-md transition-all">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Compass className="text-primary" size={20} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold mb-1 text-sm sm:text-base">Take auto to campsite</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">From Jwalaji / Jwalamukhi to the campsite</p>
                     </div>
                   </div>
                 </div>
@@ -206,7 +212,7 @@ const VisitSection = () => {
                 </div>
               )}
 
-              <Button size="lg" className="rounded-full px-8 shadow-lg">
+              <Button size="lg" className="w-full sm:w-auto rounded-full px-8 shadow-lg mt-6">
                 Get Directions
               </Button>
             </div>
