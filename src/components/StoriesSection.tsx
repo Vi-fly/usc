@@ -13,27 +13,19 @@ const StoriesSection = () => {
     <section className="py-6 md:py-8 bg-background">
       <div className="container pl-2 md:pl-4 pr-4 md:pr-6">
         <div className="mb-4 md:mb-6 animate-fade-in-up">
-          <div className="grid md:grid-cols-2 gap-3 md:gap-5 items-start">
-            <div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-3 leading-tight text-left">
-                Where every corner tells <span className="text-primary">stories</span>
-              </h2>
-              <Link to="/gallery">
-                <Button
-                  size="lg"
-                  className="rounded-full bg-foreground text-background hover:bg-foreground/90 border-0 group px-5 py-2"
-                >
-                  <Camera className="mr-2 group-hover:scale-110 transition-transform" size={16} />
-                  See more projects
-                </Button>
-              </Link>
-            </div>
-            <div className="flex items-start">
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed text-left md:text-right">
-                Explore the enchanting spaces of our survival campsite, crafted to inspire your imagination. 
-                From awe-inspiring wilderness experiences dream, create, and connect.
-              </p>
-            </div>
+          <div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-3 leading-tight text-left">
+              Where every corner tells <span className="text-primary">stories</span>
+            </h2>
+            <Link to="/gallery">
+              <Button
+                size="lg"
+                className="rounded-full bg-foreground text-background hover:bg-foreground/90 border-0 group px-5 py-2"
+              >
+                <Camera className="mr-2 group-hover:scale-110 transition-transform" size={16} />
+                See more projects
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="grid md:grid-cols-3 gap-2 md:gap-3 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>

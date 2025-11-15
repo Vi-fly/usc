@@ -1,7 +1,75 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Play, Calendar as CalendarIcon, Clock, MapPin } from "lucide-react";
+import { useEffect, useState } from "react";
+import { fetchGoogleCalendarEvents, convertGoogleEventToEvent } from "@/utils/googleCalendar";
+import { Link } from "react-router-dom";
+import story1 from "@/assets/story-1.webp";
+import story2 from "@/assets/story-2.webp";
+import story3 from "@/assets/story-3.webp";
+import story4 from "@/assets/story-4.webp";
+import article1 from "@/assets/article-1.webp";
+import article2 from "@/assets/article-2.webp";
+import article3 from "@/assets/article-3.webp";
+
+const GOOGLE_CALENDAR_ID = 'classroom115807423677492622322@group.calendar.google.com';
 
 const HeroSection = () => {
+  const [nextEvent, setNextEvent] = useState<{
+    title: string;
+    startDate: Date;
+    endDate: Date;
+    duration: string;
+    location: string;
+    description: string;
+  } | null>(null);
+  // Fetch next upcoming event from Google Calendar
+  useEffect(() => {
+    const loadNextEvent = async () => {
+      try {
+        const googleCalEvents = await fetchGoogleCalendarEvents(GOOGLE_CALENDAR_ID);
+        
+        if (googleCalEvents.length > 0) {
+          // Convert and find the next upcoming event
+          const now = new Date();
+          const convertedEvents = googleCalEvents.map((event, index) => {
+            const defaultImages = [story1, story2, story3, story4, article1, article2, article3];
+            const defaultImage = defaultImages[index % defaultImages.length];
+            return convertGoogleEventToEvent(event, index, defaultImage);
+          });
+          
+          // Find the next event (start date is in the future)
+          const upcomingEvents = convertedEvents.filter(event => {
+            const eventStart = new Date(event.startDate);
+            eventStart.setHours(0, 0, 0, 0);
+            const today = new Date(now);
+            today.setHours(0, 0, 0, 0);
+            return eventStart >= today;
+          });
+          
+          if (upcomingEvents.length > 0) {
+            // Sort by start date and get the first one
+            const next = upcomingEvents.sort((a, b) => 
+              a.startDate.getTime() - b.startDate.getTime()
+            )[0];
+            
+            setNextEvent({
+              title: next.title,
+              startDate: next.startDate,
+              endDate: next.endDate,
+              duration: next.duration,
+              location: next.location,
+              description: next.description,
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load next event:', error);
+      }
+    };
+    
+    loadNextEvent();
+  }, []);
+
   // YouTube video embed URL with autoplay, loop, no controls, and muted
   // Using enhanced parameters to hide all YouTube UI elements
   const youtubeVideoId = "Nml92cDtF8s";
@@ -61,7 +129,13 @@ const HeroSection = () => {
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-foreground text-lg px-8 py-6 rounded-full transition-all"
+              className="border-2 border-primary-foreground !text-primary-foreground hover:bg-primary-foreground hover:!text-foreground text-lg px-8 py-6 rounded-full transition-all bg-background/20 backdrop-blur-sm"
+              onClick={() => {
+                const videoSection = document.getElementById('video-section');
+                if (videoSection) {
+                  videoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
             >
               <Play className="mr-2" size={20} />
               Watch Video
@@ -71,21 +145,66 @@ const HeroSection = () => {
 
           {/* Floating Info Card */}
           <div className="absolute bottom-12 right-12 hidden lg:block animate-slide-in-right z-20">
-          <div className="bg-card/95 backdrop-blur-sm rounded-2xl p-6 shadow-strong max-w-xs">
+          <div className="bg-card/95 backdrop-blur-sm rounded-2xl p-6 shadow-strong max-w-sm">
             <div className="flex items-start space-x-4">
-              <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-                <span className="text-2xl">🏕️</span>
+              <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <CalendarIcon className="w-8 h-8 text-primary" />
               </div>
-              <div>
-                <h3 className="font-semibold text-card-foreground mb-1">
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-card-foreground mb-2">
                   Next Campsite Session Starts Soon
                 </h3>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Join our wilderness survival intensive
-                </p>
-                <Button size="sm" variant="link" className="p-0 h-auto text-primary">
-                  Learn more →
-                </Button>
+                {nextEvent ? (
+                  <>
+                    <h4 className="font-bold text-card-foreground mb-2 line-clamp-1">
+                      {nextEvent.title}
+                    </h4>
+                    <div className="space-y-1.5 mb-3 text-xs text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <CalendarIcon className="w-3 h-3 flex-shrink-0" />
+                        <span>
+                          {nextEvent.startDate.toLocaleDateString('en-US', { 
+                            month: 'short', 
+                            day: 'numeric',
+                            year: 'numeric'
+                          })}
+                          {nextEvent.startDate.getTime() !== nextEvent.endDate.getTime() && 
+                            ` - ${nextEvent.endDate.toLocaleDateString('en-US', { 
+                              month: 'short', 
+                              day: 'numeric' 
+                            })}`
+                          }
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-3 h-3 flex-shrink-0" />
+                        <span>{nextEvent.duration}</span>
+                      </div>
+                      {nextEvent.location && (
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-3 h-3 flex-shrink-0" />
+                          <span className="truncate">{nextEvent.location}</span>
+                        </div>
+                      )}
+                    </div>
+                    <Link to="/events">
+                      <Button size="sm" variant="link" className="p-0 h-auto text-primary">
+                        View Details →
+                      </Button>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Join our wilderness survival intensive
+                    </p>
+                    <Link to="/events">
+                      <Button size="sm" variant="link" className="p-0 h-auto text-primary">
+                        Learn more →
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
               </div>

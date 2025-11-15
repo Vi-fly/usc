@@ -71,6 +71,7 @@ const VideoSection = () => {
 
   return (
     <section 
+      id="video-section"
       ref={sectionRef}
       className="w-full py-16 px-4 bg-background relative overflow-hidden"
     >

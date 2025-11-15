@@ -39,7 +39,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Camera, Grid3x3, Loader2, Sparkles, X } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, memo } from "react";
 
 interface GalleryImage {
   id: string;
@@ -68,7 +68,7 @@ const getImageSrc = (img: string | { default?: string }): string => {
   return String(img || '');
 };
 
-// All unique gallery images - images from assets/images/ directory first
+// Pre-compute all gallery images once (outside component to avoid recalculation)
 const allGalleryImages: GalleryImage[] = [
   // Images from assets/images/ (shown first)
   { id: "1", src: getImageSrc(bar), title: "Camp Bar", category: "Stay" },
@@ -113,6 +113,115 @@ const categories = ["All", "Adventure", "Training", "Nature", "Skills", "Events"
 
 const ITEMS_PER_PAGE = 12;
 
+// Memoized Gallery Image Item Component - Highly Optimized
+const GalleryImageItem = memo(({ 
+  image, 
+  idx, 
+  onImageClick 
+}: { 
+  image: GalleryImage; 
+  idx: number; 
+  onImageClick: (image: GalleryImage) => void;
+}) => {
+  const isBuddhaMeditation = image.id === "4" || image.title === "Buddha Meditation";
+  const itemRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [isVisible, setIsVisible] = useState(idx < 12); // Pre-visible for first 12
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Skip observer for first 12 images (already visible)
+    if (idx < 12) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.01, rootMargin: "100px" }
+    );
+
+    const currentRef = itemRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+      observer.disconnect();
+    };
+  }, [idx]);
+
+  const handleImageLoad = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const handleClick = useCallback(() => {
+    onImageClick(image);
+  }, [image, onImageClick]);
+
+  return (
+    <div
+      ref={itemRef}
+      className={`group relative aspect-square overflow-hidden rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-200 ${
+        isVisible ? 'opacity-100' : 'opacity-0'
+      }`}
+      onClick={handleClick}
+      style={{ 
+        animationDelay: isVisible ? `${idx * 0.02}s` : undefined,
+        contentVisibility: idx > 20 ? 'auto' : undefined
+      }}
+    >
+      <img
+        ref={imgRef}
+        src={image.src}
+        alt={image.title || `Gallery image ${idx + 1}`}
+        className={`w-full h-full object-cover transition-transform duration-300 ${
+          isBuddhaMeditation 
+            ? 'rotate-[-90deg] group-hover:rotate-[-90deg] group-hover:scale-110' 
+            : 'group-hover:scale-110'
+        } ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+        loading={idx < 12 ? "eager" : "lazy"}
+        decoding="async"
+        fetchPriority={idx < 4 ? "high" : "auto"}
+        onLoad={handleImageLoad}
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.style.display = 'none';
+        }}
+      />
+      {isLoaded && (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-150 pointer-events-none">
+            {image.title && (
+              <h3 className="text-white font-bold mb-0.5 text-xs">{image.title}</h3>
+            )}
+            {image.category && (
+              <p className="text-white/80 text-[10px]">{image.category}</p>
+            )}
+          </div>
+          <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none">
+            <div className="bg-white/20 rounded-full p-1.5">
+              <Camera className="w-3 h-3 text-white" />
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}, (prevProps, nextProps) => {
+  // Custom comparison for better memoization
+  return prevProps.image.id === nextProps.image.id && 
+         prevProps.idx === nextProps.idx;
+});
+
+GalleryImageItem.displayName = 'GalleryImageItem';
+
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
@@ -120,105 +229,97 @@ const Gallery = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const loaderRef = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  // Memoize filtered images with stable reference
+  const filteredImages = useMemo(() => {
+    if (selectedCategory === "All") {
+      return allGalleryImages;
+    }
+    return allGalleryImages.filter(img => img.category === selectedCategory);
+  }, [selectedCategory]);
 
   // Filter images by category and reset pagination
   useEffect(() => {
-    const filtered = selectedCategory === "All" 
-      ? allGalleryImages 
-      : allGalleryImages.filter(img => img.category === selectedCategory);
-    
-    setDisplayedImages(filtered.slice(0, ITEMS_PER_PAGE));
+    setDisplayedImages(filteredImages.slice(0, ITEMS_PER_PAGE));
     setCurrentPage(1);
-    setHasMore(filtered.length > ITEMS_PER_PAGE);
-  }, [selectedCategory]);
+    setHasMore(filteredImages.length > ITEMS_PER_PAGE);
+  }, [filteredImages]);
 
-  // Load more images function
+  // Load more images function - highly optimized
   const loadMoreImages = useCallback(() => {
     if (isLoading || !hasMore) return;
 
     setIsLoading(true);
     
-    // Simulate API delay for smooth UX
-    setTimeout(() => {
-      const filtered = selectedCategory === "All" 
-        ? allGalleryImages 
-        : allGalleryImages.filter(img => img.category === selectedCategory);
-      
+    // Use microtask for immediate execution without blocking
+    Promise.resolve().then(() => {
       const nextPage = currentPage + 1;
       const startIndex = currentPage * ITEMS_PER_PAGE;
       const endIndex = startIndex + ITEMS_PER_PAGE;
-      const newImages = filtered.slice(startIndex, endIndex);
+      const newImages = filteredImages.slice(startIndex, endIndex);
 
       if (newImages.length > 0) {
-        setDisplayedImages(prev => [...prev, ...newImages]);
+        setDisplayedImages(prev => {
+          // Prevent duplicate additions
+          const existingIds = new Set(prev.map(img => img.id));
+          const uniqueNew = newImages.filter(img => !existingIds.has(img.id));
+          return [...prev, ...uniqueNew];
+        });
         setCurrentPage(nextPage);
-        setHasMore(endIndex < filtered.length);
+        setHasMore(endIndex < filteredImages.length);
       } else {
         setHasMore(false);
       }
 
       setIsLoading(false);
-    }, 300);
-  }, [currentPage, isLoading, hasMore, selectedCategory]);
-
-  // Intersection observer for fade-in animations
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
-    };
-
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const el = entry.target as HTMLElement;
-          el.classList.remove("opacity-0");
-          el.classList.add("opacity-100", "animate-fade-in");
-          obs.unobserve(el);
-        }
-      });
-    }, observerOptions);
-
-    sectionsRef.current.forEach((section) => {
-      if (section) observer.observe(section);
     });
+  }, [currentPage, isLoading, hasMore, filteredImages]);
 
-    return () => observer.disconnect();
-  }, [displayedImages]);
-
-  // Intersection observer for infinite scroll
+  // Optimized intersection observer for infinite scroll
   useEffect(() => {
+    // Cleanup previous observer
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+      observerRef.current = null;
+    }
+
+    if (!hasMore || isLoading) return;
+
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "100px",
+      threshold: 0.01,
+      rootMargin: "300px", // Load earlier for smoother experience
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    observerRef.current = new IntersectionObserver((entries) => {
       const target = entries[0];
       if (target.isIntersecting && hasMore && !isLoading) {
+        // Debounce rapid calls
+        if (observerRef.current) {
+          observerRef.current.disconnect();
+        }
         loadMoreImages();
       }
     }, observerOptions);
 
     const currentLoader = loaderRef.current;
-    if (currentLoader) {
-      observer.observe(currentLoader);
+    if (currentLoader && observerRef.current) {
+      observerRef.current.observe(currentLoader);
     }
 
     return () => {
-      if (currentLoader) {
-        observer.unobserve(currentLoader);
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
       }
     };
   }, [hasMore, isLoading, loadMoreImages]);
 
-  const addToRefs = (el: HTMLDivElement | null) => {
-    if (el && !sectionsRef.current.includes(el)) {
-      sectionsRef.current.push(el);
-    }
-  };
+  // Memoize image click handler
+  const handleImageClick = useCallback((image: GalleryImage) => {
+    setSelectedImage(image);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -233,6 +334,8 @@ const Gallery = () => {
               src={getImageSrc(storyMain)}
               alt="Gallery"
               className="w-full h-full object-cover"
+              loading="eager"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-br from-forest-dark/90 via-earth-dark/85 to-forest-medium/80" />
           </div>
@@ -268,17 +371,17 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Category Filter */}
+      {/* Category Filter - Optimized */}
       <section className="py-12 relative z-10 border-b border-border">
         <div className="container mx-auto px-6">
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                className={`px-5 py-2.5 rounded-full font-medium transition-colors duration-150 ${
                   selectedCategory === category
-                    ? "bg-primary text-primary-foreground shadow-lg scale-105"
+                    ? "bg-primary text-primary-foreground shadow-md"
                     : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
                 }`}
               >
@@ -289,44 +392,20 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Gallery Grid */}
+      {/* Gallery Grid - Optimized */}
       <section className="py-16 relative z-10">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+            style={{ contentVisibility: 'auto' }}
+          >
             {displayedImages.map((image, idx) => (
-              <div
+              <GalleryImageItem
                 key={image.id}
-                ref={addToRefs}
-                className="opacity-0 group relative aspect-square overflow-hidden rounded-2xl cursor-pointer hover:scale-[1.02] transition-all duration-500"
-                onClick={() => setSelectedImage(image)}
-                style={{ animationDelay: `${idx * 0.05}s` }}
-              >
-                <img
-                  src={image.src}
-                  alt={image.title || `Gallery image ${idx + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading={idx < 12 ? "eager" : "lazy"}
-                  onError={(e) => {
-                    console.error(`Failed to load image: ${image.src}`, image);
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  {image.title && (
-                    <h3 className="text-white font-bold mb-1">{image.title}</h3>
-                  )}
-                  {image.category && (
-                    <p className="text-white/80 text-sm">{image.category}</p>
-                  )}
-                </div>
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="bg-white/20 backdrop-blur-sm rounded-full p-2">
-                    <Camera className="w-4 h-4 text-white" />
-                  </div>
-                </div>
-              </div>
+                image={image}
+                idx={idx}
+                onImageClick={handleImageClick}
+              />
             ))}
           </div>
 
@@ -355,11 +434,12 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Image Modal */}
+      {/* Image Modal - Optimized */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in"
+          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 animate-fade-in"
           onClick={() => setSelectedImage(null)}
+          style={{ willChange: 'opacity' }}
         >
           <div className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center">
             <button
@@ -367,7 +447,8 @@ const Gallery = () => {
                 e.stopPropagation();
                 setSelectedImage(null);
               }}
-              className="absolute top-4 right-4 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-all"
+              className="absolute top-4 right-4 z-10 bg-white/10 hover:bg-white/20 rounded-full p-3 transition-colors"
+              aria-label="Close modal"
             >
               <X className="w-6 h-6 text-white" />
             </button>
@@ -376,42 +457,52 @@ const Gallery = () => {
               src={selectedImage.src}
               alt={selectedImage.title || "Gallery image"}
               className="max-w-full max-h-full object-contain rounded-lg"
+              style={(selectedImage.id === "4" || selectedImage.title === "Buddha Meditation") ? { transform: 'rotate(-90deg)' } : {}}
               onClick={(e) => e.stopPropagation()}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
             />
             
             {selectedImage.title && (
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3">
-                <p className="text-white font-semibold">{selectedImage.title}</p>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 rounded-full px-6 py-3">
+                <p className="text-white font-semibold text-sm">{selectedImage.title}</p>
                 {selectedImage.category && (
-                  <p className="text-white/80 text-sm text-center mt-1">{selectedImage.category}</p>
+                  <p className="text-white/80 text-xs text-center mt-1">{selectedImage.category}</p>
                 )}
               </div>
             )}
 
-            {/* Navigation Arrows */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                const currentIndex = displayedImages.findIndex(img => img.id === selectedImage.id);
-                const prevIndex = currentIndex > 0 ? currentIndex - 1 : displayedImages.length - 1;
-                setSelectedImage(displayedImages[prevIndex]);
-              }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-4 transition-all"
-            >
-              <ArrowRight className="w-6 h-6 text-white rotate-180" />
-            </button>
-            
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                const currentIndex = displayedImages.findIndex(img => img.id === selectedImage.id);
-                const nextIndex = currentIndex < displayedImages.length - 1 ? currentIndex + 1 : 0;
-                setSelectedImage(displayedImages[nextIndex]);
-              }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-4 transition-all"
-            >
-              <ArrowRight className="w-6 h-6 text-white" />
-            </button>
+            {/* Navigation Arrows - Memoized handlers */}
+            {displayedImages.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const currentIndex = displayedImages.findIndex(img => img.id === selectedImage.id);
+                    const prevIndex = currentIndex > 0 ? currentIndex - 1 : displayedImages.length - 1;
+                    setSelectedImage(displayedImages[prevIndex]);
+                  }}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-4 transition-colors"
+                  aria-label="Previous image"
+                >
+                  <ArrowRight className="w-6 h-6 text-white rotate-180" />
+                </button>
+                
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const currentIndex = displayedImages.findIndex(img => img.id === selectedImage.id);
+                    const nextIndex = currentIndex < displayedImages.length - 1 ? currentIndex + 1 : 0;
+                    setSelectedImage(displayedImages[nextIndex]);
+                  }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-4 transition-colors"
+                  aria-label="Next image"
+                >
+                  <ArrowRight className="w-6 h-6 text-white" />
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}

@@ -96,13 +96,13 @@ const ExperienceSection = () => {
         <div className="text-center mb-16 animate-fade-in-up max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
             <Sparkles className="text-primary" size={18} />
-            <span className="text-sm font-semibold text-primary">Our Experiences</span>
+            <span className="text-sm font-semibold text-primary">Our Activities</span>
           </div>
           <h2 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
-            Choose Your <span className="text-primary">Experience</span>
+            Choose Your <span className="text-primary">Activity</span>
           </h2>
           <p className="text-lg text-muted-foreground">
-            Transformative experiences designed to inspire, challenge, and reconnect you with nature
+            Transformative activities designed to inspire, challenge, and reconnect you with nature
           </p>
         </div>
 
@@ -113,7 +113,7 @@ const ExperienceSection = () => {
             return (
               <Link
                 key={experience.id}
-                to={`/experiences/${experience.id}`}
+                to={`/activities/${experience.id}`}
                 className="group block"
               >
                 <div 
@@ -164,12 +164,12 @@ const ExperienceSection = () => {
 
         {/* CTA */}
         <div className="text-center animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
-          <Link to="/experiences">
+          <Link to="/activities">
             <Button
               size="lg"
               className="rounded-full px-10 shadow-lg hover:shadow-xl transition-all group"
             >
-              View All Experiences
+              View All Activities
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>

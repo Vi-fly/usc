@@ -7,7 +7,6 @@ import storyMain from "@/assets/story-main.webp";
 import vishalImage from "@/assets/Vishal.webp";
 import CommitmentSection from "@/components/CommitmentSection";
 import Footer from "@/components/Footer";
-import GallerySection from "@/components/GallerySection";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Award, Shield, Sparkles, Users } from "lucide-react";
@@ -78,7 +77,7 @@ const About = () => {
                   Where Adventure Meets <span className="text-primary">Growth</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-                  Empowering individuals through wilderness skills, outdoor education, and unforgettable experiences since 2015
+                  Empowering individuals through wilderness skills, outdoor education, and unforgettable activities since 2015
                 </p>
               </div>
             </div>
@@ -178,7 +177,7 @@ const About = () => {
                   size="lg"
                   className="bg-foreground text-background hover:bg-foreground/90 rounded-full px-8 group"
                 >
-                  Discover our experiences
+                  Discover our activities
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </div>
@@ -191,13 +190,6 @@ const About = () => {
       <section className="py-24 relative z-10 bg-gradient-to-br from-accent/10 via-background to-primary/10">
         <div ref={addToRefs} className="opacity-0">
           <CommitmentSection />
-        </div>
-      </section>
-
-      {/* Our Latest Adventures Section */}
-      <section className="py-24 relative z-10">
-        <div ref={addToRefs} className="opacity-0">
-          <GallerySection />
         </div>
       </section>
 
@@ -221,7 +213,7 @@ const About = () => {
                 Our Complete <span className="text-primary">Team</span>
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Our team brings together decades of military expertise, hospitality excellence, and youth leadership to create transformative wilderness experiences.
+                Our team brings together decades of military expertise, hospitality excellence, and youth leadership to create transformative wilderness activities.
               </p>
             </div>
 
@@ -330,7 +322,7 @@ const About = () => {
                   { number: "10+", label: "Years Experience", icon: Shield, color: "primary" },
                   { number: "5000+", label: "Happy Campers", icon: Users, color: "accent" },
                   { number: "50+", label: "Expert Instructors", icon: Award, color: "primary" },
-                  { number: "100+", label: "Experiences Offered", icon: Sparkles, color: "accent" }
+                  { number: "100+", label: "Activities Offered", icon: Sparkles, color: "accent" }
                 ].map((stat, idx) => {
                   const Icon = stat.icon;
                   const isPrimary = stat.color === "primary";
@@ -387,8 +379,8 @@ const About = () => {
                   iconColor: "text-accent"
                 },
                 {
-                  title: "Comprehensive Experiences",
-                  description: "From beginner-friendly introductions to advanced wilderness skills, we offer experiences for all ages and experience levels throughout the year.",
+                  title: "Comprehensive Activities",
+                  description: "From beginner-friendly introductions to advanced wilderness skills, we offer activities for all ages and experience levels throughout the year.",
                   icon: Sparkles,
                   gradient: "from-primary/20 to-primary/10",
                   border: "border-primary/30",
@@ -442,11 +434,11 @@ const About = () => {
             </h2>
             
             <p className="text-xl text-foreground mb-8 leading-relaxed">
-              Whether you're a complete beginner or an experienced outdoors enthusiast, we have the perfect experience waiting for you.
+              Whether you're a complete beginner or an experienced outdoors enthusiast, we have the perfect activity waiting for you.
             </p>
             
             <Button size="lg" className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-xl hover:shadow-2xl transition-all hover:scale-105 rounded-full px-10 py-6 text-lg group">
-              Explore Our Experiences
+              Explore Our Activities
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>

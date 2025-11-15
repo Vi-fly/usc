@@ -441,28 +441,24 @@ const Stay = () => {
                       {accommodation.description}
                     </p>
 
-                    {/* Pricing - Minimalist Design */}
-                    <div className="space-y-3 py-6 border-y border-border/30">
-                      <div className="flex items-baseline gap-3">
-                        <span className="text-sm text-muted-foreground font-medium min-w-[80px]">Single</span>
-                        <span className="text-3xl font-bold text-primary">{accommodation.singlePrice}</span>
+                    {/* Facilities & Amenities - Moved Outside */}
+                    <div>
+                      <h4 className="text-xl font-bold mb-4 flex items-center gap-2">
+                        <CheckCircle className="w-5 h-5 text-primary" />
+                        Facilities & Amenities
+                      </h4>
+                      <div className="grid md:grid-cols-2 gap-3 mb-6">
+                        {accommodation.facilities.map((facility, facilityIdx) => (
+                          <div key={facilityIdx} className="flex items-start gap-3">
+                            <CheckCircle className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                            <span className="text-sm text-muted-foreground">{facility}</span>
+                          </div>
+                        ))}
                       </div>
-                      {accommodation.twinPrice !== "Group Only" && (
-                        <div className="flex items-baseline gap-3">
-                          <span className="text-sm text-muted-foreground font-medium min-w-[80px]">Twin</span>
-                          <span className="text-3xl font-bold text-primary">{accommodation.twinPrice}</span>
-                        </div>
-                      )}
-                      {accommodation.additionalPersonPrice && (
-                        <div className="flex items-baseline gap-3">
-                          <span className="text-sm text-muted-foreground font-medium min-w-[80px]">Additional</span>
-                          <span className="text-3xl font-bold text-primary">{accommodation.additionalPersonPrice}</span>
-                        </div>
-                      )}
                     </div>
 
                     {/* Features - Minimalist tags */}
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 mb-6">
                       {accommodation.features.map((feature, featureIdx) => (
                         <span
                           key={featureIdx}
@@ -477,7 +473,7 @@ const Stay = () => {
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button 
-                          className="bg-primary hover:bg-primary/90 text-primary-foreground group/btn mt-4"
+                          className="bg-primary hover:bg-primary/90 text-primary-foreground group/btn"
                           onClick={() => setSelectedAccommodation(accommodation)}
                         >
                           Check Pricing & Details
@@ -493,7 +489,7 @@ const Stay = () => {
                         </DialogHeader>
                         
                         <div className="space-y-6 mt-4">
-                          {/* Pricing Table */}
+                          {/* Pricing Table - Moved Inside Dialog */}
                           <div className="bg-secondary/50 rounded-xl p-6 border border-border">
                             <h4 className="text-xl font-bold mb-4">
                               Pricing Details
@@ -521,22 +517,6 @@ const Stay = () => {
                             </div>
                           </div>
 
-                          {/* Facilities List */}
-                          <div>
-                            <h4 className="text-xl font-bold mb-4 flex items-center gap-2">
-                              <CheckCircle className="w-5 h-5 text-primary" />
-                              Facilities & Amenities
-                            </h4>
-                            <div className="grid md:grid-cols-2 gap-3">
-                              {accommodation.facilities.map((facility, facilityIdx) => (
-                                <div key={facilityIdx} className="flex items-start gap-3">
-                                  <CheckCircle className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                                  <span className="text-sm text-muted-foreground">{facility}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-
                           {/* Features */}
                           <div>
                             <h4 className="text-xl font-bold mb-4">Key Features</h4>
@@ -556,6 +536,40 @@ const Stay = () => {
                           <Button 
                             size="lg" 
                             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
+                            onClick={() => {
+                              const phoneNumber = "918265892437";
+                              let message = `Hello! I'm interested in booking accommodation.\n\n`;
+                              
+                              message += `*Accommodation Details:*\n`;
+                              message += `Type: *${accommodation.name}*\n`;
+                              message += `Category: ${accommodation.type}\n`;
+                              message += `${accommodation.description}\n\n`;
+                              
+                              message += `*Pricing:*\n`;
+                              message += `Single Occupancy: ${accommodation.singlePrice}\n`;
+                              message += `Twin Occupancy: ${accommodation.twinPrice}\n`;
+                              if (accommodation.additionalPersonPrice) {
+                                message += `Additional Person: ${accommodation.additionalPersonPrice}\n`;
+                              }
+                              message += `*All rates exclude government taxes\n\n`;
+                              
+                              message += `*Key Features:*\n`;
+                              accommodation.features.forEach((feature) => {
+                                message += `• ${feature}\n`;
+                              });
+                              message += `\n`;
+                              
+                              message += `*Facilities & Amenities:*\n`;
+                              accommodation.facilities.forEach((facility) => {
+                                message += `• ${facility}\n`;
+                              });
+                              message += `\n`;
+                              
+                              message += `Please let me know about availability and booking details. Thank you!`;
+
+                              const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                              window.open(whatsappUrl, '_blank');
+                            }}
                           >
                             Book This Accommodation
                             <ArrowRight className="ml-2" />
@@ -616,6 +630,21 @@ const Stay = () => {
               <Button
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-10 py-7 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 group"
+                onClick={() => {
+                  const phoneNumber = "918265892437";
+                  let message = `Hello! I'm interested in booking accommodation at Ultimate Survival Campsite.\n\n`;
+                  
+                  message += `I would like to know more about:\n`;
+                  message += `• Available accommodation options\n`;
+                  message += `• Pricing and packages\n`;
+                  message += `• Facilities and amenities\n`;
+                  message += `• Booking availability\n\n`;
+                  
+                  message += `Please provide me with details and help me book my stay. Thank you!`;
+
+                  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                  window.open(whatsappUrl, '_blank');
+                }}
               >
                 Book Your Stay Now
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />

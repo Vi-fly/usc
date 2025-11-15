@@ -92,16 +92,16 @@ const Experiences = () => {
               <div className="animate-fade-in-up mb-6">
                 <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6 animate-float border border-primary-foreground/30">
                   <Sparkles className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-medium text-primary-foreground">Our Experiences</span>
+                  <span className="text-sm font-medium text-primary-foreground">Our Activities</span>
                 </div>
               </div>
               
               <div className="animate-fade-in-up">
                 <h1 className="text-5xl md:text-7xl font-bold text-primary-foreground mb-6 leading-tight">
-                  Choose Your <span className="text-primary">Experience</span>
+                  Choose Your <span className="text-primary">Activity</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-                  Transformative experiences designed to inspire, challenge, and reconnect you with nature
+                  Transformative activities designed to inspire, challenge, and reconnect you with nature
                 </p>
               </div>
 
@@ -110,7 +110,7 @@ const Experiences = () => {
                   size="lg"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105"
                 >
-                  Explore Experiences
+                  Explore Activities
                   <ArrowRight className="ml-2" />
                 </Button>
               </div>
@@ -143,7 +143,7 @@ const Experiences = () => {
                   return (
                     <Link
                       key={experience.id}
-                      to={`/experiences/${experience.id}`}
+                      to={`/activities/${experience.id}`}
                       className="group block"
                     >
                       <div className="relative h-[400px] rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl">
@@ -201,11 +201,11 @@ const Experiences = () => {
             </h2>
             
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Whether you're seeking adventure, wellness, or team building, we have the perfect experience for you.
+              Whether you're seeking adventure, wellness, or team building, we have the perfect activity for you.
             </p>
             
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg group">
-              Book Your Experience
+              Book Your Activity
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>

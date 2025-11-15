@@ -46,7 +46,7 @@ const MissionVisionSection = () => {
             </p>
 
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              We envision a world where people live in rhythm with the earth - grounded in simplicity, guided by resilience, and connected through shared experiences.
+              We envision a world where people live in rhythm with the earth - grounded in simplicity, guided by resilience, and connected through shared activities.
             </p>
 
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
@@ -57,7 +57,7 @@ const MissionVisionSection = () => {
               size="lg"
               className="bg-foreground text-background hover:bg-foreground/90 rounded-full px-8 group"
             >
-              Discover our experiences
+              Discover our activities
               <ArrowDown className="ml-2 group-hover:translate-y-1 transition-transform" />
             </Button>
           </div>

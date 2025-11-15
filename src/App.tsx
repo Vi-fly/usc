@@ -7,7 +7,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoadingScreen from "./components/LoadingScreen";
 import ScrollToTop from "./components/ScrollToTop";
 import About from "./pages/About";
-import CurateEvent from "./pages/CurateEvent";
 import Events from "./pages/Events";
 import ExperienceDetail from "./pages/ExperienceDetail";
 import Experiences from "./pages/Experiences";
@@ -32,12 +31,11 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
-            <Route path="/experiences" element={<Experiences />} />
-            <Route path="/experiences/:id" element={<ExperienceDetail />} />
+            <Route path="/activities" element={<Experiences />} />
+            <Route path="/activities/:id" element={<ExperienceDetail />} />
             <Route path="/stay" element={<Stay />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/events" element={<Events />} />
-            <Route path="/curate-event" element={<CurateEvent />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

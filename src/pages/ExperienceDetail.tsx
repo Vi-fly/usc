@@ -1,4 +1,3 @@
-import CustomExperienceForm from "@/components/CustomExperienceForm";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { experiences, getExperienceById } from "@/data/experiences";
 import { ArrowLeft, ArrowRight, Calendar, CheckCircle, Clock, Users } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
+import CustomEventBookingForm from "@/components/CustomEventBookingForm";
 
 const ExperienceDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -43,7 +43,7 @@ const ExperienceDetail = () => {
   };
 
   if (!experience) {
-    return <Navigate to="/experiences" replace />;
+    return <Navigate to="/activities" replace />;
   }
 
   const Icon = experience.icon;
@@ -58,7 +58,7 @@ const ExperienceDetail = () => {
       <Navbar />
       
       {/* Hero Section with Image */}
-      <section className="relative min-h-[60vh] flex items-end overflow-hidden">
+      <section className="relative min-h-[60vh] flex items-end overflow-hidden pt-24 md:pt-28">
         <div className="absolute inset-0">
           <img
             src={experience.image}
@@ -70,11 +70,11 @@ const ExperienceDetail = () => {
         
         <div className="container relative z-10 px-6 py-16 pb-24">
           <Link
-            to="/experiences"
+            to="/activities"
             className="inline-flex items-center gap-2 text-white/90 hover:text-white mb-8 transition-colors"
           >
             <ArrowLeft size={20} />
-            <span>Back to Experiences</span>
+            <span>Back to Activities</span>
           </Link>
           
           <div className="max-w-3xl">
@@ -112,8 +112,8 @@ const ExperienceDetail = () => {
       <section className="py-24 relative z-10">
         <div className="container mx-auto px-6">
           {experience.isCustom ? (
-            // Custom Experience Form
-            <div className="max-w-4xl mx-auto">
+            // Custom Experience - Booking Form
+            <div className="max-w-5xl mx-auto">
               <div ref={addToRefs} className="opacity-0 mb-8">
                 <h2 className="text-3xl font-bold mb-4">About This Experience</h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-8">
@@ -135,8 +135,9 @@ const ExperienceDetail = () => {
                 </div>
               )}
 
+              {/* Booking Form */}
               <div ref={addToRefs} className="opacity-0">
-                <CustomExperienceForm />
+                <CustomEventBookingForm />
               </div>
             </div>
           ) : (
@@ -207,6 +208,21 @@ const ExperienceDetail = () => {
                     <Button
                       size="lg"
                       className="w-full mt-6 bg-primary hover:bg-primary/90 text-primary-foreground"
+                      onClick={() => {
+                        const phoneNumber = "918265892437";
+                        const message = `Hello! I'm interested in booking: *${experience.title}*
+
+${experience.category ? `Category: ${experience.category}` : ''}
+${experience.duration ? `Duration: ${experience.duration}` : ''}
+${experience.price ? `Price: ${experience.price}` : ''}
+
+${experience.description ? `\n${experience.description}` : ''}
+
+Please let me know about availability and booking details. Thank you!`;
+
+                        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                        window.open(whatsappUrl, '_blank');
+                      }}
                     >
                       Book This Experience
                       <ArrowRight className="ml-2" />

@@ -32,10 +32,10 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Experiences", href: "/experiences" },
+    { name: "Activities", href: "/activities" },
     { name: "Stay", href: "/stay" },
     { name: "Gallery", href: "/gallery" },
-    { name: "Events", href: "#events" },
+    { name: "Events", href: "/events" },
     { name: "About", href: "/about" },
   ];
 
@@ -100,16 +100,18 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button
-              variant="outline"
-              className={`border-2 transition-all ${
-                isScrolled 
-                  ? "border-foreground hover:bg-foreground hover:text-background text-foreground bg-background" 
-                  : "!border-white !text-white bg-transparent hover:!bg-white hover:!text-background"
-              }`}
-            >
-              Book Campsite
-            </Button>
+            <Link to="/activities/design-your-own-experience" onClick={scrollToTop}>
+              <Button
+                variant="outline"
+                className={`border-2 transition-all ${
+                  isScrolled 
+                    ? "border-foreground hover:bg-foreground hover:text-background text-foreground bg-background" 
+                    : "!border-white !text-white bg-transparent hover:!bg-white hover:!text-background"
+                }`}
+              >
+                Book Campsite
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -151,12 +153,20 @@ const Navbar = () => {
                   </a>
                 )
               ))}
-              <Button 
-                variant="outline" 
-                className="border-2 mt-4 border-foreground text-foreground bg-background hover:bg-foreground hover:text-background"
+              <Link 
+                to="/activities/design-your-own-experience"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  scrollToTop();
+                }}
               >
-                Book Campsite
-              </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-2 mt-4 border-foreground text-foreground bg-background hover:bg-foreground hover:text-background w-full"
+                >
+                  Book Campsite
+                </Button>
+              </Link>
             </div>
           </div>
         )}
