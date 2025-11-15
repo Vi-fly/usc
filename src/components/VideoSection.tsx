@@ -111,9 +111,6 @@ const VideoSection = () => {
             />
           </div>
           
-          {/* Optional overlay gradient at the bottom for better text readability */}
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background/50 to-transparent pointer-events-none" />
-          
           {/* Animated border glow effect on scroll */}
           <div 
             className="absolute inset-0 rounded-3xl pointer-events-none transition-opacity duration-1000"

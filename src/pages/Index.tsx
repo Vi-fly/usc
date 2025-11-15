@@ -1,6 +1,5 @@
 import ContactSection from "@/components/ContactSection";
 import ExperienceSection from "@/components/ExperienceSection";
-import ExploreSection from "@/components/ExploreSection";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import MissionVisionSection from "@/components/MissionVisionSection";
@@ -21,7 +20,6 @@ const Index = () => {
         <MissionVisionSection />
         <ExperienceSection />
         <VisitSection />
-        <ExploreSection />
         <TeamSection />
         <ContactSection />
       </main>

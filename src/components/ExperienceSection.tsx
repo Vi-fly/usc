@@ -1,52 +1,89 @@
-import story1 from "@/assets/story-1.webp";
-import story2 from "@/assets/story-2.webp";
-import story3 from "@/assets/story-3.webp";
-import story4 from "@/assets/story-4.webp";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Compass, Flame, Mountain, TreePine } from "lucide-react";
+import { experiences } from "@/data/experiences";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
-// Home page experiences mapped to actual experience IDs from the data
-const experiences = [
-  {
-    id: "military-survival-training",
-    icon: Mountain,
-    title: "Mountain Expeditions",
-    description: "Scale peaks and master high-altitude survival techniques in challenging terrain",
-    duration: "5-7 Days",
-    level: "Advanced",
-    image: story3
-  },
-  {
-    id: "sustainable-farming-workshop",
-    icon: Flame,
-    title: "Bushcraft Mastery",
-    description: "Learn essential fire-making, shelter building, and wilderness cooking skills",
-    duration: "3-4 Days",
-    level: "Beginner",
-    image: story1
-  },
-  {
-    id: "river-rafting-adventure",
-    icon: Compass,
-    title: "Navigation & Tracking",
-    description: "Develop expert land navigation and wildlife tracking abilities",
-    duration: "2-3 Days",
-    level: "Intermediate",
-    image: story2
-  },
-  {
-    id: "farm-detox-retreat",
-    icon: TreePine,
-    title: "Forest Immersion",
-    description: "Connect deeply with nature through extended wilderness living experiences",
-    duration: "7-10 Days",
-    level: "All Levels",
-    image: story4
+// Show featured experiences on home page (first 6 from different categories)
+const getFeaturedExperiences = () => {
+  const categories = new Set<string>();
+  const featured: typeof experiences = [];
+  
+  // First, add one experience from each category
+  for (const exp of experiences) {
+    if (!categories.has(exp.category)) {
+      categories.add(exp.category);
+      featured.push(exp);
+      if (featured.length >= 6) break;
+    }
   }
-];
+  
+  // If we don't have 6 yet, add more from any category
+  if (featured.length < 6) {
+    const featuredIds = new Set(featured.map(e => e.id));
+    for (const exp of experiences) {
+      if (!featuredIds.has(exp.id)) {
+        featured.push(exp);
+        featuredIds.add(exp.id);
+        if (featured.length >= 6) break;
+      }
+    }
+  }
+  
+  return featured.slice(0, 6);
+};
 
 const ExperienceSection = () => {
+  const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const featuredExperiences = getFeaturedExperiences();
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          el.classList.remove("opacity-0");
+          el.classList.add("opacity-100");
+          obs.unobserve(el);
+        }
+      });
+    }, observerOptions);
+
+    // Use requestAnimationFrame to ensure DOM is ready
+    const rafId = requestAnimationFrame(() => {
+      sectionsRef.current.forEach((section) => {
+        if (section) observer.observe(section);
+      });
+    });
+
+    // Fallback: make visible after a short delay if observer doesn't trigger
+    const fallbackTimeout = setTimeout(() => {
+      sectionsRef.current.forEach((section) => {
+        if (section && section.classList.contains("opacity-0")) {
+          section.classList.remove("opacity-0");
+          section.classList.add("opacity-100");
+        }
+      });
+    }, 500);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(fallbackTimeout);
+      observer.disconnect();
+    };
+  }, [featuredExperiences]);
+
+  const addToRefs = (el: HTMLDivElement | null) => {
+    if (el && !sectionsRef.current.includes(el)) {
+      sectionsRef.current.push(el);
+    }
+  };
+
   return (
     <section className="py-32 relative overflow-hidden">
       {/* Background decoration */}
@@ -58,73 +95,71 @@ const ExperienceSection = () => {
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <Mountain className="text-primary" size={18} />
-            <span className="text-sm font-semibold text-primary">Experiences</span>
+            <Sparkles className="text-primary" size={18} />
+            <span className="text-sm font-semibold text-primary">Our Experiences</span>
           </div>
-          <h3 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
-            Where every moment tells <span className="text-primary">stories</span>
-          </h3>
           <h2 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
-            Choose Your <span className="text-primary">Adventure</span>
+            Choose Your <span className="text-primary">Experience</span>
           </h2>
           <p className="text-lg text-muted-foreground">
-            From beginner bushcraft to advanced expeditions, find the perfect survival experience for your journey
+            Transformative experiences designed to inspire, challenge, and reconnect you with nature
           </p>
         </div>
 
         {/* Experience Cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {experiences.map((exp, idx) => (
-            <Link
-              key={exp.id}
-              to={`/experiences/${exp.id}`}
-              className="group block relative animate-fade-in-up"
-              style={{ animationDelay: `${idx * 0.1}s` }}
-            >
-              <div className="relative h-[400px] md:h-[450px] rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl cursor-pointer">
-                {/* Background Image */}
-                <img
-                  src={exp.image}
-                  alt={exp.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                
-                {/* Dark gradient overlay for text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-                
-                {/* Content overlay */}
-                <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8 z-10">
-                  {/* Top section - Icon */}
-                  <div className="flex justify-between items-start">
-                    <div className="w-14 h-14 rounded-xl bg-primary/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 group-hover:bg-primary/30 transition-all duration-300">
-                      <exp.icon className="text-white" size={28} />
-                    </div>
-                    <ArrowRight className="text-white/80 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" size={24} />
-                  </div>
-
-                  {/* Bottom section - Text content */}
-                  <div>
-                    <h3 className="text-2xl md:text-3xl font-bold mb-3 text-white group-hover:text-primary transition-colors">
-                      {exp.title}
-                    </h3>
-                    <p className="text-white/90 leading-relaxed mb-4 text-sm md:text-base">
-                      {exp.description}
-                    </p>
-
-                    {/* Meta info */}
-                    <div className="flex items-center gap-3 text-sm">
-                      <div className="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-sm border border-white/30">
-                        <span className="font-medium text-white">{exp.duration}</span>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {featuredExperiences.map((experience, idx) => {
+            const Icon = experience.icon;
+            return (
+              <Link
+                key={experience.id}
+                to={`/experiences/${experience.id}`}
+                className="group block"
+              >
+                <div 
+                  ref={addToRefs}
+                  className="opacity-0 relative h-[400px] rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl animate-fade-in-up"
+                  style={{ animationDelay: `${idx * 0.1}s` }}
+                >
+                  {/* Background Image */}
+                  <img
+                    src={experience.image}
+                    alt={experience.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  
+                  {/* Dark overlay for better text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30" />
+                  
+                  {/* Solid block overlay with text */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="bg-background/95 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-xl">
+                      {/* Icon */}
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
+                        <Icon className="text-primary" size={24} />
                       </div>
-                      <div className="px-3 py-1.5 rounded-full bg-primary/30 backdrop-blur-sm border border-primary/40">
-                        <span className="font-medium text-white">{exp.level}</span>
+                      
+                      {/* Title */}
+                      <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors text-foreground">
+                        {experience.title}
+                      </h3>
+                      
+                      {/* Description */}
+                      <p className="text-muted-foreground leading-relaxed mb-4 text-sm">
+                        {experience.description}
+                      </p>
+
+                      {/* Learn More Button */}
+                      <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition-all">
+                        <span className="text-sm font-medium">Learn More</span>
+                        <ArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
 
         {/* CTA */}

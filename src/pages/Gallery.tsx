@@ -16,6 +16,7 @@ import bar from "@/assets/images/bar.webp";
 import buddha from "@/assets/images/buddha.webp";
 import buddha1 from "@/assets/images/buddha_1.webp";
 import buddha2 from "@/assets/images/buddha_2.webp";
+import cabinet from "@/assets/images/cabinet.webp";
 import clay from "@/assets/images/clay.webp";
 import cottage from "@/assets/images/cottage.webp";
 import elephant from "@/assets/images/elephant.webp";
@@ -31,6 +32,7 @@ import stairs from "@/assets/images/stairs.webp";
 import tap from "@/assets/images/tap.webp";
 import tent from "@/assets/images/tent.webp";
 import tent1 from "@/assets/images/tent_1.webp";
+import tent2 from "@/assets/images/tent_2.webp";
 import wash from "@/assets/images/wash.webp";
 import wash1 from "@/assets/images/wash_1.webp";
 import Footer from "@/components/Footer";
@@ -46,43 +48,65 @@ interface GalleryImage {
   category?: string;
 }
 
+// Helper to get proper image URL from Vite import
+const getImageSrc = (img: string | { default?: string }): string => {
+  // Handle direct string imports (Vite should return strings)
+  if (typeof img === 'string') {
+    // If it's a path starting with /src, try to convert it
+    if (img.startsWith('/src/assets')) {
+      // In Vite dev, assets are served from /src/assets, but we need the actual processed URL
+      // Try to get the actual import value
+      return img;
+    }
+    // If it's already a proper URL, return it
+    return img;
+  }
+  // Handle module imports with default export
+  if (img && typeof img === 'object' && 'default' in img) {
+    return getImageSrc(img.default as string);
+  }
+  return String(img || '');
+};
+
 // All unique gallery images - images from assets/images/ directory first
 const allGalleryImages: GalleryImage[] = [
   // Images from assets/images/ (shown first)
-  { id: "1", src: bar, title: "Camp Bar", category: "Stay" },
-  { id: "2", src: buddha1, title: "Buddha Statue", category: "Nature" },
-  { id: "3", src: buddha2, title: "Buddha Garden", category: "Nature" },
-  { id: "4", src: buddha, title: "Buddha Meditation", category: "Nature" },
-  { id: "5", src: clay, title: "Clay Workshop", category: "Training" },
-  { id: "6", src: cottage, title: "Cottage Stay", category: "Stay" },
-  { id: "7", src: elephant, title: "Elephant", category: "Nature" },
-  { id: "8", src: hens, title: "Farm Animals", category: "Stay" },
-  { id: "9", src: house, title: "Camp House", category: "Stay" },
-  { id: "10", src: lamp, title: "Evening Ambiance", category: "Stay" },
-  { id: "11", src: lunch, title: "Camp Lunch", category: "Stay" },
-  { id: "12", src: pit, title: "Camp Fire Pit", category: "Training" },
-  { id: "13", src: pond, title: "Natural Pond", category: "Nature" },
-  { id: "14", src: room, title: "Guest Room", category: "Stay" },
-  { id: "15", src: sitting, title: "Meditation Area", category: "Nature" },
-  { id: "16", src: stairs, title: "Nature Path", category: "Nature" },
-  { id: "17", src: tap, title: "Water Source", category: "Stay" },
-  { id: "18", src: tent1, title: "Tent Accommodation", category: "Stay" },
-  { id: "19", src: tent, title: "Wilderness Tent", category: "Stay" },
-  { id: "20", src: wash1, title: "Wash Area", category: "Stay" },
-  { id: "21", src: wash, title: "Cleaning Station", category: "Stay" },
+  { id: "1", src: getImageSrc(bar), title: "Camp Bar", category: "Stay" },
+  { id: "2", src: getImageSrc(buddha1), title: "Buddha Statue", category: "Nature" },
+  { id: "3", src: getImageSrc(buddha2), title: "Buddha Garden", category: "Nature" },
+  { id: "4", src: getImageSrc(buddha), title: "Buddha Meditation", category: "Nature" },
+  { id: "5", src: getImageSrc(clay), title: "Clay Workshop", category: "Training" },
+  { id: "6", src: getImageSrc(cottage), title: "Cottage Stay", category: "Stay" },
+  { id: "7", src: getImageSrc(elephant), title: "Elephant", category: "Nature" },
+  { id: "8", src: getImageSrc(hens), title: "Farm Animals", category: "Stay" },
+  { id: "9", src: getImageSrc(house), title: "Camp House", category: "Stay" },
+  { id: "10", src: getImageSrc(lamp), title: "Evening Ambiance", category: "Stay" },
+  { id: "11", src: getImageSrc(lunch), title: "Camp Lunch", category: "Stay" },
+  { id: "12", src: getImageSrc(pit), title: "Camp Fire Pit", category: "Training" },
+  { id: "13", src: getImageSrc(pond), title: "Natural Pond", category: "Nature" },
+  { id: "14", src: getImageSrc(room), title: "Guest Room", category: "Stay" },
+  { id: "15", src: getImageSrc(sitting), title: "Meditation Area", category: "Nature" },
+  { id: "16", src: getImageSrc(stairs), title: "Nature Path", category: "Nature" },
+  { id: "17", src: getImageSrc(tap), title: "Water Source", category: "Stay" },
+  { id: "18", src: getImageSrc(tent1), title: "Tent Accommodation", category: "Stay" },
+  { id: "19", src: getImageSrc(tent), title: "Wilderness Tent", category: "Stay" },
+  { id: "20", src: getImageSrc(tent2), title: "Camp Tent", category: "Stay" },
+  { id: "21", src: getImageSrc(cabinet), title: "Storage Cabinet", category: "Stay" },
+  { id: "22", src: getImageSrc(wash1), title: "Wash Area", category: "Stay" },
+  { id: "23", src: getImageSrc(wash), title: "Cleaning Station", category: "Stay" },
   
   // Images from assets root
-  { id: "22", src: storyMain, title: "Adventure Expedition", category: "Adventure" },
-  { id: "23", src: story1, title: "Wilderness Training", category: "Training" },
-  { id: "24", src: story2, title: "Nature Immersion", category: "Nature" },
-  { id: "25", src: story3, title: "Survival Skills", category: "Skills" },
-  { id: "26", src: story4, title: "Mountain Challenge", category: "Adventure" },
-  { id: "27", src: heroSurvival, title: "Hero Journey", category: "Adventure" },
-  { id: "28", src: article1, title: "Training Workshop", category: "Training" },
-  { id: "29", src: article2, title: "Summer Challenge", category: "Events" },
-  { id: "30", src: article3, title: "Mountain Trek", category: "Adventure" },
-  { id: "31", src: mission, title: "Mission & Vision", category: "About" },
-  { id: "32", src: visit, title: "Camp Visit", category: "Stay" },
+  { id: "24", src: getImageSrc(storyMain), title: "Adventure Expedition", category: "Adventure" },
+  { id: "25", src: getImageSrc(story1), title: "Wilderness Training", category: "Training" },
+  { id: "26", src: getImageSrc(story2), title: "Nature Immersion", category: "Nature" },
+  { id: "27", src: getImageSrc(story3), title: "Survival Skills", category: "Skills" },
+  { id: "28", src: getImageSrc(story4), title: "Mountain Challenge", category: "Adventure" },
+  { id: "29", src: getImageSrc(heroSurvival), title: "Hero Journey", category: "Adventure" },
+  { id: "30", src: getImageSrc(article1), title: "Training Workshop", category: "Training" },
+  { id: "31", src: getImageSrc(article2), title: "Summer Challenge", category: "Events" },
+  { id: "32", src: getImageSrc(article3), title: "Mountain Trek", category: "Adventure" },
+  { id: "33", src: getImageSrc(mission), title: "Mission & Vision", category: "About" },
+  { id: "34", src: getImageSrc(visit), title: "Camp Visit", category: "Stay" },
 ];
 
 const categories = ["All", "Adventure", "Training", "Nature", "Skills", "Events", "Stay", "About"];
@@ -206,7 +230,7 @@ const Gallery = () => {
           {/* Background Image */}
           <div className="absolute inset-0 z-0 rounded-3xl overflow-hidden">
             <img
-              src={storyMain}
+              src={getImageSrc(storyMain)}
               alt="Gallery"
               className="w-full h-full object-cover"
             />
@@ -282,6 +306,11 @@ const Gallery = () => {
                   alt={image.title || `Gallery image ${idx + 1}`}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading={idx < 12 ? "eager" : "lazy"}
+                  onError={(e) => {
+                    console.error(`Failed to load image: ${image.src}`, image);
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">

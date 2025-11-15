@@ -1,6 +1,4 @@
 import anujImage from "@/assets/Anuj.webp";
-import karmaImage from "@/assets/Karma.webp";
-import priyanshuImage from "@/assets/Priyanshu.webp";
 import vishalImage from "@/assets/Vishal.webp";
 import { Award, Users } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -34,32 +32,18 @@ const TeamSection = () => {
 
   const teamMembers = [
     {
-      name: "Lt. Col. Vishal Sharma (Retd.)",
-      role: "Military Operations Expert",
-      description: "NDA alumnus who served with the Gorkhas, and as an instructor at the Commando Wing & Black Cat NSG, led UN missions, and experienced in challenging deployments across Siachen, Manipur, and J&K",
-      image: vishalImage,
-      delay: "0.1s",
-    },
-    {
       name: "Col. Anuj Sharma (Retd.)",
       role: "Special Forces Veteran",
       description: "Veteran of the 48 Armoured Regiment and Special Group (SFF), who led high-altitude ops in Siachen, mastered guerrilla, jungle & desert warfare, and served 33 decorated years",
       image: anujImage,
+      delay: "0.1s",
+    },
+    {
+      name: "Lt. Col. Vishal Sharma (Retd.)",
+      role: "Military Operations Expert",
+      description: "NDA alumnus who served with the Gorkhas, and as an instructor at the Commando Wing & Black Cat NSG, led UN missions, and experienced in challenging deployments across Siachen, Manipur, and J&K",
+      image: vishalImage,
       delay: "0.2s",
-    },
-    {
-      name: "Mrs Karma Wangmo",
-      role: "Campsite Director",
-      description: "With 25+ years in tourism & hospitality, she now leads the campsite, blending expertise in permaculture, heritage, and sustainable living.",
-      image: karmaImage,
-      delay: "0.3s",
-    },
-    {
-      name: "Priyanshu Suri",
-      role: "Youth Leader & Wellness Advocate",
-      description: "Youth leader and Health and wellness advocate passionate about personal transformation and purpose-driven growth. Having represented India at the Asia Youth Summit and later served as a committee co-chair, he continues to build global connections rooted in leadership, discipline, and resilience — qualities strengthened through years of MMA training",
-      image: priyanshuImage,
-      delay: "0.4s",
     },
   ];
 
@@ -89,7 +73,7 @@ const TeamSection = () => {
         </div>
 
         {/* Team Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {teamMembers.map((member, index) => (
             <div
               key={index}
@@ -110,8 +94,6 @@ const TeamSection = () => {
                   }`}
                   loading="lazy"
                 />
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/20 to-transparent" />
               </div>
 
               {/* Content */}

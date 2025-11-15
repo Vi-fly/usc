@@ -1,5 +1,5 @@
-import loadingVideo from "@/assets/loading.mp4";
-import { useEffect, useRef, useState } from "react";
+import loadingGif from "@/assets/loading.gif";
+import { useEffect, useState } from "react";
 
 interface LoadingScreenProps {
   onLoadingComplete?: () => void;
@@ -8,91 +8,31 @@ interface LoadingScreenProps {
 const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!videoRef.current) return;
+    // Show loading screen for minimum duration (e.g., 2 seconds)
+    const minLoadingTime = 2000;
+    // Maximum loading time (30 seconds)
+    const maxLoadingTime = 30000;
 
-    const video = videoRef.current;
-    let hasEnded = false;
-    let isPausedAtEnd = false;
+    const startTime = Date.now();
 
-    // Handle timeupdate - pause just before video ends to prevent black frame
-    const handleTimeUpdate = () => {
-      if (video.duration && video.currentTime >= video.duration - 0.1 && !isPausedAtEnd) {
-        isPausedAtEnd = true;
-        hasEnded = true;
-        // Pause video just before it ends to keep last frame visible
-        video.pause();
-        
-        // Ensure we're at the last frame
-        if (video.duration) {
-          video.currentTime = video.duration - 0.05; // Very close to end but not at end
-        }
-        
-        // Small delay before starting fade-out
+    const minTimeout = setTimeout(() => {
+      // After minimum time, check if page is loaded
+      if (document.readyState === 'complete') {
+        setIsFadingOut(true);
         setTimeout(() => {
-          setIsFadingOut(true);
-          
-          // Wait for fade-out animation to complete
-          setTimeout(() => {
-            setIsLoading(false);
-            if (onLoadingComplete) {
-              onLoadingComplete();
-            }
-          }, 500); // Match fade-out duration
-        }, 200);
+          setIsLoading(false);
+          if (onLoadingComplete) {
+            onLoadingComplete();
+          }
+        }, 500);
       }
-    };
+    }, minLoadingTime);
 
-    // Fallback: Handle video end event (in case timeupdate doesn't fire)
-    const handleVideoEnd = () => {
-      if (!isPausedAtEnd) {
-        hasEnded = true;
-        isPausedAtEnd = true;
-        // Seek back to last frame
-        if (video.duration) {
-          video.currentTime = video.duration - 0.05;
-          video.pause();
-        }
-        
-        setTimeout(() => {
-          setIsFadingOut(true);
-          setTimeout(() => {
-            setIsLoading(false);
-            if (onLoadingComplete) {
-              onLoadingComplete();
-            }
-          }, 500);
-        }, 200);
-      }
-    };
-
-    // Handle video loaded and ready to play
-    const handleCanPlay = () => {
-      // Ensure video plays
-      video.play().catch((error) => {
-        console.error("Error playing video:", error);
-      });
-    };
-
-    // Add event listeners
-    video.addEventListener("timeupdate", handleTimeUpdate);
-    video.addEventListener("ended", handleVideoEnd, { once: true });
-    video.addEventListener("canplay", handleCanPlay, { once: true });
-
-    // Start playing the video
-    if (video.readyState >= 3) {
-      video.play().catch((error) => {
-        console.error("Error playing video:", error);
-      });
-    }
-
-    // Fallback: ensure loading screen disappears after max time (30 seconds)
-    const maxLoadingTime = 30000; // 30 seconds max
-    const fallbackTimeout = setTimeout(() => {
-      if (isLoading && !hasEnded) {
+    // Fallback: ensure loading screen disappears after max time
+    const maxTimeout = setTimeout(() => {
+      if (isLoading) {
         setIsFadingOut(true);
         setTimeout(() => {
           setIsLoading(false);
@@ -103,14 +43,30 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
       }
     }, maxLoadingTime);
 
-    return () => {
-      video.removeEventListener("timeupdate", handleTimeUpdate);
-      video.removeEventListener("ended", handleVideoEnd);
-      video.removeEventListener("canplay", handleCanPlay);
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
+    // Also listen for page load event
+    const handleLoad = () => {
+      if (isLoading) {
+        const elapsed = Date.now() - startTime;
+        // Wait for minimum time even if page loads quickly
+        const remainingTime = Math.max(0, minLoadingTime - elapsed);
+        setTimeout(() => {
+          setIsFadingOut(true);
+          setTimeout(() => {
+            setIsLoading(false);
+            if (onLoadingComplete) {
+              onLoadingComplete();
+            }
+          }, 500);
+        }, remainingTime);
       }
-      clearTimeout(fallbackTimeout);
+    };
+
+    window.addEventListener('load', handleLoad);
+
+    return () => {
+      clearTimeout(minTimeout);
+      clearTimeout(maxTimeout);
+      window.removeEventListener('load', handleLoad);
     };
   }, [isLoading, onLoadingComplete]);
 
@@ -127,23 +83,18 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
         pointerEvents: isFadingOut ? "none" : "auto",
       }}
     >
-      {/* Loading video container */}
+      {/* Loading GIF container */}
       <div className="relative z-10 max-w-4xl w-full px-6">
-        <div className="relative w-full bg-white" style={{ paddingBottom: "56.25%" }}> {/* 16:9 aspect ratio */}
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            playsInline
-            className="absolute top-0 left-0 w-full h-full object-contain"
-          >
-            <source src={loadingVideo} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+        <div className="relative w-full flex items-center justify-center">
+          <img
+            src={loadingGif}
+            alt="Loading..."
+            className="w-full h-auto max-w-2xl object-contain"
+          />
         </div>
       </div>
 
-      {/* Optional loading text or spinner below video */}
+      {/* Optional loading text or spinner below GIF */}
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-10">
         <div className="flex items-center gap-2 text-gray-600">
           <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: "0s" }} />
