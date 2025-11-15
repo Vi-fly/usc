@@ -258,45 +258,50 @@ export const fetchGoogleCalendarEvents = async (calendarId: string): Promise<Goo
     let icalData: string | null = null;
     let lastError: Error | null = null;
     
-    // Try CORS proxies first (direct fetch will likely fail due to CORS)
+    // Try CORS proxies with better error handling
+    // Note: Some proxies may be rate-limited or blocked, so we try multiple
     const proxyServices = [
       // Proxy service 1: allorigins raw endpoint (returns text directly, fastest)
       `https://api.allorigins.win/raw?url=${encodeURIComponent(workingUrl)}`,
       // Proxy service 2: allorigins JSON endpoint
       `https://api.allorigins.win/get?url=${encodeURIComponent(workingUrl)}`,
-      // Proxy service 3: corsproxy
-      `https://corsproxy.io/?${encodeURIComponent(workingUrl)}`,
-      // Proxy service 4: alternative proxy
+      // Proxy service 3: alternative proxy
       `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(workingUrl)}`,
+      // Proxy service 4: yacdn.org proxy
+      `https://yacdn.org/proxy/${encodeURIComponent(workingUrl)}`,
+      // Proxy service 5: corsproxy (may be rate-limited)
+      `https://corsproxy.io/?${encodeURIComponent(workingUrl)}`,
     ];
       
     for (const proxyUrl of proxyServices) {
       try {
         // Add timeout for proxy requests (reduced for faster failure)
         const timeoutPromise = new Promise<never>((_, reject) => {
-          setTimeout(() => reject(new Error('Proxy request timeout')), 12000); // 12 second timeout
+          setTimeout(() => reject(new Error('Proxy request timeout')), 8000); // 8 second timeout
         });
         
         const fetchPromise = fetch(proxyUrl, {
           method: 'GET',
           headers: {
-            'Accept': 'application/json, text/plain, */*',
+            'Accept': 'text/calendar, application/json, text/plain, */*',
           },
           cache: 'no-cache',
+          mode: 'cors',
         });
         
         const proxyResponse = await Promise.race([fetchPromise, timeoutPromise]);
         
         if (!proxyResponse.ok) {
-          throw new Error(`Proxy fetch failed: ${proxyResponse.status} ${proxyResponse.statusText}`);
+          // Silently continue to next proxy
+          continue;
         }
         
         let proxyContents: string;
         
         // Check if it's the raw endpoint (returns text directly)
-        if (proxyUrl.includes('/raw?')) {
+        if (proxyUrl.includes('/raw?') || proxyUrl.includes('/proxy/') || proxyUrl.includes('cors-anywhere')) {
           proxyContents = await proxyResponse.text();
-        } else {
+        } else if (proxyUrl.includes('/get?')) {
           // Try to parse as JSON first (allorigins format)
           try {
             const proxyData = await proxyResponse.json();
@@ -305,21 +310,24 @@ export const fetchGoogleCalendarEvents = async (calendarId: string): Promise<Goo
             // If not JSON, try as text
             proxyContents = await proxyResponse.text();
           }
+        } else {
+          // Default: try text first
+          proxyContents = await proxyResponse.text();
         }
         
-          // Check if the proxy returned a data URL with base64 content
-          if (proxyContents && proxyContents.startsWith('data:text/calendar')) {
-            // Extract base64 part from data URL: data:text/calendar; charset=utf-8;base64,BASE64_CONTENT
-            const base64Match = proxyContents.match(/base64,(.+)/);
-            if (base64Match && base64Match[1]) {
-              try {
-                // Decode base64
-                proxyContents = atob(base64Match[1]);
-              } catch (e) {
-                continue; // Try next proxy
-              }
+        // Check if the proxy returned a data URL with base64 content
+        if (proxyContents && proxyContents.startsWith('data:text/calendar')) {
+          // Extract base64 part from data URL: data:text/calendar; charset=utf-8;base64,BASE64_CONTENT
+          const base64Match = proxyContents.match(/base64,(.+)/);
+          if (base64Match && base64Match[1]) {
+            try {
+              // Decode base64
+              proxyContents = atob(base64Match[1]);
+            } catch (e) {
+              continue; // Try next proxy
             }
           }
+        }
         
         // Check if we got valid iCal data
         if (proxyContents && (proxyContents.includes('BEGIN:VCALENDAR') || proxyContents.includes('BEGIN:VEVENT'))) {
@@ -329,18 +337,26 @@ export const fetchGoogleCalendarEvents = async (calendarId: string): Promise<Goo
           continue; // Try next proxy
         }
       } catch (proxyError) {
+        // Silently continue to next proxy - don't log errors to avoid console spam
         lastError = proxyError instanceof Error ? proxyError : new Error(String(proxyError));
         continue; // Try next proxy
       }
     }
     
     if (!icalData) {
+      // Return cached data if available, even if expired, as fallback
+      if (calendarCache && calendarCache.data.length > 0) {
+        return calendarCache.data;
+      }
       // Return empty array instead of throwing - allows page to still load
       return [];
     }
     
     if (!icalData || icalData.length === 0) {
-      console.warn('Calendar data is empty');
+      // Return cached data if available as fallback
+      if (calendarCache && calendarCache.data.length > 0) {
+        return calendarCache.data;
+      }
       return [];
     }
     
@@ -381,8 +397,11 @@ export const fetchGoogleCalendarEvents = async (calendarId: string): Promise<Goo
     
     return events;
   } catch (error) {
-    console.error('Error fetching Google Calendar events:', error);
-    // Return empty array on error - fallback to default events
+    // Silently handle errors - return cached data if available, otherwise empty array
+    // This prevents console spam and allows the page to function normally
+    if (calendarCache && calendarCache.data.length > 0) {
+      return calendarCache.data;
+    }
     return [];
   }
 };

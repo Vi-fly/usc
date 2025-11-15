@@ -32,31 +32,31 @@ interface Event {
 // Default/fallback events with proper date parsing
 const defaultEvents: Event[] = [
   // January 2025
-  {
-    id: "winter-survival-1",
-    title: "Winter Survival Intensive",
-    category: "Survival",
+    {
+      id: "winter-survival-1",
+      title: "Winter Survival Intensive",
+      category: "Survival",
     startDate: new Date(2025, 0, 15),
     endDate: new Date(2025, 0, 20),
-    duration: "5 Days",
-    location: "Mountain Base Camp",
-    description: "Master winter survival techniques in challenging conditions. Learn snow shelter construction, cold weather fire-making, and winter navigation.",
-    image: story3,
-    capacity: "12 participants",
+      duration: "5 Days",
+      location: "Mountain Base Camp",
+      description: "Master winter survival techniques in challenging conditions. Learn snow shelter construction, cold weather fire-making, and winter navigation.",
+      image: story3,
+      capacity: "12 participants",
     price: "₹18,000",
     isMultiDay: true
-  },
-  {
-    id: "wellness-retreat-1",
-    title: "New Year Wellness Retreat",
-    category: "Wellness",
+    },
+    {
+      id: "wellness-retreat-1",
+      title: "New Year Wellness Retreat",
+      category: "Wellness",
     startDate: new Date(2025, 0, 25),
     endDate: new Date(2025, 0, 30),
-    duration: "5 Days",
-    location: "Retreat Center",
-    description: "Start the year with intention. Yoga, meditation, hot baths, and nature immersion for complete rejuvenation.",
-    image: story1,
-    capacity: "20 participants",
+      duration: "5 Days",
+      location: "Retreat Center",
+      description: "Start the year with intention. Yoga, meditation, hot baths, and nature immersion for complete rejuvenation.",
+      image: story1,
+      capacity: "20 participants",
     price: "₹12,000",
     isMultiDay: true
   },
@@ -75,31 +75,31 @@ const defaultEvents: Event[] = [
     isMultiDay: false
   },
   // February 2025
-  {
-    id: "adventure-hike-1",
-    title: "Mountain Day Hikes - Kakar Ludi",
-    category: "Adventure",
+    {
+      id: "adventure-hike-1",
+      title: "Mountain Day Hikes - Kakar Ludi",
+      category: "Adventure",
     startDate: new Date(2025, 1, 8),
     endDate: new Date(2025, 1, 8),
-    duration: "1 Day",
-    location: "Kakar Ludi Trail",
-    description: "Scenic day hike to Kakar Ludi with breathtaking mountain views. Perfect for beginners and experienced hikers.",
-    image: story2,
-    capacity: "15 participants",
+      duration: "1 Day",
+      location: "Kakar Ludi Trail",
+      description: "Scenic day hike to Kakar Ludi with breathtaking mountain views. Perfect for beginners and experienced hikers.",
+      image: story2,
+      capacity: "15 participants",
     price: "₹2,500",
     isMultiDay: false
-  },
-  {
-    id: "kids-camp-1",
-    title: "Brave Heart Kids Camp",
-    category: "Children's Camping",
+    },
+    {
+      id: "kids-camp-1",
+      title: "Brave Heart Kids Camp",
+      category: "Children's Camping",
     startDate: new Date(2025, 1, 15),
     endDate: new Date(2025, 1, 18),
-    duration: "3 Days",
-    location: "Camp Site",
-    description: "Empowering camp for children ages 8-16. Build confidence, teamwork, and outdoor skills in a safe environment.",
-    image: story4,
-    capacity: "30 participants",
+      duration: "3 Days",
+      location: "Camp Site",
+      description: "Empowering camp for children ages 8-16. Build confidence, teamwork, and outdoor skills in a safe environment.",
+      image: story4,
+      capacity: "30 participants",
     price: "₹3,500",
     isMultiDay: true
   },
@@ -118,63 +118,63 @@ const defaultEvents: Event[] = [
     isMultiDay: false
   },
   // March 2025
-  {
-    id: "water-sports-1",
-    title: "Water Sports with Karma",
-    category: "Adventure",
+    {
+      id: "water-sports-1",
+      title: "Water Sports with Karma",
+      category: "Adventure",
     startDate: new Date(2025, 2, 10),
     endDate: new Date(2025, 2, 12),
-    duration: "2-3 Days",
-    location: "River Base",
-    description: "Thrilling water sports including rafting and kayaking. Experience the rush of white-water adventures.",
-    image: article1,
-    capacity: "18 participants",
+      duration: "2-3 Days",
+      location: "River Base",
+      description: "Thrilling water sports including rafting and kayaking. Experience the rush of white-water adventures.",
+      image: article1,
+      capacity: "18 participants",
     price: "₹6,500",
     isMultiDay: true
-  },
-  {
-    id: "farming-workshop-1",
-    title: "Permaculture & Sustainable Farming",
-    category: "Homesteading",
+    },
+    {
+      id: "farming-workshop-1",
+      title: "Permaculture & Sustainable Farming",
+      category: "Homesteading",
     startDate: new Date(2025, 2, 20),
     endDate: new Date(2025, 2, 25),
-    duration: "5 Days",
-    location: "Farm Site",
-    description: "Learn sustainable farming techniques and permaculture principles. Hands-on workshops and practical training.",
-    image: article2,
-    capacity: "15 participants",
+      duration: "5 Days",
+      location: "Farm Site",
+      description: "Learn sustainable farming techniques and permaculture principles. Hands-on workshops and practical training.",
+      image: article2,
+      capacity: "15 participants",
     price: "₹10,000",
     isMultiDay: true
   },
   // April 2025
-  {
-    id: "military-survival-1",
-    title: "Military Survival Training Camp",
-    category: "Survival",
+    {
+      id: "military-survival-1",
+      title: "Military Survival Training Camp",
+      category: "Survival",
     startDate: new Date(2025, 3, 5),
     endDate: new Date(2025, 3, 15),
-    duration: "10 Days",
-    location: "Training Grounds",
-    description: "Intensive survival training led by ex-Army Officers. Advanced wilderness skills and mental toughness development.",
-    image: article3,
-    capacity: "10 participants",
+      duration: "10 Days",
+      location: "Training Grounds",
+      description: "Intensive survival training led by ex-Army Officers. Advanced wilderness skills and mental toughness development.",
+      image: article3,
+      capacity: "10 participants",
     price: "₹25,000",
     isMultiDay: true
-  },
-  {
-    id: "self-discovery-1",
-    title: "Self-Discovery Retreat",
-    category: "Children's Camping",
+    },
+    {
+      id: "self-discovery-1",
+      title: "Self-Discovery Retreat",
+      category: "Children's Camping",
     startDate: new Date(2025, 3, 20),
     endDate: new Date(2025, 3, 25),
-    duration: "5 Days",
-    location: "Retreat Center",
-    description: "Transformative experience for ages 14-22. Explore potential, build resilience, and discover inner strength.",
-    image: story1,
-    capacity: "25 participants",
+      duration: "5 Days",
+      location: "Retreat Center",
+      description: "Transformative experience for ages 14-22. Explore potential, build resilience, and discover inner strength.",
+      image: story1,
+      capacity: "25 participants",
     price: "₹8,500",
     isMultiDay: true
-  }
+    }
 ];
 
 // Google Calendar ID - using the decoded calendar ID from the public iCal URL
@@ -407,20 +407,20 @@ const Events = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-forest-dark/85 via-earth-dark/80 to-forest-medium/75" />
           </div>
 
-          <div className="container relative z-10 px-6 py-24">
+          <div className="container relative z-10 px-4 sm:px-6 py-12 sm:py-16 md:py-24">
             <div className="max-w-5xl mx-auto text-center">
-              <div className="animate-fade-in-up mb-8">
-                <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-primary-foreground/30">
-                  <CalendarIcon className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-medium text-primary-foreground">Upcoming Events & Camps</span>
+              <div className="animate-fade-in-up mb-4 sm:mb-6 md:mb-8">
+                <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 md:mb-8 border border-primary-foreground/30">
+                  <CalendarIcon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                  <span className="text-xs sm:text-sm font-medium text-primary-foreground">Upcoming Events & Camps</span>
                 </div>
               </div>
               
-              <div className="animate-fade-in-up mb-8">
-                <h1 className="text-5xl md:text-8xl font-bold text-primary-foreground mb-8 leading-tight">
+              <div className="animate-fade-in-up mb-4 sm:mb-6 md:mb-8">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold text-primary-foreground mb-4 sm:mb-6 md:mb-8 leading-tight px-2">
                   Event <span className="text-primary">Calendar</span>
                 </h1>
-                <p className="text-xl md:text-2xl text-primary-foreground/90 mb-12 max-w-3xl mx-auto leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-primary-foreground/90 mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
                   Explore our interactive calendar to find the perfect event for you. Click on any date to see available camps and retreats.
                 </p>
               </div>
@@ -430,109 +430,111 @@ const Events = () => {
       </section>
 
       {/* Big Interactive Calendar Section */}
-      <section className="py-24 relative z-10 bg-gradient-to-b from-background via-secondary/10 to-background">
-        <div className="container mx-auto px-6">
-          <div ref={addToRefs} className="opacity-0 translate-y-8 text-center mb-16 transition-all duration-700">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+      <section className="py-12 md:py-16 lg:py-24 relative z-10 bg-gradient-to-b from-background via-secondary/10 to-background">
+        <div className="container mx-auto px-4 md:px-6">
+          <div ref={addToRefs} className="opacity-0 translate-y-8 text-center mb-8 md:mb-12 lg:mb-16 transition-all duration-700">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4 md:mb-6">
               <Sparkles className="text-primary" size={18} />
               <span className="text-sm font-semibold text-primary">Interactive Calendar</span>
             </div>
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            <h2 className="text-2xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight px-2">
               Choose Your <span className="text-primary">Dates</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
               Click on any highlighted date to view events. One-day events have a border, week-long events span multiple days.
             </p>
           </div>
 
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
               {/* Large Calendar - Takes 2 columns */}
               <div className="lg:col-span-2">
                 <div ref={addToRefs} className="opacity-0 translate-y-8 transition-all duration-700">
-                  <div className="bg-card rounded-3xl p-10 border border-border shadow-2xl">
+                  <div className="bg-card rounded-2xl md:rounded-3xl p-4 md:p-6 lg:p-10 border border-border shadow-2xl overflow-hidden">
                     {/* Month Navigation */}
-                    <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center justify-between mb-4 md:mb-6 lg:mb-8">
                       <button
                         onClick={() => handleMonthChange('prev')}
-                        className="p-3 rounded-full hover:bg-secondary transition-colors"
+                        className="p-2 md:p-3 rounded-full hover:bg-secondary transition-colors flex-shrink-0"
                         aria-label="Previous month"
                       >
-                        <ChevronLeft className="w-7 h-7" />
+                        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
                       </button>
-                      <h3 className="text-4xl font-bold text-center">
+                      <h3 className="text-xl md:text-2xl lg:text-4xl font-bold text-center px-2">
                         {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
                       </h3>
                       <button
                         onClick={() => handleMonthChange('next')}
-                        className="p-3 rounded-full hover:bg-secondary transition-colors"
+                        className="p-2 md:p-3 rounded-full hover:bg-secondary transition-colors flex-shrink-0"
                         aria-label="Next month"
                       >
-                        <ChevronRight className="w-7 h-7" />
+                        <ChevronRight className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
                       </button>
-                    </div>
+                </div>
 
                     {/* Interactive Calendar */}
-                    <div className="flex justify-center" style={{ marginBottom: '8rem' }}>
-                      <Calendar
-                        mode="single"
-                        selected={selectedDate}
-                        onSelect={setSelectedDate}
-                        month={currentMonth}
-                        onMonthChange={setCurrentMonth}
-                        modifiers={modifiers}
-                        modifiersClassNames={modifiersClassNames}
-                        className="w-full max-w-full scale-125 origin-top"
-                        classNames={{
-                          months: "flex flex-col space-y-6",
-                          month: "space-y-6 w-full",
-                          caption: "hidden",
-                          caption_label: "hidden",
-                          nav: "hidden",
-                          nav_button: "hidden",
-                          nav_button_previous: "hidden",
-                          nav_button_next: "hidden",
-                          table: "w-full border-collapse space-y-2 mx-auto",
-                          head_row: "flex justify-center",
-                          head_cell: "text-muted-foreground rounded-md w-20 font-normal text-base text-center",
-                          row: "flex w-full mt-3 justify-center",
-                          cell: "h-20 w-20 text-center text-base p-0 relative",
-                          day: "h-20 w-20 p-0 font-normal text-base aria-selected:opacity-100 hover:bg-secondary rounded-lg transition-all",
-                          day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-                          day_today: "bg-accent text-accent-foreground font-bold",
-                        }}
-                      />
+                    <div className="flex justify-center overflow-x-auto pb-4 md:pb-8">
+                      <div className="w-full min-w-0">
+                        <Calendar
+                          mode="single"
+                          selected={selectedDate}
+                          onSelect={setSelectedDate}
+                          month={currentMonth}
+                          onMonthChange={setCurrentMonth}
+                          modifiers={modifiers}
+                          modifiersClassNames={modifiersClassNames}
+                          className="w-full"
+                          classNames={{
+                            months: "flex flex-col space-y-3 md:space-y-4 lg:space-y-6",
+                            month: "space-y-2 md:space-y-4 lg:space-y-6 w-full",
+                            caption: "hidden",
+                            caption_label: "hidden",
+                            nav: "hidden",
+                            nav_button: "hidden",
+                            nav_button_previous: "hidden",
+                            nav_button_next: "hidden",
+                            table: "w-full border-collapse space-y-1 md:space-y-2 mx-auto",
+                            head_row: "flex justify-center",
+                            head_cell: "text-muted-foreground rounded-md w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 font-normal text-xs md:text-sm lg:text-base text-center flex items-center justify-center",
+                            row: "flex w-full mt-1 md:mt-2 lg:mt-3 justify-center",
+                            cell: "h-8 w-8 md:h-12 md:w-12 lg:h-16 lg:w-16 xl:h-20 xl:w-20 text-center text-xs md:text-sm lg:text-base p-0 relative flex items-center justify-center",
+                            day: "h-8 w-8 md:h-12 md:w-12 lg:h-16 lg:w-16 xl:h-20 xl:w-20 p-0 font-normal text-xs md:text-sm lg:text-base aria-selected:opacity-100 hover:bg-secondary rounded-lg transition-all flex items-center justify-center",
+                            day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                            day_today: "bg-accent text-accent-foreground font-bold",
+                          }}
+                        />
+                      </div>
                     </div>
 
                     {/* Legend */}
-                    <div className="mt-20 pt-8 border-t border-border">
-                      <p className="text-base font-semibold mb-6 text-center">Legend:</p>
-                      <div className="flex flex-wrap justify-center gap-8 text-sm">
-                        <div className="flex items-center gap-3">
-                          <div className="w-6 h-6 rounded-full border-2 border-primary bg-primary/20 flex-shrink-0" />
+                    <div className="mt-4 md:mt-8 lg:mt-12 pt-4 md:pt-6 lg:pt-8 border-t border-border">
+                      <p className="text-sm md:text-base font-semibold mb-3 md:mb-4 lg:mb-6 text-center">Legend:</p>
+                      <div className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 text-xs md:text-sm">
+                        <div className="flex items-center gap-2 md:gap-3">
+                          <div className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 rounded-full border-2 border-primary bg-primary/20 flex-shrink-0" />
                           <span>One-Day Event</span>
                         </div>
-                        <div className="flex items-center gap-3">
-                          <div className="w-6 h-6 rounded bg-accent/30 flex-shrink-0" />
+                        <div className="flex items-center gap-2 md:gap-3">
+                          <div className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 rounded bg-accent/30 flex-shrink-0" />
                           <span>Multi-Day Event</span>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
+                          </div>
+                        </div>
+                      </div>
 
               {/* Events Panel - Takes 1 column */}
               <div className="lg:col-span-1">
                 <div ref={addToRefs} className="opacity-0 translate-y-8 transition-all duration-700" style={{ animationDelay: "0.2s" }}>
-                  <div className="bg-card rounded-3xl p-6 border border-border shadow-2xl sticky top-24">
+                  <div className="bg-card rounded-2xl md:rounded-3xl p-4 md:p-6 border border-border shadow-2xl lg:sticky lg:top-24">
                     <h3 className="text-2xl font-bold mb-6">
                       {selectedDate 
                         ? selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
                         : 'Select a date'
                       }
                     </h3>
-                    
+
                     {eventsOnSelectedDate.length > 0 ? (
                       <div className="space-y-4 max-h-[600px] overflow-y-auto">
                         {eventsOnSelectedDate.map((event) => (
@@ -548,23 +550,23 @@ const Events = () => {
                               ) : (
                                 <span className="px-2 py-1 text-xs bg-primary/20 text-primary rounded-full whitespace-nowrap">One-Day</span>
                               )}
-                            </div>
+                          </div>
                             <p className="text-sm text-muted-foreground mb-3 line-clamp-2 whitespace-pre-line">{event.description}</p>
                             <div className="space-y-1.5 text-xs text-muted-foreground">
                               <div className="flex items-center gap-2">
-                                <Clock className="w-3 h-3" />
-                                <span>{event.duration}</span>
-                              </div>
+                            <Clock className="w-3 h-3" />
+                            <span>{event.duration}</span>
+                          </div>
                               <div className="flex items-center gap-2">
-                                <MapPin className="w-3 h-3" />
+                            <MapPin className="w-3 h-3" />
                                 <span className="truncate">{event.location}</span>
-                              </div>
                             </div>
-                            {event.price && (
+                        </div>
+                          {event.price && (
                               <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
                                 <span className="font-bold text-primary">{event.price}</span>
-                                <Button
-                                  size="sm"
+                          <Button
+                            size="sm"
                                   className="bg-primary hover:bg-primary/90 text-primary-foreground h-8"
                                   onClick={(e) => {
                                     e.stopPropagation();
@@ -573,12 +575,12 @@ const Events = () => {
                                 >
                                   Details
                                   <ArrowRight className="ml-1 w-3 h-3" />
-                                </Button>
-                              </div>
+                          </Button>
+                        </div>
                             )}
-                          </div>
-                        ))}
-                      </div>
+                    </div>
+                  ))}
+                </div>
                     ) : (
                       <div className="text-center py-12 text-muted-foreground">
                         <CalendarIcon className="w-12 h-12 mx-auto mb-4 opacity-50" />
@@ -618,8 +620,8 @@ const Events = () => {
                                   })}`
                                 }
                               </p>
-                            </div>
-                          ))}
+              </div>
+            ))}
                         </div>
                       </div>
                     )}
@@ -650,14 +652,14 @@ const Events = () => {
               <X className="w-5 h-5" />
             </button>
 
-            <div className="relative h-[300px] overflow-hidden">
-              <img
+                <div className="relative h-[300px] overflow-hidden">
+                  <img
                 src={selectedEvent.image}
                 alt={selectedEvent.title}
                 className="w-full h-full object-cover"
-              />
+                  />
               <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
                 <div className="flex gap-2 mb-3">
                   <div className="bg-background/95 backdrop-blur-md px-3 py-1.5 rounded-full border border-border/50">
                     <span className="text-xs font-semibold text-foreground uppercase">{selectedEvent.category}</span>
@@ -703,15 +705,15 @@ const Events = () => {
                     <p className="text-sm text-muted-foreground">Location</p>
                     <p className="font-semibold">{selectedEvent.location}</p>
                   </div>
-                </div>
+                    </div>
                 {selectedEvent.capacity && (
                   <div className="flex items-center gap-3">
                     <Users className="w-5 h-5 text-primary" />
                     <div>
                       <p className="text-sm text-muted-foreground">Capacity</p>
                       <p className="font-semibold">{selectedEvent.capacity}</p>
-                    </div>
                   </div>
+                </div>
                 )}
               </div>
 
@@ -730,7 +732,7 @@ const Events = () => {
                   </Button>
                 </div>
               )}
-            </div>
+              </div>
           </div>
         </div>
       )}

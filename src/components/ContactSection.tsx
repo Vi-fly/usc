@@ -79,60 +79,60 @@ const ContactSection = () => {
           </p>
         </div>
 
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto px-4 md:px-0">
           {/* Contact Info Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Contact Info Card */}
-            <div className={`lg:col-span-2 backdrop-blur-xl bg-card/80 rounded-3xl p-8 border border-border/50 shadow-2xl transition-all duration-1000 delay-200 ${
+            <div className={`lg:col-span-2 backdrop-blur-xl bg-card/80 rounded-3xl p-6 md:p-8 border border-border/50 shadow-2xl transition-all duration-1000 delay-200 ${
               isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
             }`}>
-              <h3 className="text-2xl font-bold mb-8 flex items-center gap-2">
-                <MessageCircle className="text-primary" size={24} />
+              <h3 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 flex items-center gap-2">
+                <MessageCircle className="text-primary" size={20} />
                 Get In Touch
               </h3>
               
-              <div className="space-y-6">
+              <div className="space-y-4 md:space-y-6">
                 {/* Location */}
                 <a 
                   href="https://maps.google.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-start gap-4 group p-4 rounded-2xl hover:bg-primary/5 transition-all"
+                  className="flex items-start gap-3 md:gap-4 group p-3 md:p-4 rounded-2xl hover:bg-primary/5 transition-all"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
-                    <MapPin className="text-primary" size={24} />
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+                    <MapPin className="text-primary" size={20} />
                   </div>
-                  <div className="flex-1">
-                    <p className="font-semibold mb-1 text-card-foreground">Location</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">Mountain Wilderness Region<br />Northern Territory, USA</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold mb-1 text-card-foreground text-sm md:text-base">Location</p>
+                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">Mountain Wilderness Region<br />Northern Territory, USA</p>
                   </div>
                 </a>
 
                 {/* Phone/WhatsApp */}
                 <a 
                   href="tel:+918265892437"
-                  className="flex items-start gap-4 group p-4 rounded-2xl hover:bg-primary/5 transition-all"
+                  className="flex items-start gap-3 md:gap-4 group p-3 md:p-4 rounded-2xl hover:bg-primary/5 transition-all"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
-                    <Phone className="text-primary" size={24} />
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+                    <Phone className="text-primary" size={20} />
                   </div>
-                  <div className="flex-1">
-                    <p className="font-semibold mb-1 text-card-foreground">Phone / WhatsApp</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">+91 82658 92437</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold mb-1 text-card-foreground text-sm md:text-base">Phone / WhatsApp</p>
+                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">+91 82658 92437</p>
                 </div>
                 </a>
 
                 {/* Email */}
                 <a 
                   href="mailto:ultimatesurvivalcampsite.info@gmail.com"
-                  className="flex items-start gap-4 group p-4 rounded-2xl hover:bg-primary/5 transition-all"
+                  className="flex items-start gap-3 md:gap-4 group p-3 md:p-4 rounded-2xl hover:bg-primary/5 transition-all"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
-                    <Mail className="text-primary" size={24} />
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+                    <Mail className="text-primary" size={20} />
                   </div>
-                  <div className="flex-1">
-                    <p className="font-semibold mb-1 text-card-foreground">Email</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">ultimatesurvivalcampsite.info@gmail.com</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold mb-1 text-card-foreground text-sm md:text-base">Email</p>
+                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed break-all">ultimatesurvivalcampsite.info@gmail.com</p>
                   </div>
                 </a>
               </div>
@@ -224,31 +224,31 @@ const ContactSection = () => {
           <div className={`mt-16 max-w-4xl mx-auto transition-all duration-1000 delay-600 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}>
-            <div className="backdrop-blur-xl bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 rounded-3xl p-8 md:p-12 border-2 border-primary/20 shadow-2xl">
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 mb-4">
-                  <Mail className="text-primary" size={32} />
+            <div className="backdrop-blur-xl bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 rounded-3xl p-6 md:p-8 lg:p-12 border-2 border-primary/20 shadow-2xl mx-4 md:mx-0">
+              <div className="text-center mb-6 md:mb-8">
+                <div className="inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/20 mb-4">
+                  <Mail className="text-primary" size={24} />
                 </div>
-                <h3 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-foreground px-2">
                   Send Us an Email
                 </h3>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
                   Have questions or want to learn more? Drop us a line and we'll get back to you as soon as possible.
                 </p>
               </div>
               
-              <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center justify-center gap-3 md:gap-4 px-2">
                 <a
                   href="mailto:ultimatesurvivalcampsite.info@gmail.com"
-                  className="flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl hover:scale-105"
+                  className="flex items-center justify-center gap-2 md:gap-3 px-4 md:px-6 lg:px-8 py-3 md:py-4 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl hover:scale-105 text-sm md:text-base break-all md:break-normal text-center min-w-0"
                 >
-                  <Mail size={20} />
-                  <span>ultimatesurvivalcampsite.info@gmail.com</span>
+                  <Mail size={18} className="flex-shrink-0" />
+                  <span className="break-all md:break-normal">ultimatesurvivalcampsite.info@gmail.com</span>
                 </a>
                 <Button
                   variant="outline"
                   size="lg"
-                  className="rounded-full px-8 border-2"
+                  className="rounded-full px-6 md:px-8 border-2 w-full md:w-auto text-sm md:text-base"
                   onClick={() => window.open("mailto:ultimatesurvivalcampsite.info@gmail.com", "_blank")}
                 >
                   Open Email Client

@@ -63,20 +63,20 @@ const About = () => {
           </div>
 
           {/* Content */}
-          <div className="container relative z-10 px-6 py-32">
+          <div className="container relative z-10 px-4 sm:px-6 py-16 sm:py-24 md:py-32">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="animate-fade-in-up mb-8">
-                <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-primary-foreground/30">
-                  <Sparkles className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-medium text-primary-foreground">About Us</span>
+              <div className="animate-fade-in-up mb-4 sm:mb-6 md:mb-8">
+                <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 md:mb-8 border border-primary-foreground/30">
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                  <span className="text-xs sm:text-sm font-medium text-primary-foreground">About Us</span>
                 </div>
               </div>
               
               <div className="animate-fade-in-up">
-                <h1 className="text-5xl md:text-7xl font-bold text-primary-foreground mb-6 leading-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground mb-4 sm:mb-6 leading-tight px-2">
                   Where Adventure Meets <span className="text-primary">Growth</span>
                 </h1>
-                <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-primary-foreground/90 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
                   Empowering individuals through wilderness skills, outdoor education, and unforgettable activities since 2015
                 </p>
               </div>

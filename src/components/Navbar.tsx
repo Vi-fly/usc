@@ -21,7 +21,7 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -54,8 +54,8 @@ const Navbar = () => {
       >
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" onClick={scrollToTop} className="flex items-center space-x-2 group">
-            <div className={`text-2xl font-bold tracking-tight transition-colors ${
+          <Link to="/" onClick={scrollToTop} className="flex items-center space-x-2 group min-w-0 flex-1 md:flex-none">
+            <div className={`text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors truncate ${
               isScrolled 
                 ? "text-foreground group-hover:text-primary" 
                 : "text-white group-hover:text-primary"

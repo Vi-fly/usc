@@ -63,7 +63,8 @@ const HeroSection = () => {
           }
         }
       } catch (error) {
-        console.error('Failed to load next event:', error);
+        // Silently handle errors - page will work without calendar data
+        // No need to log as it's expected that calendar fetch may fail
       }
     };
     
@@ -106,22 +107,22 @@ const HeroSection = () => {
         </div>
 
         {/* Content */}
-        <div className="container relative z-20 px-6 py-32">
+        <div className="container relative z-20 px-4 sm:px-6 py-16 sm:py-24 md:py-32">
           <div className="max-w-4xl">
           <div className="animate-fade-in-up">
-            <h1 className="text-5xl md:text-7xl font-bold text-primary-foreground mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground mb-4 sm:mb-6 leading-tight">
               Ultimate Survival Campsite: Master the Wilderness
             </h1>
-            <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8 max-w-2xl leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-primary-foreground/90 mb-6 sm:mb-8 max-w-2xl leading-relaxed">
               Transform yourself through immersive survival training. Learn essential wilderness skills,
               build resilience, and discover your true potential in nature's ultimate classroom.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 w-full sm:w-auto"
             >
               Start Your Journey
               <ArrowRight className="ml-2" />
@@ -129,7 +130,7 @@ const HeroSection = () => {
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-primary-foreground !text-primary-foreground hover:bg-primary-foreground hover:!text-foreground text-lg px-8 py-6 rounded-full transition-all bg-background/20 backdrop-blur-sm"
+              className="border-2 border-primary-foreground !text-primary-foreground hover:bg-primary-foreground hover:!text-foreground text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 rounded-full transition-all bg-background/20 backdrop-blur-sm w-full sm:w-auto"
               onClick={() => {
                 const videoSection = document.getElementById('video-section');
                 if (videoSection) {

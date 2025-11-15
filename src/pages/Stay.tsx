@@ -323,31 +323,31 @@ const Stay = () => {
           </div>
 
           {/* Content */}
-          <div className="container relative z-10 px-6 py-32">
+          <div className="container relative z-10 px-4 sm:px-6 py-16 sm:py-24 md:py-32">
             <div className="max-w-5xl mx-auto text-center">
-              <div className="animate-fade-in-up mb-8">
-                <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-primary-foreground/30">
-                  <Home className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-medium text-primary-foreground">Your Perfect Stay Awaits</span>
+              <div className="animate-fade-in-up mb-4 sm:mb-6 md:mb-8">
+                <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 md:mb-8 border border-primary-foreground/30">
+                  <Home className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                  <span className="text-xs sm:text-sm font-medium text-primary-foreground">Your Perfect Stay Awaits</span>
                 </div>
               </div>
               
-              <div className="animate-fade-in-up mb-8">
-                <h1 className="text-5xl md:text-8xl font-bold text-primary-foreground mb-8 leading-tight">
+              <div className="animate-fade-in-up mb-4 sm:mb-6 md:mb-8">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold text-primary-foreground mb-4 sm:mb-6 md:mb-8 leading-tight px-2">
                   Stay in <span className="text-primary">Nature</span>
                   <br />
                   Live the <span className="text-primary">Adventure</span>
                 </h1>
-                <p className="text-xl md:text-2xl text-primary-foreground/90 mb-12 max-w-3xl mx-auto leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-primary-foreground/90 mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
                   From luxury glamping to authentic survival tents, choose the accommodation that matches your adventure style. 
                   All rates exclude government taxes.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: "0.3s" }}>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-fade-in" style={{ animationDelay: "0.3s" }}>
                 <Button
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-10 py-7 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground text-base sm:text-lg px-6 sm:px-8 lg:px-10 py-5 sm:py-6 lg:py-7 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 w-full sm:w-auto"
                   onClick={() => {
                     document.getElementById("accommodations")?.scrollIntoView({ behavior: "smooth" });
                   }}
