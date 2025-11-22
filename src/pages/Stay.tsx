@@ -1,184 +1,16 @@
-import tent1 from "@/assets/images/tent_1.webp";
-import tent2 from "@/assets/images/tent_2.webp";
-import tent from "@/assets/images/tent.webp";
-import cottage from "@/assets/images/cottage.webp";
 import heroSurvival from "@/assets/hero-survival.webp";
+import surrounding from "@/assets/images/surrounding.webp";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { ArrowRight, Calendar, CheckCircle, Home, Sparkles, Users, Leaf, Mountain, TreePine, Waves } from "lucide-react";
+import { accommodations } from "@/data/accommodations";
+import { ArrowRight, Calendar, CheckCircle, Home, Leaf, Mountain, TreePine } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-
-interface Accommodation {
-  id: string;
-  name: string;
-  type: string;
-  description: string;
-  image: string;
-  singlePrice: string;
-  twinPrice: string;
-  additionalPersonPrice: string | null;
-  facilities: string[];
-  features: string[];
-  natureIcon: typeof Leaf;
-  natureElement: string; // For decorative elements
-}
-
-const accommodations: Accommodation[] = [
-  {
-    id: "luxury-tent",
-    name: "Luxury Tent",
-    type: "Premium Glamping",
-    description: "Experience the ultimate in outdoor luxury with our spacious, well-appointed luxury tents. Perfect for those who want comfort without compromising the authentic camping experience.",
-    image: tent1,
-    singlePrice: "₹8,000",
-    twinPrice: "₹11,000",
-    additionalPersonPrice: "₹3,500",
-    facilities: [
-      "Premium bedding and linens",
-      "Private attached bathroom",
-      "Hot water supply",
-      "Electricity and charging points",
-      "Comfortable seating area",
-      "Private deck/veranda",
-      "Room service available",
-      "Climate control options"
-    ],
-    features: ["Luxury comfort", "Private facilities", "Premium amenities", "Spacious design"],
-    natureIcon: TreePine,
-    natureElement: "forest"
-  },
-  {
-    id: "alpine-tent",
-    name: "Alpine Tent",
-    type: "Mountain Comfort",
-    description: "Designed for mountain enthusiasts, our Alpine Tents offer a perfect blend of rugged durability and comfort. Ideal for those seeking adventure with essential comforts.",
-    image: tent2,
-    singlePrice: "₹5,000",
-    twinPrice: "₹8,000",
-    additionalPersonPrice: "₹3,500",
-    facilities: [
-      "Comfortable bedding",
-      "Shared bathroom facilities",
-      "Hot water access",
-      "Basic electricity",
-      "Storage space",
-      "Mountain views",
-      "Heating options",
-      "Common area access"
-    ],
-    features: ["Mountain views", "Adventure ready", "Comfortable", "Scenic location"],
-    natureIcon: Mountain,
-    natureElement: "mountain"
-  },
-  {
-    id: "safari-tent",
-    name: "Safari Tent",
-    type: "Group Adventure",
-    description: "Perfect for groups and adventure seekers. Our Safari Tents provide a communal yet comfortable camping experience, ideal for families and groups traveling together.",
-    image: tent,
-    singlePrice: "₹3,500",
-    twinPrice: "Group Only",
-    additionalPersonPrice: "Group Only",
-    facilities: [
-      "Group accommodation setup",
-      "Shared bathroom facilities",
-      "Common dining area",
-      "Group activity space",
-      "Basic amenities",
-      "Campfire area",
-      "Group meal options",
-      "Adventure activities included"
-    ],
-    features: ["Group friendly", "Adventure focus", "Communal experience", "Budget friendly"],
-    natureIcon: TreePine,
-    natureElement: "community"
-  },
-  {
-    id: "military-tent",
-    name: "Military Tent",
-    type: "Survival Experience",
-    description: "Authentic military-style accommodation for those seeking a true survival experience. Basic, functional, and perfect for adventure training and survival camps.",
-    image: tent,
-    singlePrice: "₹2,500",
-    twinPrice: "Group Only",
-    additionalPersonPrice: "Group Only",
-    facilities: [
-      "Basic bedding",
-      "Shared facilities",
-      "Survival training area",
-      "Group activities",
-      "Campfire cooking",
-      "Outdoor showers",
-      "Training equipment",
-      "Survival workshops"
-    ],
-    features: ["Authentic experience", "Survival training", "Group activities", "Adventure focus"],
-    natureIcon: Mountain,
-    natureElement: "wilderness"
-  },
-  {
-    id: "colonel-hut",
-    name: "Colonel Hut",
-    type: "Premium Cabin",
-    description: "Our most premium accommodation option. The Colonel Hut offers luxury cabin living with all modern amenities, perfect for those who want the best of both worlds.",
-    image: cottage,
-    singlePrice: "₹8,000",
-    twinPrice: "₹12,000",
-    additionalPersonPrice: "₹4,500",
-    facilities: [
-      "Luxury bedding and furnishings",
-      "Private bathroom with hot water",
-      "Full electricity and Wi-Fi",
-      "Private kitchenette",
-      "Living area",
-      "Private balcony/patio",
-      "Room service",
-      "Premium amenities",
-      "Climate control",
-      "Entertainment options"
-    ],
-    features: ["Premium luxury", "Full facilities", "Private space", "Modern amenities"],
-    natureIcon: TreePine,
-    natureElement: "cabin"
-  },
-  {
-    id: "pup-tent",
-    name: "Pup Tent",
-    type: "Minimalist Camping",
-    description: "For the minimalist camper who wants the authentic outdoor experience. Simple, compact, and perfect for solo travelers or couples seeking a true camping adventure.",
-    image: tent,
-    singlePrice: "₹2,500",
-    twinPrice: "₹4,000",
-    additionalPersonPrice: null,
-    facilities: [
-      "Basic bedding",
-      "Shared bathroom facilities",
-      "Common area access",
-      "Campfire area",
-      "Basic storage",
-      "Outdoor experience",
-      "Nature immersion",
-      "Minimal amenities"
-    ],
-    features: ["Authentic camping", "Minimalist", "Budget friendly", "Nature connection"],
-    natureIcon: Leaf,
-    natureElement: "minimal"
-  }
-];
+import { Link } from "react-router-dom";
 
 const Stay = () => {
   const [scrollY, setScrollY] = useState(0);
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const [selectedAccommodation, setSelectedAccommodation] = useState<Accommodation | null>(null);
 
   useEffect(() => {
     let ticking = false;
@@ -306,14 +138,15 @@ const Stay = () => {
           {/* Background Image with Parallax */}
           <div className="absolute inset-0 z-0 rounded-3xl overflow-hidden">
             <img
-              src={heroSurvival}
+              src={surrounding}
               alt="Stay at Ultimate Survival Campsite"
               className="w-full h-full object-cover transition-transform duration-300"
               style={{
                 transform: `translateY(${scrollY * 0.5}px) scale(1.1)`,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-forest-dark/90 via-earth-dark/85 to-forest-medium/80" />
+            <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/40 to-black/40" />
+            <div className="absolute inset-0 bg-gradient-to-br from-forest-dark/60 via-earth-dark/55 to-forest-medium/60" />
           </div>
 
           {/* Animated Background Elements */}
@@ -326,19 +159,19 @@ const Stay = () => {
           <div className="container relative z-10 px-4 sm:px-6 py-16 sm:py-24 md:py-32">
             <div className="max-w-5xl mx-auto text-center">
               <div className="animate-fade-in-up mb-4 sm:mb-6 md:mb-8">
-                <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 md:mb-8 border border-primary-foreground/30">
-                  <Home className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                  <span className="text-xs sm:text-sm font-medium text-primary-foreground">Your Perfect Stay Awaits</span>
+                <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 md:mb-8 border border-white/30 shadow-lg">
+                  <Home className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                  <span className="text-xs sm:text-sm font-medium text-white">Your Perfect Stay Awaits</span>
                 </div>
               </div>
               
               <div className="animate-fade-in-up mb-4 sm:mb-6 md:mb-8">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold text-primary-foreground mb-4 sm:mb-6 md:mb-8 leading-tight px-2">
-                  Stay in <span className="text-primary">Nature</span>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight px-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                  Stay in <span className="text-primary drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">Nature</span>
                   <br />
-                  Live the <span className="text-primary">Adventure</span>
+                  Live the <span className="text-primary drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">Adventure</span>
                 </h1>
-                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-primary-foreground/90 mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                   From luxury glamping to authentic survival tents, choose the accommodation that matches your adventure style. 
                   All rates exclude government taxes.
                 </p>
@@ -458,7 +291,7 @@ const Stay = () => {
                     </div>
 
                     {/* Features - Minimalist tags */}
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-2 mb-8">
                       {accommodation.features.map((feature, featureIdx) => (
                         <span
                           key={featureIdx}
@@ -469,114 +302,17 @@ const Stay = () => {
                       ))}
                     </div>
 
-                    {/* Dialog Trigger Button */}
-                    <Dialog>
-                      <DialogTrigger asChild>
+                    {/* View Details Button */}
+                    <div className="mt-2">
+                      <Link to={`/stay/${accommodation.id}`}>
                         <Button 
                           className="bg-primary hover:bg-primary/90 text-primary-foreground group/btn"
-                          onClick={() => setSelectedAccommodation(accommodation)}
                         >
-                          Check Pricing & Details
+                          View Details & Pricing
                           <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                         </Button>
-                      </DialogTrigger>
-                      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-                        <DialogHeader>
-                          <DialogTitle className="text-3xl font-bold">{accommodation.name}</DialogTitle>
-                          <DialogDescription className="text-base">
-                            {accommodation.description}
-                          </DialogDescription>
-                        </DialogHeader>
-                        
-                        <div className="space-y-6 mt-4">
-                          {/* Pricing Table - Moved Inside Dialog */}
-                          <div className="bg-secondary/50 rounded-xl p-6 border border-border">
-                            <h4 className="text-xl font-bold mb-4">
-                              Pricing Details
-                            </h4>
-                            <div className="space-y-3">
-                              <div className="flex justify-between items-center py-2 border-b border-border/50">
-                                <span className="font-medium">Single Occupancy</span>
-                                <span className="text-lg font-bold text-primary">{accommodation.singlePrice}</span>
-                              </div>
-                              <div className="flex justify-between items-center py-2 border-b border-border/50">
-                                <span className="font-medium">Twin Occupancy</span>
-                                <span className="text-lg font-bold text-primary">{accommodation.twinPrice}</span>
-                              </div>
-                              {accommodation.additionalPersonPrice && (
-                                <div className="flex justify-between items-center py-2">
-                                  <span className="font-medium">Additional Person</span>
-                                  <span className="text-lg font-bold text-primary">{accommodation.additionalPersonPrice}</span>
-                                </div>
-                              )}
-                              <div className="mt-4 pt-4 border-t border-border">
-                                <p className="text-xs text-muted-foreground italic">
-                                  * All rates exclude government taxes
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Features */}
-                          <div>
-                            <h4 className="text-xl font-bold mb-4">Key Features</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {accommodation.features.map((feature, featureIdx) => (
-                                <span
-                                  key={featureIdx}
-                                  className="px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20"
-                                >
-                                  {feature}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-
-                          {/* CTA Button */}
-                          <Button 
-                            size="lg" 
-                            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
-                            onClick={() => {
-                              const phoneNumber = "918265892437";
-                              let message = `Hello! I'm interested in booking accommodation.\n\n`;
-                              
-                              message += `*Accommodation Details:*\n`;
-                              message += `Type: *${accommodation.name}*\n`;
-                              message += `Category: ${accommodation.type}\n`;
-                              message += `${accommodation.description}\n\n`;
-                              
-                              message += `*Pricing:*\n`;
-                              message += `Single Occupancy: ${accommodation.singlePrice}\n`;
-                              message += `Twin Occupancy: ${accommodation.twinPrice}\n`;
-                              if (accommodation.additionalPersonPrice) {
-                                message += `Additional Person: ${accommodation.additionalPersonPrice}\n`;
-                              }
-                              message += `*All rates exclude government taxes\n\n`;
-                              
-                              message += `*Key Features:*\n`;
-                              accommodation.features.forEach((feature) => {
-                                message += `• ${feature}\n`;
-                              });
-                              message += `\n`;
-                              
-                              message += `*Facilities & Amenities:*\n`;
-                              accommodation.facilities.forEach((facility) => {
-                                message += `• ${facility}\n`;
-                              });
-                              message += `\n`;
-                              
-                              message += `Please let me know about availability and booking details. Thank you!`;
-
-                              const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-                              window.open(whatsappUrl, '_blank');
-                            }}
-                          >
-                            Book This Accommodation
-                            <ArrowRight className="ml-2" />
-                          </Button>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>

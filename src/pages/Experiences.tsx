@@ -3,13 +3,14 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { experiences } from "@/data/experiences";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Footprints } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Experiences = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [scrollY, setScrollY] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let ticking = false;
@@ -68,6 +69,9 @@ const Experiences = () => {
     acc[experience.category].push(experience);
     return acc;
   }, {} as Record<string, typeof experiences>);
+
+  // Get all day hikes
+  const dayHikes = experiences.filter(exp => exp.category === "Day Hikes");
 
   return (
     <div className="min-h-screen bg-background relative">
@@ -138,54 +142,101 @@ const Experiences = () => {
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {categoryExperiences.map((experience, idx) => {
-                  const Icon = experience.icon;
-                  return (
-                    <Link
-                      key={experience.id}
-                      to={`/activities/${experience.id}`}
-                      className="group block"
-                    >
-                      <div className="relative h-[400px] rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl">
-                        {/* Background Image */}
-                        <img
-                          src={experience.image}
-                          alt={experience.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                        
-                        {/* Dark overlay for better text readability */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30" />
-                        
-                        {/* Solid block overlay with text */}
-                        <div className="absolute bottom-0 left-0 right-0 p-6">
-                          <div className="bg-background/95 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-xl">
-                            {/* Icon */}
-                            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
-                              <Icon className="text-primary" size={24} />
-                            </div>
-                            
-                            {/* Title */}
-                            <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors text-foreground">
-                              {experience.title}
-                            </h3>
-                            
-                            {/* Description */}
-                            <p className="text-muted-foreground leading-relaxed mb-4 text-sm">
-                              {experience.description}
-                            </p>
+                {category === "Day Hikes" ? (
+                  // Special rendering for Day Hikes - single card that navigates to page
+                  <div
+                    onClick={() => navigate("/day-hikes")}
+                    className="group block cursor-pointer"
+                  >
+                    <div className="relative h-[400px] rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl">
+                      {/* Background Image - use first hike image */}
+                      <img
+                        src={dayHikes[0]?.image || ""}
+                        alt="Day Hikes"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      
+                      {/* Dark overlay for better text readability */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30" />
+                      
+                      {/* Solid block overlay with text */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <div className="bg-background/95 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-xl">
+                          {/* Icon */}
+                          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
+                            <Footprints className="text-primary" size={24} />
+                          </div>
+                          
+                          {/* Title */}
+                          <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors text-foreground">
+                            Day Hikes
+                          </h3>
+                          
+                          {/* Description */}
+                          <p className="text-muted-foreground leading-relaxed mb-4 text-sm">
+                            Choose from multiple scenic day hike options. Click to explore all available hikes.
+                          </p>
 
-                            {/* Learn More Button */}
-                            <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition-all">
-                              <span className="text-sm font-medium">Learn More</span>
-                              <ArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
-                            </div>
+                          {/* Learn More Button */}
+                          <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition-all">
+                            <span className="text-sm font-medium">View All Hikes</span>
+                            <ArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
                           </div>
                         </div>
                       </div>
-                    </Link>
-                  );
-                })}
+                    </div>
+                  </div>
+                ) : (
+                  // Regular rendering for other categories
+                  categoryExperiences.map((experience, idx) => {
+                    const Icon = experience.icon;
+                    return (
+                      <Link
+                        key={experience.id}
+                        to={`/activities/${experience.id}`}
+                        className="group block"
+                      >
+                        <div className="relative h-[400px] rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl">
+                          {/* Background Image */}
+                          <img
+                            src={experience.image}
+                            alt={experience.title}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                          
+                          {/* Dark overlay for better text readability */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30" />
+                          
+                          {/* Solid block overlay with text */}
+                          <div className="absolute bottom-0 left-0 right-0 p-6">
+                            <div className="bg-background/95 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-xl">
+                              {/* Icon */}
+                              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
+                                <Icon className="text-primary" size={24} />
+                              </div>
+                              
+                              {/* Title */}
+                              <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors text-foreground">
+                                {experience.title}
+                              </h3>
+                              
+                              {/* Description */}
+                              <p className="text-muted-foreground leading-relaxed mb-4 text-sm">
+                                {experience.description}
+                              </p>
+
+                              {/* Learn More Button */}
+                              <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition-all">
+                                <span className="text-sm font-medium">Learn More</span>
+                                <ArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    );
+                  })
+                )}
               </div>
             </div>
           ))}
@@ -211,6 +262,7 @@ const Experiences = () => {
           </div>
         </div>
       </section>
+
 
       <Footer />
     </div>

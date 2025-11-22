@@ -102,11 +102,10 @@ const Navbar = () => {
           <div className="hidden md:block">
             <Link to="/activities/design-your-own-experience" onClick={scrollToTop}>
               <Button
-                variant="outline"
-                className={`border-2 transition-all ${
+                className={`transition-all font-semibold shadow-lg hover:shadow-xl ${
                   isScrolled 
-                    ? "border-foreground hover:bg-foreground hover:text-background text-foreground bg-background" 
-                    : "!border-white !text-white bg-transparent hover:!bg-white hover:!text-background"
+                    ? "bg-primary hover:bg-primary/90 text-primary-foreground" 
+                    : "bg-white hover:bg-white/90 text-primary"
                 }`}
               >
                 Book Campsite
@@ -161,8 +160,7 @@ const Navbar = () => {
                 }}
               >
                 <Button 
-                  variant="outline" 
-                  className="border-2 mt-4 border-foreground text-foreground bg-background hover:bg-foreground hover:text-background w-full"
+                  className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-xl w-full"
                 >
                   Book Campsite
                 </Button>

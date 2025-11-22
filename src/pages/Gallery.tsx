@@ -12,29 +12,52 @@ import storyMain from "@/assets/story-main.webp";
 import visit from "@/assets/visit.webp";
 
 // Images from assets/images/
-import bar from "@/assets/images/bar.webp";
 import buddha from "@/assets/images/buddha.webp";
 import buddha1 from "@/assets/images/buddha_1.webp";
 import buddha2 from "@/assets/images/buddha_2.webp";
 import cabinet from "@/assets/images/cabinet.webp";
 import clay from "@/assets/images/clay.webp";
-import cottage from "@/assets/images/cottage.webp";
+import cottage from "@/assets/images/Cottage.webp";
 import elephant from "@/assets/images/elephant.webp";
+import firewood from "@/assets/images/firewood.webp";
 import hens from "@/assets/images/hens.webp";
 import house from "@/assets/images/house.webp";
+import hut from "@/assets/images/hut.webp";
 import lamp from "@/assets/images/lamp.webp";
 import lunch from "@/assets/images/lunch.webp";
+import luxuryroom from "@/assets/images/luxuryroom.webp";
 import pit from "@/assets/images/pit.webp";
+import plants from "@/assets/images/plants.webp";
 import pond from "@/assets/images/pond.webp";
 import room from "@/assets/images/room.webp";
 import sitting from "@/assets/images/sitting.webp";
+import sitting2 from "@/assets/images/sitting_2.webp";
 import stairs from "@/assets/images/stairs.webp";
+import statue from "@/assets/images/statue.webp";
+import surrounding from "@/assets/images/surrounding.webp";
 import tap from "@/assets/images/tap.webp";
 import tent from "@/assets/images/tent.webp";
-import tent1 from "@/assets/images/tent_1.webp";
+import tent1 from "@/assets/images/tent1.webp";
 import tent2 from "@/assets/images/tent_2.webp";
+import tent3 from "@/assets/images/tent3.webp";
+import walking from "@/assets/images/walking.webp";
 import wash from "@/assets/images/wash.webp";
 import wash1 from "@/assets/images/wash_1.webp";
+// Accommodation images
+import at from "@/assets/images/at.webp";
+import at1 from "@/assets/images/at_1.webp";
+import lt from "@/assets/images/lt.webp";
+import lt1 from "@/assets/images/lt_1.webp";
+import lt2 from "@/assets/images/lt_2.webp";
+import ch from "@/assets/images/ch.webp";
+import ch1 from "@/assets/images/ch_1.webp";
+import ch2 from "@/assets/images/ch_2.webp";
+import ch3 from "@/assets/images/ch_3.webp";
+import cht from "@/assets/images/ch_t.webp";
+import mt from "@/assets/images/mt.webp";
+import mt1 from "@/assets/images/mt_1.webp";
+import mt2 from "@/assets/images/mt_2.webp";
+import militaryTent from "@/assets/images/Military_tent.webp";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
@@ -71,47 +94,77 @@ const getImageSrc = (img: string | { default?: string }): string => {
 // Pre-compute all gallery images once (outside component to avoid recalculation)
 const allGalleryImages: GalleryImage[] = [
   // Images from assets/images/ (shown first)
-  { id: "1", src: getImageSrc(bar), title: "Camp Bar", category: "Stay" },
-  { id: "2", src: getImageSrc(buddha1), title: "Buddha Statue", category: "Nature" },
-  { id: "3", src: getImageSrc(buddha2), title: "Buddha Garden", category: "Nature" },
+  { id: "1", src: getImageSrc(buddha1), title: "Buddha Statue", category: "Nature" },
+  { id: "2", src: getImageSrc(buddha2), title: "Buddha Garden", category: "Nature" },
   { id: "4", src: getImageSrc(buddha), title: "Buddha Meditation", category: "Nature" },
   { id: "5", src: getImageSrc(clay), title: "Clay Workshop", category: "Training" },
   { id: "6", src: getImageSrc(cottage), title: "Cottage Stay", category: "Stay" },
   { id: "7", src: getImageSrc(elephant), title: "Elephant", category: "Nature" },
-  { id: "8", src: getImageSrc(hens), title: "Farm Animals", category: "Stay" },
-  { id: "9", src: getImageSrc(house), title: "Camp House", category: "Stay" },
-  { id: "10", src: getImageSrc(lamp), title: "Evening Ambiance", category: "Stay" },
-  { id: "11", src: getImageSrc(lunch), title: "Camp Lunch", category: "Stay" },
-  { id: "12", src: getImageSrc(pit), title: "Camp Fire Pit", category: "Training" },
-  { id: "13", src: getImageSrc(pond), title: "Natural Pond", category: "Nature" },
-  { id: "14", src: getImageSrc(room), title: "Guest Room", category: "Stay" },
-  { id: "15", src: getImageSrc(sitting), title: "Meditation Area", category: "Nature" },
-  { id: "16", src: getImageSrc(stairs), title: "Nature Path", category: "Nature" },
-  { id: "17", src: getImageSrc(tap), title: "Water Source", category: "Stay" },
-  { id: "18", src: getImageSrc(tent1), title: "Tent Accommodation", category: "Stay" },
-  { id: "19", src: getImageSrc(tent), title: "Wilderness Tent", category: "Stay" },
-  { id: "20", src: getImageSrc(tent2), title: "Camp Tent", category: "Stay" },
-  { id: "21", src: getImageSrc(cabinet), title: "Storage Cabinet", category: "Stay" },
-  { id: "22", src: getImageSrc(wash1), title: "Wash Area", category: "Stay" },
-  { id: "23", src: getImageSrc(wash), title: "Cleaning Station", category: "Stay" },
+  { id: "8", src: getImageSrc(firewood), title: "Firewood Collection", category: "Training" },
+  { id: "9", src: getImageSrc(hens), title: "Farm Animals", category: "Stay" },
+  { id: "10", src: getImageSrc(house), title: "Camp House", category: "Stay" },
+  { id: "11", src: getImageSrc(hut), title: "Mountain Hut", category: "Stay" },
+  { id: "12", src: getImageSrc(lamp), title: "Evening Ambiance", category: "Stay" },
+  { id: "13", src: getImageSrc(lunch), title: "Camp Lunch", category: "Stay" },
+  { id: "14", src: getImageSrc(luxuryroom), title: "Colonel Hut", category: "Stay" },
+  { id: "15", src: getImageSrc(pit), title: "Camp Fire Pit", category: "Training" },
+  { id: "16", src: getImageSrc(plants), title: "Garden Plants", category: "Nature" },
+  { id: "17", src: getImageSrc(pond), title: "Natural Pond", category: "Nature" },
+  { id: "18", src: getImageSrc(room), title: "Guest Room", category: "Stay" },
+  { id: "19", src: getImageSrc(sitting), title: "Meditation Area", category: "Nature" },
+  { id: "20", src: getImageSrc(sitting2), title: "Outdoor Seating", category: "Nature" },
+  { id: "21", src: getImageSrc(stairs), title: "Nature Path", category: "Nature" },
+  { id: "22", src: getImageSrc(statue), title: "Decorative Statue", category: "Nature" },
+  { id: "23", src: getImageSrc(surrounding), title: "Camp Surroundings", category: "Nature" },
+  { id: "24", src: getImageSrc(tap), title: "Water Source", category: "Stay" },
+  { id: "25", src: getImageSrc(tent1), title: "Tent Accommodation", category: "Stay" },
+  { id: "26", src: getImageSrc(tent), title: "Wilderness Tent", category: "Stay" },
+  { id: "27", src: getImageSrc(tent2), title: "Luxury Tent", category: "Stay" },
+  { id: "28", src: getImageSrc(tent3), title: "Premium Tent", category: "Stay" },
+  { id: "29", src: getImageSrc(walking), title: "Nature Walk", category: "Nature" },
+  { id: "30", src: getImageSrc(cabinet), title: "Storage Cabinet", category: "Stay" },
+  { id: "31", src: getImageSrc(wash1), title: "Wash Area", category: "Stay" },
+  { id: "32", src: getImageSrc(wash), title: "Cleaning Station", category: "Stay" },
+  
+  // Accommodation images - Alpine Tent
+  { id: "44", src: getImageSrc(at), title: "Alpine Tent", category: "Stay" },
+  { id: "45", src: getImageSrc(at1), title: "Alpine Tent Interior", category: "Stay" },
+  
+  // Accommodation images - Luxury Tent
+  { id: "46", src: getImageSrc(lt), title: "Luxury Tent", category: "Stay" },
+  { id: "47", src: getImageSrc(lt1), title: "Luxury Tent View", category: "Stay" },
+  { id: "48", src: getImageSrc(lt2), title: "Luxury Tent Setup", category: "Stay" },
+  
+  // Accommodation images - Colonel Hut
+  { id: "49", src: getImageSrc(ch), title: "Colonel Hut", category: "Stay" },
+  { id: "50", src: getImageSrc(ch1), title: "Colonel Hut Interior", category: "Stay" },
+  { id: "51", src: getImageSrc(ch2), title: "Colonel Hut Exterior", category: "Stay" },
+  { id: "52", src: getImageSrc(ch3), title: "Colonel Hut View", category: "Stay" },
+  { id: "53", src: getImageSrc(cht), title: "Colonel Hut Details", category: "Stay" },
+  
+  // Accommodation images - Military Tent
+  { id: "54", src: getImageSrc(militaryTent), title: "Military Tent", category: "Stay" },
+  { id: "55", src: getImageSrc(mt), title: "Military Tent Setup", category: "Stay" },
+  { id: "56", src: getImageSrc(mt1), title: "Military Tent Interior", category: "Stay" },
+  { id: "57", src: getImageSrc(mt2), title: "Military Tent View", category: "Stay" },
   
   // Images from assets root
-  { id: "24", src: getImageSrc(storyMain), title: "Adventure Expedition", category: "Adventure" },
-  { id: "25", src: getImageSrc(story1), title: "Wilderness Training", category: "Training" },
-  { id: "26", src: getImageSrc(story2), title: "Nature Immersion", category: "Nature" },
-  { id: "27", src: getImageSrc(story3), title: "Survival Skills", category: "Skills" },
-  { id: "28", src: getImageSrc(story4), title: "Mountain Challenge", category: "Adventure" },
-  { id: "29", src: getImageSrc(heroSurvival), title: "Hero Journey", category: "Adventure" },
-  { id: "30", src: getImageSrc(article1), title: "Training Workshop", category: "Training" },
-  { id: "31", src: getImageSrc(article2), title: "Summer Challenge", category: "Events" },
-  { id: "32", src: getImageSrc(article3), title: "Mountain Trek", category: "Adventure" },
-  { id: "33", src: getImageSrc(mission), title: "Mission & Vision", category: "About" },
-  { id: "34", src: getImageSrc(visit), title: "Camp Visit", category: "Stay" },
+  { id: "33", src: getImageSrc(storyMain), title: "Adventure Expedition", category: "Adventure" },
+  { id: "34", src: getImageSrc(story1), title: "Wilderness Training", category: "Training" },
+  { id: "35", src: getImageSrc(story2), title: "Nature Immersion", category: "Nature" },
+  { id: "36", src: getImageSrc(story3), title: "Survival Skills", category: "Skills" },
+  { id: "37", src: getImageSrc(story4), title: "Mountain Challenge", category: "Adventure" },
+  { id: "38", src: getImageSrc(heroSurvival), title: "Hero Journey", category: "Adventure" },
+  { id: "39", src: getImageSrc(article1), title: "Training Workshop", category: "Training" },
+  { id: "40", src: getImageSrc(article2), title: "Summer Challenge", category: "Events" },
+  { id: "41", src: getImageSrc(article3), title: "Mountain Trek", category: "Adventure" },
+  { id: "42", src: getImageSrc(mission), title: "Mission & Vision", category: "About" },
+  { id: "43", src: getImageSrc(visit), title: "Camp Visit", category: "Stay" },
 ];
 
 const categories = ["All", "Adventure", "Training", "Nature", "Skills", "Events", "Stay", "About"];
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 6; // Further reduced for faster initial load
 
 // Memoized Gallery Image Item Component - Highly Optimized
 const GalleryImageItem = memo(({ 
@@ -125,22 +178,22 @@ const GalleryImageItem = memo(({
 }) => {
   const isBuddhaMeditation = image.id === "4" || image.title === "Buddha Meditation";
   const itemRef = useRef<HTMLDivElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
-  const [isVisible, setIsVisible] = useState(idx < 12); // Pre-visible for first 12
+  const [shouldLoad, setShouldLoad] = useState(idx < ITEMS_PER_PAGE);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Skip observer for first 12 images (already visible)
-    if (idx < 12) return;
+    // Skip observer for first page images (already visible)
+    if (idx < ITEMS_PER_PAGE) return;
 
+    // Use a single shared observer pattern - simpler and faster
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          setShouldLoad(true);
           observer.disconnect();
         }
       },
-      { threshold: 0.01, rootMargin: "100px" }
+      { threshold: 0.01, rootMargin: "300px" }
     );
 
     const currentRef = itemRef.current;
@@ -164,58 +217,49 @@ const GalleryImageItem = memo(({
     onImageClick(image);
   }, [image, onImageClick]);
 
+  if (!shouldLoad) {
+    return (
+      <div
+        ref={itemRef}
+        className="aspect-square bg-secondary/20 rounded-2xl"
+        style={{ contentVisibility: 'auto' }}
+      />
+    );
+  }
+
   return (
     <div
       ref={itemRef}
-      className={`group relative aspect-square overflow-hidden rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-200 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      }`}
+      className="relative aspect-square overflow-hidden rounded-2xl cursor-pointer bg-secondary/10"
       onClick={handleClick}
       style={{ 
-        animationDelay: isVisible ? `${idx * 0.02}s` : undefined,
-        contentVisibility: idx > 20 ? 'auto' : undefined
+        contain: 'layout style paint',
+        contentVisibility: idx > ITEMS_PER_PAGE * 3 ? 'auto' : undefined
       }}
     >
       <img
-        ref={imgRef}
         src={image.src}
         alt={image.title || `Gallery image ${idx + 1}`}
-        className={`w-full h-full object-cover transition-transform duration-300 ${
-          isBuddhaMeditation 
-            ? 'rotate-[-90deg] group-hover:rotate-[-90deg] group-hover:scale-110' 
-            : 'group-hover:scale-110'
+        className={`w-full h-full object-cover ${
+          isBuddhaMeditation ? 'rotate-[-90deg]' : ''
         } ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-        loading={idx < 12 ? "eager" : "lazy"}
+        loading={idx < ITEMS_PER_PAGE ? "eager" : "lazy"}
         decoding="async"
-        fetchPriority={idx < 4 ? "high" : "auto"}
+        fetchPriority={idx < 4 ? "high" : "low"}
         onLoad={handleImageLoad}
         onError={(e) => {
           const target = e.target as HTMLImageElement;
           target.style.display = 'none';
         }}
       />
-      {isLoaded && (
-        <>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-150 pointer-events-none">
-            {image.title && (
-              <h3 className="text-white font-bold mb-0.5 text-xs">{image.title}</h3>
-            )}
-            {image.category && (
-              <p className="text-white/80 text-[10px]">{image.category}</p>
-            )}
-          </div>
-          <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none">
-            <div className="bg-white/20 rounded-full p-1.5">
-              <Camera className="w-3 h-3 text-white" />
-            </div>
-          </div>
-        </>
+      {isLoaded && image.title && (
+        <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/60 to-transparent pointer-events-none">
+          <h3 className="text-white font-semibold text-xs truncate">{image.title}</h3>
+        </div>
       )}
     </div>
   );
 }, (prevProps, nextProps) => {
-  // Custom comparison for better memoization
   return prevProps.image.id === nextProps.image.id && 
          prevProps.idx === nextProps.idx;
 });
@@ -247,14 +291,14 @@ const Gallery = () => {
     setHasMore(filteredImages.length > ITEMS_PER_PAGE);
   }, [filteredImages]);
 
-  // Load more images function - highly optimized
+  // Load more images function - optimized with debouncing
   const loadMoreImages = useCallback(() => {
     if (isLoading || !hasMore) return;
 
     setIsLoading(true);
     
-    // Use microtask for immediate execution without blocking
-    Promise.resolve().then(() => {
+    // Use requestAnimationFrame for smoother updates
+    requestAnimationFrame(() => {
       const nextPage = currentPage + 1;
       const startIndex = currentPage * ITEMS_PER_PAGE;
       const endIndex = startIndex + ITEMS_PER_PAGE;
@@ -262,7 +306,6 @@ const Gallery = () => {
 
       if (newImages.length > 0) {
         setDisplayedImages(prev => {
-          // Prevent duplicate additions
           const existingIds = new Set(prev.map(img => img.id));
           const uniqueNew = newImages.filter(img => !existingIds.has(img.id));
           return [...prev, ...uniqueNew];
@@ -287,9 +330,9 @@ const Gallery = () => {
 
     if (!hasMore || isLoading) return;
 
-    const observerOptions = {
+    const     observerOptions = {
       threshold: 0.01,
-      rootMargin: "300px", // Load earlier for smoother experience
+      rootMargin: "500px", // Load earlier for smoother experience
     };
 
     observerRef.current = new IntersectionObserver((entries) => {
@@ -397,7 +440,7 @@ const Gallery = () => {
         <div className="container mx-auto px-6">
           <div 
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-            style={{ contentVisibility: 'auto' }}
+            style={{ contain: 'layout style' }}
           >
             {displayedImages.map((image, idx) => (
               <GalleryImageItem
@@ -437,9 +480,12 @@ const Gallery = () => {
       {/* Image Modal - Optimized */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 animate-fade-in"
+          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
-          style={{ willChange: 'opacity' }}
+          style={{ 
+            willChange: 'opacity',
+            contain: 'layout style paint'
+          }}
         >
           <div className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center">
             <button

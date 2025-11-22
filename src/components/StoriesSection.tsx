@@ -1,9 +1,9 @@
 import storyMain from "@/assets/story-main.webp";
 // Images from assets/images/
-import cottage from "@/assets/images/cottage.webp";
-import house from "@/assets/images/house.webp";
-import pond from "@/assets/images/pond.webp";
-import tent from "@/assets/images/tent.webp";
+import cabinet from "@/assets/images/cabinet.webp";
+import lamp from "@/assets/images/lamp.webp";
+import room from "@/assets/images/room.webp";
+import tent2 from "@/assets/images/tent_2.webp";
 import { Button } from "@/components/ui/button";
 import { Camera, Grid3x3 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -32,15 +32,15 @@ const StoriesSection = () => {
           <div className="md:col-span-2 group overflow-hidden rounded-2xl">
             <div className="relative h-full min-h-[280px] md:min-h-[350px] lg:min-h-[450px] overflow-hidden">
               <img
-                src={cottage}
-                alt="Cottage Stay"
+                src={tent2}
+                alt="Camp Tent"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </div>
           <div className="md:col-span-1 grid grid-cols-2 gap-2 md:gap-3">
-            {[house, tent, pond, storyMain].map((img, idx) => (
+            {[cabinet, lamp, room, storyMain].map((img, idx) => (
               <div
                 key={idx}
                 className={`group relative aspect-square overflow-hidden rounded-xl md:rounded-2xl ${
@@ -49,7 +49,7 @@ const StoriesSection = () => {
               >
                 <img
                   src={img}
-                  alt={idx === 0 ? "Camp House" : idx === 1 ? "Wilderness Tent" : idx === 2 ? "Natural Pond" : "Adventure story"}
+                  alt={idx === 0 ? "Storage Cabinet" : idx === 1 ? "Evening Lamp" : idx === 2 ? "Guest Room" : "Adventure story"}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
