@@ -17,7 +17,7 @@ import buddha1 from "@/assets/images/buddha_1.webp";
 import buddha2 from "@/assets/images/buddha_2.webp";
 import cabinet from "@/assets/images/cabinet.webp";
 import clay from "@/assets/images/clay.webp";
-import cottage from "@/assets/images/Cottage.webp";
+import cottage from "@/assets/images/cottage.webp";
 import elephant from "@/assets/images/elephant.webp";
 import firewood from "@/assets/images/firewood.webp";
 import hens from "@/assets/images/hens.webp";
