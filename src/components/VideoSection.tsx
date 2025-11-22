@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 
 const VideoSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   
@@ -76,23 +75,6 @@ const VideoSection = () => {
       className="w-full py-16 px-4 bg-background relative overflow-hidden"
     >
       <div className="container mx-auto max-w-6xl">
-        {/* Heading - Above video */}
-        <div className={`mb-8 text-center max-w-3xl mx-auto transition-all duration-1000 ${
-          isVisible 
-            ? "opacity-100 translate-y-0" 
-            : "opacity-0 translate-y-8"
-        }`}>
-          <h2 
-            className={`text-3xl font-bold text-foreground transition-all duration-700 delay-200 ${
-              isVisible 
-                ? "opacity-100 translate-y-0" 
-                : "opacity-0 translate-y-4"
-            }`}
-          >
-            Experience the Adventure
-          </h2>
-        </div>
-
         <div 
           className={`relative rounded-3xl overflow-hidden shadow-2xl transition-all duration-1000 ease-out ${
             isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
@@ -122,27 +104,6 @@ const VideoSection = () => {
                 : 'none',
             }}
           />
-        </div>
-
-        {/* Description - Below video */}
-        <div 
-          ref={textRef}
-          className={`mt-8 text-center max-w-3xl mx-auto transition-all duration-1000 delay-500 ${
-            isVisible 
-              ? "opacity-100 translate-y-0" 
-              : "opacity-0 translate-y-8"
-          }`}
-        >
-          <p 
-            className={`text-lg text-muted-foreground transition-all duration-700 delay-700 ${
-              isVisible 
-                ? "opacity-100 translate-y-0" 
-                : "opacity-0 translate-y-4"
-            }`}
-          >
-            Watch our survival campsite in action. See how participants overcome challenges,
-            learn essential skills, and transform in the wilderness.
-          </p>
         </div>
       </div>
     </section>

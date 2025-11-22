@@ -84,18 +84,23 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
       }}
     >
       {/* Loading GIF container */}
-      <div className="relative z-10 max-w-4xl w-full px-6">
-        <div className="relative w-full flex items-center justify-center">
+      <div className="relative z-10 w-full px-4 sm:px-6 md:px-8 flex items-center justify-center">
+        <div className="relative w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl flex items-center justify-center">
           <img
             src={loadingGif}
             alt="Loading..."
-            className="w-full h-auto max-w-2xl object-contain"
+            className="w-full h-auto object-contain"
+            style={{
+              maxWidth: "100%",
+              height: "auto",
+              display: "block",
+            }}
           />
         </div>
       </div>
 
       {/* Optional loading text or spinner below GIF */}
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-10">
+      <div className="absolute bottom-12 sm:bottom-16 md:bottom-20 left-1/2 -translate-x-1/2 z-10">
         <div className="flex items-center gap-2 text-gray-600">
           <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: "0s" }} />
           <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: "0.2s" }} />

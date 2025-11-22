@@ -120,7 +120,7 @@ const defaultEvents: Event[] = [
   // March 2025
     {
       id: "water-sports-1",
-      title: "Water Sports with Karma",
+      title: "Water Sports",
       category: "Adventure",
     startDate: new Date(2025, 2, 10),
     endDate: new Date(2025, 2, 12),

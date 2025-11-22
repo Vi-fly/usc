@@ -94,7 +94,7 @@ const ContactSection = () => {
               <div className="space-y-4 md:space-y-6">
                 {/* Location */}
                 <a 
-                  href="https://maps.google.com" 
+                  href="https://maps.app.goo.gl/UmV5CyjBTqd7bCcKA" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-start gap-3 md:gap-4 group p-3 md:p-4 rounded-2xl hover:bg-primary/5 transition-all"
@@ -104,7 +104,7 @@ const ContactSection = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold mb-1 text-card-foreground text-sm md:text-base">Location</p>
-                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">Mountain Wilderness Region<br />Northern Territory, USA</p>
+                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed break-words">R7QR+R62, Unnamed Road, Bahni, Jajwar, Himachal Pradesh 176031</p>
                   </div>
                 </a>
 
@@ -220,42 +220,6 @@ const ContactSection = () => {
               </div>
           </div>
 
-          {/* Enhanced Email Section */}
-          <div className={`mt-16 max-w-4xl mx-auto transition-all duration-1000 delay-600 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}>
-            <div className="backdrop-blur-xl bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 rounded-3xl p-6 md:p-8 lg:p-12 border-2 border-primary/20 shadow-2xl mx-4 md:mx-0">
-              <div className="text-center mb-6 md:mb-8">
-                <div className="inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/20 mb-4">
-                  <Mail className="text-primary" size={24} />
-                </div>
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-foreground px-2">
-                  Send Us an Email
-                </h3>
-                <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
-                  Have questions or want to learn more? Drop us a line and we'll get back to you as soon as possible.
-                </p>
-              </div>
-              
-              <div className="flex flex-col md:flex-row items-stretch md:items-center justify-center gap-3 md:gap-4 px-2">
-                <a
-                  href="mailto:ultimatesurvivalcampsite.info@gmail.com"
-                  className="flex items-center justify-center gap-2 md:gap-3 px-4 md:px-6 lg:px-8 py-3 md:py-4 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl hover:scale-105 text-sm md:text-base break-all md:break-normal text-center min-w-0"
-                >
-                  <Mail size={18} className="flex-shrink-0" />
-                  <span className="break-all md:break-normal">ultimatesurvivalcampsite.info@gmail.com</span>
-                </a>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="rounded-full px-6 md:px-8 border-2 w-full md:w-auto text-sm md:text-base"
-                  onClick={() => window.open("mailto:ultimatesurvivalcampsite.info@gmail.com", "_blank")}
-                >
-                  Open Email Client
-                </Button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

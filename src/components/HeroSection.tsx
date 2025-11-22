@@ -73,7 +73,7 @@ const HeroSection = () => {
 
   // YouTube video embed URL with autoplay, loop, no controls, and muted
   // Using enhanced parameters to hide all YouTube UI elements
-  const youtubeVideoId = "Nml92cDtF8s";
+  const youtubeVideoId = "FRwywcxNkEI";
   const youtubeEmbedUrl = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&loop=1&playlist=${youtubeVideoId}&controls=0&mute=1&playsinline=1&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&start=0`;
 
   return (

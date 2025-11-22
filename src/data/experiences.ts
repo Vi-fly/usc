@@ -41,11 +41,11 @@ export const experiences: Experience[] = [
   {
     id: "water-sports-karma",
     icon: Waves,
-    title: "Water Sports with Karma",
+    title: "Water Sports",
     category: "Adventure",
-    description: "Thrilling water sports adventures including rafting, kayaking, and more on the pristine waters with Karma.",
+    description: "Thrilling water sports adventures including rafting, kayaking, and more on the pristine waters.",
     image: experienceImages[8],
-    fullDescription: "Experience the ultimate water sports adventure with Karma. Navigate through exciting rapids, enjoy kayaking sessions, and participate in various water-based activities. Our certified guides ensure safety while you enjoy the thrill of water sports in beautiful natural settings.",
+    fullDescription: "Experience the ultimate water sports adventure. Navigate through exciting rapids, enjoy kayaking sessions, and participate in various water-based activities. Our certified guides ensure safety while you enjoy the thrill of water sports in beautiful natural settings.",
     duration: "2-3 Days",
     price: "Starting from ₹6,500",
     includes: [
